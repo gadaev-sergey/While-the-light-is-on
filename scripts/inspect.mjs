@@ -1,0 +1,16 @@
+import {chromium} from '@playwright/test';
+import fs from 'node:fs/promises';
+await fs.mkdir('artifacts/base',{recursive:true});
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:980}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://127.0.0.1:5173/');await page.waitForFunction(()=>window.__BASE__);await page.waitForTimeout(700);
+await page.screenshot({path:'artifacts/base/initial.png'});
+console.log('INITIAL',await page.evaluate(()=>window.__BASE__.snapshot()));
+await page.keyboard.press('KeyE');await page.waitForTimeout(1800);await page.screenshot({path:'artifacts/base/search.png'});
+await page.keyboard.down('KeyD');await page.waitForTimeout(950);await page.keyboard.up('KeyD');await page.keyboard.press('KeyW');await page.waitForTimeout(2200);
+await page.screenshot({path:'artifacts/base/upstairs.png'});console.log('UPSTAIRS',await page.evaluate(()=>window.__BASE__.snapshot()));
+await page.keyboard.press('KeyF');await page.waitForTimeout(120);await page.screenshot({path:'artifacts/base/light-off.png'});
+await page.keyboard.press('KeyM');await page.screenshot({path:'artifacts/base/map.png'});
+await page.getByRole('button',{name:'Закрыть',exact:true}).click();
+await page.setViewportSize({width:390,height:844});await page.waitForTimeout(600);await page.screenshot({path:'artifacts/base/mobile.png'});
+console.log('ERRORS',errors);await browser.close();
