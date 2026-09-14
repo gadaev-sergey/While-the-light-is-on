@@ -40,7 +40,7 @@ test('Pixels respect objects behind the floor, actors over stairs, and low foreg
   r.stair=(c:CanvasRenderingContext2D)=>paint(c,'#ffff00',600,520,70,95);
   r.hero.draw=(c:CanvasRenderingContext2D)=>paint(c,'#ff0000',620,510,30,108);
   r.foreground=(c:CanvasRenderingContext2D)=>paint(c,'#00ffff',620,610,30,10);r.draw(w,0,1);
-  const sample=(x:number,y:number)=>{const p=r.worldToScreen({x,y});return Array.from(r.c.getImageData(Math.round(p.x*r.dpr),Math.round(p.y*r.dpr),1,1).data).slice(0,3);};
+  const sample=(x:number,y:number)=>{const p=r.worldToScreen({x,y});return Array.from<number>(r.c.getImageData(Math.round(p.x*r.dpr),Math.round(p.y*r.dpr),1,1).data).slice(0,3);};
   const result=[sample(610,500),sample(610,600),sample(630,530),sample(630,614)];canvas.remove();return result;
  });
  expect(pixels[0][2]).toBeGreaterThan(180);expect(pixels[0][0]).toBe(0);
@@ -103,4 +103,38 @@ test('Rendered daylight and flashlight cross the stairwell but not an intact rep
   w.level=level;w.refreshSight();render();const sunOpen=sample(900,480);w.openings.forEach((o:any)=>o.state='boarded');w.refreshSight();render();const darkRoom=sample(900,480),darkCellar=sample(900,740);w.powered=true;render();const poweredRoom=sample(900,480);canvas.remove();return {lampOpen,lampSealed,sunOpen,sunSealed,darkRoom,darkCellar,poweredRoom};
  });
  expect(result.lampOpen).toBeGreaterThan(result.lampSealed+80);expect(result.sunOpen).toBeGreaterThan(result.sunSealed+8);expect(result.darkRoom).toBe(result.darkCellar);expect(result.poweredRoom).toBeGreaterThan(result.darkRoom+80);
+});
+
+test('Building and earth cut faces stay black under daylight, a flashlight and fog',async({page})=>{
+ await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ const result=await page.evaluate(async()=>{
+  const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();const cuts=[{x:800,y:414},{x:492,y:300},{x:1050,y:430},{x:800,y:145},{x:400,y:750},{x:1000,y:880}],samples:number[][]=[];
+  for(const time of [0,420,720,1140]){w.setTime(time);w.powered=true;w.flashlight=true;w.aim=-Math.PI/2;r.draw(w,0,1);for(const p of cuts){const screen=r.worldToScreen(p);samples.push(Array.from<number>(r.c.getImageData(Math.round(screen.x*r.dpr),Math.round(screen.y*r.dpr),1,1).data).slice(0,3));}}
+  w.setTime(720);r.draw(w,0,1);const p=r.worldToScreen({x:650,y:330}),interior=Array.from<number>(r.c.getImageData(Math.round(p.x*r.dpr),Math.round(p.y*r.dpr),1,1).data).slice(0,3);canvas.remove();return {samples,interior};
+ });
+ for(const [i,sample] of result.samples.entries())expect(Math.max(...sample),`Cut sample ${i%6}, preset ${Math.floor(i/6)}: ${sample}`).toBe(0);expect(Math.max(...result.interior)).toBeGreaterThan(10);
+});
+
+test('Fog has a gradual visual boundary while geometric sight remains blocked',async({page})=>{
+ await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ const result=await page.evaluate(async()=>{
+  const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);
+  const corners=[{x:600,y:450},{x:900,y:450},{x:900,y:550},{x:600,y:550}];w.sight={origin:{x:750,y:500},segments:corners.map((a:any,i:number)=>({a,b:corners[(i+1)%4]}))};r.fogOfWar(w);
+  const values=[880,894,900,906,920].map(x=>{const p=r.worldToScreen({x,y:500});return r.fog.getContext('2d').getImageData(Math.round(p.x*r.dpr),Math.round(p.y*r.dpr),1,1).data[3];});const hidden=!w.visible({x:910,y:500});canvas.remove();return {values,hidden};
+ });
+ expect(result.hidden).toBe(true);expect(result.values[0]).toBeLessThan(5);expect(result.values[4]).toBeGreaterThan(250);expect(result.values[2]).toBeGreaterThan(60);expect(result.values[2]).toBeLessThan(210);for(let i=1;i<result.values.length;i++)expect(result.values[i]).toBeGreaterThan(result.values[i-1]);
+});
+
+test('Window light forms brighter directional strips and disappears when boarded',async({page})=>{
+ await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ const result=await page.evaluate(async()=>{
+  const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts',lm='/src/base/lighting.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),{daylightStyle,daylightSources}=await import(lm);const assets=new BaseAssets();await assets.load(()=>{});
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();w.flashlight=false;w.setTime(420);w.doors.forEach((d:any)=>d.open=false);w.openings.forEach((o:any)=>o.state=o.id==='home/workshop-window-0'?'open':'boarded');w.refreshSight();r.draw(w,0,1);
+  const source=daylightSources(w.level,w.doors,w.openings,w.dayMinutes)[1],along={x:source.origin.x+Math.cos(source.angle)*65,y:source.origin.y+Math.sin(source.angle)*65},against={x:source.origin.x-Math.cos(source.angle)*65,y:source.origin.y-Math.sin(source.angle)*65};
+  const sample=(p:any)=>{const s=r.worldToScreen(p);return r.c.getImageData(Math.round(s.x*r.dpr),Math.round(s.y*r.dpr),1,1).data[0];},render=()=>{r.c.setTransform(1,0,0,1,0,0);r.c.fillStyle='#fff';r.c.fillRect(0,0,canvas.width,canvas.height);r.transform(r.c);r.environment=daylightStyle(w.dayMinutes);r.lighting(w);};
+  render();const beam=sample(along),ambient=sample(against);w.openings.forEach((o:any)=>o.state='boarded');w.refreshSight();render();const sealed=sample(along);canvas.remove();return {beam,ambient,sealed};
+ });
+ expect(result.beam).toBeGreaterThan(result.ambient+20);expect(result.beam).toBeGreaterThan(result.sealed+30);
 });

@@ -11,9 +11,9 @@ const furnitureRects:Rect[]=[{x:0,y:95,w:592,h:355},{x:595,y:35,w:432,h:406},{x:
 const objectRects:Rect[]=[{x:0,y:100,w:385,h:388},{x:391,y:135,w:410,h:340},{x:822,y:180,w:296,h:301},{x:1130,y:137,w:406,h:350},{x:18,y:530,w:373,h:425},{x:399,y:641,w:400,h:321},{x:827,y:513,w:308,h:438},{x:1190,y:518,w:346,h:486}];
 export const HOUSE_LAYERS=['background','walls','interactables','floors','stairs','landings','actors','foreground','lighting','visibility','structure','markers'] as const;
 export class BaseRenderer{
- structure=document.createElement('canvas');
+ structure=document.createElement('canvas');beamTextures=new Map<string,HTMLCanvasElement>();
  environment=daylightStyle(720);illumination=document.createElement('canvas');sceneCopy=document.createElement('canvas');blurred=document.createElement('canvas');
- lightKey='';lightLevel?:CompiledLevel;lightFields:{source:DaylightSource;polygon:Vec[];shaft:Vec[]}[]=[];
+ lightKey='';lightLevel?:CompiledLevel;lightFields:{source:DaylightSource;polygon:Vec[]}[]=[];
  level:CompiledLevel=LOCATION;wallLayer=document.createElement('canvas');layerTrace:string[]=[];
  floorY(floor:Floor){return levelFloorY(this.level,floor);}
  c:CanvasRenderingContext2D;hero:BaseHero;fog=document.createElement('canvas');zoom=1;camera={x:940,y:463};scale=1;width=1600;height=900;dpr=1;time=0;hover:string|null=null;
@@ -54,7 +54,7 @@ export class BaseRenderer{
   if(w.task){const p=w.player,t=1-w.task.remaining/w.task.duration;c.save();c.translate(p.x,p.y-151);c.fillStyle='#0b1016dc';c.fillRect(-31,-5,62,9);c.fillStyle='#d7bd8a';c.fillRect(-29,-3,58*t,5);c.restore();}
   if(w.dogVisible&&w.dog.mode==='warn'){c.fillStyle='#db866b';c.font='bold 20px Georgia';c.textAlign='center';c.fillText('!',w.dog.x,515);}
   if(w.navigation){const n=w.navigation;c.strokeStyle='#d8c193';c.globalAlpha=.65;c.lineWidth=1;c.beginPath();c.ellipse(n.x,this.floorY(n.floor)+1,13,4,0,0,Math.PI*2);c.stroke();c.globalAlpha=1;}
-  c.setTransform(this.dpr,0,0,this.dpr,0,0);const vignette=c.createRadialGradient(this.width*.5,this.height*.52,this.width*.16,this.width*.5,this.height*.5,this.width*.65);vignette.addColorStop(0,'transparent');vignette.addColorStop(1,`rgba(5,7,12,${.18+(1-this.environment.sun)*.15})`);c.fillStyle=vignette;c.fillRect(0,0,this.width,this.height);
+  c.setTransform(this.dpr,0,0,this.dpr,0,0);const vignette=c.createRadialGradient(this.width*.5,this.height*.52,this.width*.16,this.width*.5,this.height*.5,this.width*.65);vignette.addColorStop(0,'transparent');vignette.addColorStop(1,`rgba(0,0,0,${.18+(1-this.environment.sun)*.15})`);c.fillStyle=vignette;c.fillRect(0,0,this.width,this.height);
   if(w.player.hurt){c.fillStyle=`rgba(145,47,37,${w.player.hurt*.12})`;c.fillRect(0,0,this.width,this.height);}
  }
  texture(c:CanvasRenderingContext2D,index:number,x:number,y:number,w:number,h:number,scale=1){const pattern=c.createPattern(this.assets.tiles[index],'repeat')!;pattern.setTransform(new DOMMatrix().scale(scale));c.fillStyle=pattern;c.fillRect(x,y,w,h);}
@@ -146,7 +146,7 @@ export class BaseRenderer{
  path(c:CanvasRenderingContext2D,points:Vec[]){c.beginPath();points.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.closePath();}
  lightSources(w:BaseWorld){
   const key=`${Math.floor(w.dayMinutes/2)}|${w.doors.map(d=>Number(d.open)).join('')}|${w.openings.map(o=>o.state).join(',')}`;
-  if(key!==this.lightKey||this.lightLevel!==w.level){this.lightKey=key;this.lightLevel=w.level;this.lightFields=daylightSources(w.level,w.doors,w.openings,w.dayMinutes).map(source=>({source,polygon:visibilityPolygon(source.origin,0,Math.PI,source.range,w.sight.segments),shaft:visibilityPolygon(source.origin,source.angle,.4,source.range,w.sight.segments,40)}));}
+  if(key!==this.lightKey||this.lightLevel!==w.level){this.lightKey=key;this.lightLevel=w.level;this.lightFields=daylightSources(w.level,w.doors,w.openings,w.dayMinutes).map(source=>({source,polygon:visibilityPolygon(source.origin,0,Math.PI,source.range,w.sight.segments)}));}
   return this.lightFields;
  }
  lighting(w:BaseWorld){
@@ -155,18 +155,51 @@ export class BaseRenderer{
   for(const room of this.level.rooms){const y=this.floorY(room.floor)-this.level.floorHeight+8,h=this.level.floorHeight+20;c.clearRect(room.x,y,room.end-room.x,h);c.fillStyle=`rgba(3,8,18,${w.powered?.48:this.environment.interiorDark})`;c.fillRect(room.x,y,room.end-room.x,h);}
   // Only real exterior openings remove ambient darkness. There is no player-centred light.
   for(const {source,polygon} of this.lightSources(w)){c.save();this.path(c,polygon);c.clip();c.globalCompositeOperation='destination-out';const {x,y}=source.origin,g=c.createRadialGradient(x,y,0,x,y,source.range);g.addColorStop(0,`rgba(0,0,0,${source.strength})`);g.addColorStop(.35,`rgba(0,0,0,${source.strength*.6})`);g.addColorStop(.7,`rgba(0,0,0,${source.strength*.25})`);g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(x-source.range,y-source.range,source.range*2,source.range*2);c.restore();}
+  for(const {source,polygon} of this.lightFields){c.save();this.path(c,polygon);c.clip();c.globalCompositeOperation='destination-out';c.globalAlpha=source.beamStrength;this.sunBeam(c,source);c.restore();}
   if(w.flashlight){const origin=w.lightOrigin;c.save();this.path(c,visibilityPolygon(origin,w.aim,BEAM_HALF,BEAM_RANGE,w.sight.segments));c.clip();c.globalCompositeOperation='destination-out';const end={x:origin.x+Math.cos(w.aim)*BEAM_RANGE,y:origin.y+Math.sin(w.aim)*BEAM_RANGE},g=c.createLinearGradient(origin.x,origin.y,end.x,end.y);g.addColorStop(0,'rgba(0,0,0,.82)');g.addColorStop(.5,'rgba(0,0,0,.7)');g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(origin.x-BEAM_RANGE,origin.y-BEAM_RANGE,BEAM_RANGE*2,BEAM_RANGE*2);c.restore();}
   this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.illumination,0,0);this.c.restore();
   // A restrained warm/cool tint inside the sun shafts; the same geometry clips the tint.
-  const out=this.c;for(const {source,shaft} of this.lightFields){out.save();this.path(out,shaft);out.clip();out.globalCompositeOperation='screen';out.globalAlpha=source.strength*.055;out.fillStyle=source.color;out.fillRect(source.origin.x-source.range,source.origin.y-source.range,source.range*2,source.range*2);out.restore();}
+  const out=this.c;for(const {source,polygon} of this.lightFields){out.save();this.path(out,polygon);out.clip();out.globalCompositeOperation='screen';out.globalAlpha=source.beamStrength*.22;this.sunBeam(out,source);out.restore();}
  }
  fogOfWar(w:BaseWorld){
   const sharp=this.sceneCopy.getContext('2d')!;sharp.setTransform(1,0,0,1,0,0);sharp.clearRect(0,0,this.sceneCopy.width,this.sceneCopy.height);sharp.drawImage(this.canvas,0,0);
   const small=this.blurred.getContext('2d')!;small.setTransform(1,0,0,1,0,0);small.clearRect(0,0,this.blurred.width,this.blurred.height);small.filter=`blur(${1.35*this.dpr}px)`;small.drawImage(this.sceneCopy,0,0,this.blurred.width,this.blurred.height);small.filter='none';
   const fog=this.fog.getContext('2d')!;fog.setTransform(1,0,0,1,0,0);fog.clearRect(0,0,this.fog.width,this.fog.height);fog.drawImage(this.blurred,0,0,this.fog.width,this.fog.height);this.transform(fog);
-  fog.save();fog.globalCompositeOperation='destination-out';fog.fillStyle='#fff';this.path(fog,visibilityPolygon(w.sight.origin,0,Math.PI,SIGHT_RANGE,w.sight.segments,140));fog.fill();
+  fog.save();fog.globalCompositeOperation='destination-out';fog.filter=`blur(${5*this.dpr}px)`;fog.fillStyle='#fff';this.path(fog,visibilityPolygon(w.sight.origin,0,Math.PI,SIGHT_RANGE,w.sight.segments,140));fog.fill();
   fog.fillRect(w.player.x-37,w.player.y-134,74,140);fog.restore();
   this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.fog,0,0);this.c.restore();
+ }
+ /** A soft rectangular shaft: window-sized at its source, fading along and across the ray.
+  * Three separate strips per opening retain gaps like light passing broken frames. */
+ sunBeam(c:CanvasRenderingContext2D,source:DaylightSource){
+  let texture=this.beamTextures.get(source.color);if(!texture){texture=document.createElement('canvas');texture.width=256;texture.height=128;const t=texture.getContext('2d')!;
+   const along=t.createLinearGradient(0,0,256,0);along.addColorStop(0,'#ffffff90');along.addColorStop(.045,'#fff');along.addColorStop(.28,'#ffffffc0');along.addColorStop(.65,'#ffffff48');along.addColorStop(1,'#ffffff00');t.fillStyle=along;t.fillRect(0,0,256,128);
+   t.globalCompositeOperation='destination-in';const across=t.createLinearGradient(0,0,0,128);across.addColorStop(0,'transparent');across.addColorStop(.2,'#ffffff10');across.addColorStop(.4,'#ffffffd0');across.addColorStop(.5,'#fff');across.addColorStop(.6,'#ffffffd0');across.addColorStop(.8,'#ffffff10');across.addColorStop(1,'transparent');t.fillStyle=across;t.fillRect(0,0,256,128);t.globalCompositeOperation='source-in';t.fillStyle=source.color;t.fillRect(0,0,256,128);this.beamTextures.set(source.color,texture);
+  }
+  c.save();c.translate(source.origin.x,source.origin.y);c.rotate(source.angle);c.drawImage(texture,0,-source.beamWidth*2,source.range,source.beamWidth*4);c.restore();
+ }
+ /** Opaque cut material sits in front of the lit rooms; it is never illuminated or blurred. */
+ cutaway(c:CanvasRenderingContext2D,w:BaseWorld){
+  c.save();c.fillStyle='#000';
+  const left=Math.min(-1000,this.camera.x-this.width/this.scale),right=Math.max(this.level.width+1000,this.camera.x+this.width/this.scale),deep=Math.max(this.level.height+1000,this.camera.y+this.height/this.scale);
+  let groundStart=left;
+  for(const b of [...this.level.buildings].sort((a,b)=>a.x-b.x)){
+   const top=this.floorY(Math.max(...b.floors))-this.level.floorHeight,bottom=this.floorY(Math.min(...b.floors)),ridge=top-b.roof.rise;
+   c.fillRect(groundStart,this.level.groundY+24,Math.max(0,b.x-17-groundStart),deep-this.level.groundY);groundStart=b.end+38;
+   c.fillRect(b.x-17,bottom+27,b.end-b.x+55,deep-bottom);
+   // Cross-section of the roof and chimney, outer walls, and continuous floor fascia.
+   this.path(c,[{x:b.x-40,y:top+5},{x:b.x-40,y:top-2},{x:b.x+104,y:ridge},{x:b.end-105,y:ridge},{x:b.end+38,y:top-2},{x:b.end+38,y:top+5}]);c.fill();
+   c.fillRect(b.x+b.roof.chimney-28,ridge-44,54,90);c.fillRect(b.x+b.roof.chimney-34,ridge-49,66,9);
+   c.fillRect(b.x-17,top,17,bottom-top+27);c.fillRect(b.end,top,38,bottom-top+27);
+   for(const f of b.floors)c.fillRect(b.x,this.floorY(f)+3,b.end-b.x,24);
+   for(const f of b.floors){const y=this.floorY(f);const edges=new Set(this.level.rooms.filter(r=>r.buildingId===b.id&&r.floor===f).flatMap(r=>[r.x,r.end]));
+    for(const x of edges){const door=w.doors.find(d=>d.x===x&&d.floor===f),hole=w.openings.find(o=>o.x===x&&o.floor===f&&o.plane==='divider');const end=door?y-148:hole?y-hole.height:y;
+     c.fillRect(x-8,y-this.level.floorHeight,16,end-(y-this.level.floorHeight));
+     if(hole){for(let i=0;i<4;i++)c.fillRect(x-9+(i%2)*3,end-2+i*3,17-i*3,4);}
+    }
+   }
+  }
+  c.fillRect(groundStart,this.level.groundY+24,right-groundStart,deep-this.level.groundY);c.restore();
  }
  /** Restore already-lit structural pixels above fog; interiors remain blurred.
   * Copying the original composite also preserves actors in front of floor surfaces. */
@@ -181,7 +214,7 @@ export class BaseRenderer{
   for(const s of w.sight.segments)if(s.a.x===s.b.x)c.fillRect(s.a.x-8,Math.min(s.a.y,s.b.y),16,Math.abs(s.b.y-s.a.y));
   for(const d of w.doors){const y=this.floorY(d.floor);c.fillRect(d.x-11,y-152,22,6);c.fillRect(d.x-10,y-149,3,149);c.fillRect(d.x+7,y-149,3,149);}
   c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-in';c.drawImage(this.sceneCopy,0,0);c.globalCompositeOperation='source-over';
-  this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.structure,0,0);this.c.restore();
+  this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.structure,0,0);this.c.restore();this.transform(this.c);this.cutaway(this.c,w);
  }
  flashlight(c:CanvasRenderingContext2D,w:BaseWorld){
   const origin=w.lightOrigin,angle=w.aim;c.save();this.path(c,visibilityPolygon(origin,angle,BEAM_HALF,BEAM_RANGE,w.sight.segments));c.clip();c.globalCompositeOperation='screen';const end={x:origin.x+Math.cos(angle)*BEAM_RANGE,y:origin.y+Math.sin(angle)*BEAM_RANGE};const g=c.createLinearGradient(origin.x,origin.y,end.x,end.y);g.addColorStop(0,'#f3e2ac18');g.addColorStop(.5,'#e6d39c0c');g.addColorStop(1,'#e6d39c00');c.fillStyle=g;c.fillRect(origin.x-500,origin.y-500,1000,1000);c.restore();
