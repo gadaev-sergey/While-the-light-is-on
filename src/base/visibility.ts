@@ -1,5 +1,5 @@
 import {LOCATION} from './config.ts';
-import {floorSpans,levelFloorY,type CompiledLevel,type Opening} from './level.ts';
+import {floorOccluderSpans,levelFloorY,type CompiledLevel,type Opening} from './level.ts';
 import type {Vec,Segment,Door,Floor} from './types.ts';
 const cross=(a:Vec,b:Vec)=>a.x*b.y-a.y*b.x;
 export function rayDistance(origin:Vec,angle:number,segments:Segment[],range:number){
@@ -27,7 +27,7 @@ export function occluders(doors:Door[],level:CompiledLevel=LOCATION,openings:Ope
  const result:Segment[]=[];const add=(x:number,y:number,x2:number,y2:number)=>result.push({a:{x,y},b:{x:x2,y:y2}});
  for(const b of level.buildings){
   for(const f of b.floors){const y=levelFloorY(level,f);
-   for(const [left,right] of floorSpans(level,b,f))add(left,y,right,y);
+   for(const [left,right] of floorOccluderSpans(level,b,f))add(left,y,right,y);
    const walls=new Set(level.rooms.filter(r=>r.buildingId===b.id&&r.floor===f).flatMap(r=>[r.x,r.end]));
    for(const x of walls){const door=doors.find(d=>d.floor===f&&d.x===x),hole=openings.find(o=>o.floor===f&&o.plane==='divider'&&o.x===x);
     const bottom=door?.open?y-148:hole?.state==='open'?y-hole.height:y;add(x,y-level.floorHeight,x,bottom);

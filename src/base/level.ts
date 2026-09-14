@@ -66,10 +66,24 @@ export function walkBounds(level:CompiledLevel,x:number,floor:Floor):[number,num
  if(floor===0)return [70,level.width-70];
  const b=level.buildings.find(b=>b.floors.includes(floor)&&x>=b.x&&x<=b.end);return b?[b.x+23,b.end-23]:[x,x];
 }
-/** The stair travels in depth behind a continuous front floor/landing.
- * The front plane remains opaque to sight and daylight between storeys. */
+/** The front fascia stays continuous; the stair opening sits behind it in depth. */
 export function floorSpans(_level:CompiledLevel,building:Building,_floor:Floor):[number,number][] {
  return [[building.x,building.end]];
+}
+/** Headroom at the upper end of each flight, shared by sight and all light rays.
+ * The visible front fascia is a different depth plane and does not seal this opening. */
+export function stairApertures(level:CompiledLevel,building:Building,floor:Floor):[number,number][] {
+ return level.stairs.filter(s=>s.to===floor&&s.a>=building.x&&s.a<=building.end&&s.b>=building.x&&s.b<=building.end).map(s=>{
+  const direction=Math.sign(s.b-s.a)||1,run=Math.abs(s.b-s.a),headroom=Math.min(run,run*142/level.floorHeight+18);
+  const start=s.b-direction*headroom,end=s.b+direction*20;
+  return [Math.max(building.x,Math.min(start,end)),Math.min(building.end,Math.max(start,end))];
+ });
+}
+/** Solid portions of the slab behind the fascia. Multiple/reversed flights are supported. */
+export function floorOccluderSpans(level:CompiledLevel,building:Building,floor:Floor):[number,number][] {
+ let parts:[number,number][]=[[building.x,building.end]];
+ for(const [left,right] of stairApertures(level,building,floor))parts=parts.flatMap(([a,b])=>b<=left||a>=right?[[a,b]]:([[a,Math.max(a,left)],[Math.min(b,right),b]] as [number,number][]).filter(([a,b])=>b>a));
+ return parts;
 }
 export function validateLevel(level:CompiledLevel){
  const seen=new Set<string>();for(const item of [...level.buildings,...level.rooms,...level.doors,...level.stairs,...level.openings,...level.objects,...level.gateways,...level.foreground]){if(seen.has(item.id))throw new Error(`Duplicate module id: ${item.id}`);seen.add(item.id);}

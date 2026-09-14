@@ -34,10 +34,10 @@ test('A template can omit a basement or add an extra floor',()=>{
  const level=compileLevel({...LOCATION,buildings:[{id:'home',template:'damaged-house',x:500}]},houses);assert.deepEqual(level.buildings[0].floors,[0,1,2]);
  const w=new BaseWorld(level);at(w,1190,1);assert.ok(w.tryStair(1));step(w,2);assert.equal(w.player.floor,2);assert.equal(w.player.y,185);
 });
-test('Multiple staircases retain a continuous front floor that blocks inter-storey sight',()=>{
+test('Multiple staircases retain the front floor and open independent sight apertures',()=>{
  const level=structuredClone(LOCATION);level.stairs.push({id:'second-stair',from:0,to:1,a:1180,b:1360});
  const spans=floorSpans(level,level.buildings[0],1);assert.deepEqual(spans,[[500,1530]]);
- const walls=occluders(level.doors,level);assert.ok(walls.some(s=>s.a.y===400&&s.b.y===400&&s.a.x<1260&&s.b.x>1260));
+ const walls=occluders(level.doors,level);assert.ok(!walls.some(s=>s.a.y===400&&s.b.y===400&&s.a.x<1260&&s.b.x>1260));assert.ok(walls.some(s=>s.a.y===400&&s.b.y===400&&s.a.x<600&&s.b.x>600));
 });
 test('Closed doors and intact floor slabs stop sight',()=>{
  const w=new BaseWorld();at(w,1005);assert.equal(w.visible({x:1195,y:559}),false);assert.equal(w.visible({x:1005,y:330}),false);

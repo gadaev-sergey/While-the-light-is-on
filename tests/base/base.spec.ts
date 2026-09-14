@@ -11,7 +11,7 @@ test('The empty modular house loads without old furniture prompts or invisible o
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await ready(page);
  const w=await state(page);expect(w.objects.map((o:any)=>o.id)).toEqual(['barrel','yard-toolbox']);expect(w.visibleObjects).toEqual(['barrel']);expect(w.openings).toHaveLength(9);expect(w.buildings).toHaveLength(1);
  await expect(page.locator('#goal-text')).toHaveText('Осмотрите верхний этаж и подвал');await expect(page.locator('#quick-wood')).toHaveText('0');await page.keyboard.press('KeyE');expect((await state(page)).task).toBeNull();await shot(page,'entrance');
- await page.keyboard.press('KeyM');await expect(page.locator('.plan-room')).toHaveCount(6);await expect(page.locator('.plan-room.unknown')).toHaveCount(5);await page.getByRole('button',{name:'Закрыть',exact:true}).click();expect(errors).toEqual([]);
+ await page.keyboard.press('KeyM');await expect(page.locator('.plan-room')).toHaveCount(6);await expect(page.locator('.plan-room.unknown')).toHaveCount(3);await page.getByRole('button',{name:'Закрыть',exact:true}).click();expect(errors).toEqual([]);
 });
 test('A real route crosses every floor and the breached upper partition',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await ready(page);await move(page,760);await stair(page,'KeyW',1);await move(page,1290);await aim(page,1440,320);await shot(page,'upper-breach');

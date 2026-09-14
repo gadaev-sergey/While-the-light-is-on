@@ -1,5 +1,5 @@
 import {BASE,LOCATION,clamp,lerp} from './config.ts';
-import {floorSpans,levelFloorY,type CompiledLevel,type Opening} from './level.ts';
+import {floorSpans,floorOccluderSpans,stairApertures,levelFloorY,type CompiledLevel,type Opening} from './level.ts';
 import {BEAM_HALF,BEAM_RANGE,SIGHT_RANGE,visibilityPolygon} from './visibility.ts';
 import {daylightStyle,daylightSources,type DaylightSource} from './lighting.ts';
 import type {BaseAssets,ImageId} from './assets.ts';
@@ -9,8 +9,9 @@ import type {Vec,Room,Floor} from './types.ts';
 type Rect={x:number;y:number;w:number;h:number};
 const furnitureRects:Rect[]=[{x:0,y:95,w:592,h:355},{x:595,y:35,w:432,h:406},{x:1034,y:45,w:502,h:426},{x:18,y:524,w:564,h:425},{x:604,y:443,w:412,h:536},{x:1042,y:463,w:494,h:516}];
 const objectRects:Rect[]=[{x:0,y:100,w:385,h:388},{x:391,y:135,w:410,h:340},{x:822,y:180,w:296,h:301},{x:1130,y:137,w:406,h:350},{x:18,y:530,w:373,h:425},{x:399,y:641,w:400,h:321},{x:827,y:513,w:308,h:438},{x:1190,y:518,w:346,h:486}];
-export const HOUSE_LAYERS=['background','walls','interactables','floors','stairs','landings','actors','foreground','lighting','visibility','markers'] as const;
+export const HOUSE_LAYERS=['background','walls','interactables','floors','stairs','landings','actors','foreground','lighting','visibility','structure','markers'] as const;
 export class BaseRenderer{
+ structure=document.createElement('canvas');
  environment=daylightStyle(720);illumination=document.createElement('canvas');sceneCopy=document.createElement('canvas');blurred=document.createElement('canvas');
  lightKey='';lightLevel?:CompiledLevel;lightFields:{source:DaylightSource;polygon:Vec[];shaft:Vec[]}[]=[];
  level:CompiledLevel=LOCATION;wallLayer=document.createElement('canvas');layerTrace:string[]=[];
@@ -18,7 +19,7 @@ export class BaseRenderer{
  c:CanvasRenderingContext2D;hero:BaseHero;fog=document.createElement('canvas');zoom=1;camera={x:940,y:463};scale=1;width=1600;height=900;dpr=1;time=0;hover:string|null=null;
  hits:{id:string;x:number;y:number}[]=[];trimCache=new Map<string,Rect>();grit:{x:number;y:number;r:number}[]=[];
  constructor(public canvas:HTMLCanvasElement,public assets:BaseAssets){this.c=canvas.getContext('2d',{alpha:false})!;this.hero=new BaseHero(assets);let seed=47;for(let i=0;i<380;i++){seed=(seed*16807)%2147483647;const x=seed/2147483647*2220;seed=(seed*16807)%2147483647;this.grit.push({x,y:615+seed/2147483647*120,r:.5+i%3});}new ResizeObserver(()=>this.resize()).observe(canvas);this.resize();}
- resize(){const box=this.canvas.getBoundingClientRect();this.width=Math.max(1,box.width);this.height=Math.max(1,box.height);this.dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=Math.round(this.width*this.dpr);this.canvas.height=Math.round(this.height*this.dpr);this.fog.width=this.canvas.width;this.fog.height=this.canvas.height;this.wallLayer.width=this.canvas.width;this.wallLayer.height=this.canvas.height;this.illumination.width=this.canvas.width;this.illumination.height=this.canvas.height;this.sceneCopy.width=this.canvas.width;this.sceneCopy.height=this.canvas.height;this.blurred.width=Math.ceil(this.canvas.width/3);this.blurred.height=Math.ceil(this.canvas.height/3);}
+ resize(){const box=this.canvas.getBoundingClientRect();this.width=Math.max(1,box.width);this.height=Math.max(1,box.height);this.dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=Math.round(this.width*this.dpr);this.canvas.height=Math.round(this.height*this.dpr);this.structure.width=this.canvas.width;this.structure.height=this.canvas.height;this.fog.width=this.canvas.width;this.fog.height=this.canvas.height;this.wallLayer.width=this.canvas.width;this.wallLayer.height=this.canvas.height;this.illumination.width=this.canvas.width;this.illumination.height=this.canvas.height;this.sceneCopy.width=this.canvas.width;this.sceneCopy.height=this.canvas.height;this.blurred.width=Math.ceil(this.canvas.width/3);this.blurred.height=Math.ceil(this.canvas.height/3);}
  worldToScreen(p:Vec){return {x:(p.x-this.camera.x)*this.scale+this.width/2,y:(p.y-this.camera.y)*this.scale+this.height/2};}
  screenToWorld(p:Vec){return {x:(p.x-this.width/2)/this.scale+this.camera.x,y:(p.y-this.height/2)/this.scale+this.camera.y};}
  zoomBy(delta:number){this.zoom=clamp(this.zoom+delta,.8,1.8);}
@@ -48,7 +49,7 @@ export class BaseRenderer{
   this.hero.draw(c,w.player,w.phase==='playing'?dt:0,alpha,!!w.task);
   layer('foreground');this.stairRails(c);this.architectureEdges(c);this.foreground(c,w);
   layer('lighting');this.lighting(w);this.transform(c);if(w.flashlight)this.flashlight(c,w);
-  layer('visibility');this.fogOfWar(w);this.transform(c);
+  layer('visibility');this.fogOfWar(w);layer('structure');this.structuralForeground(w);this.transform(c);
   layer('markers');this.markers(c,w);
   if(w.task){const p=w.player,t=1-w.task.remaining/w.task.duration;c.save();c.translate(p.x,p.y-151);c.fillStyle='#0b1016dc';c.fillRect(-31,-5,62,9);c.fillStyle='#d7bd8a';c.fillRect(-29,-3,58*t,5);c.restore();}
   if(w.dogVisible&&w.dog.mode==='warn'){c.fillStyle='#db866b';c.font='bold 20px Georgia';c.textAlign='center';c.fillText('!',w.dog.x,515);}
@@ -106,16 +107,21 @@ export class BaseRenderer{
  doors(c:CanvasRenderingContext2D,w:BaseWorld){for(const d of w.doors){const y=this.floorY(d.floor);c.save();c.translate(d.x,y);this.texture(c,2,-8,-this.level.floorHeight,16,this.level.floorHeight-149,.4);c.fillStyle='#786b55';c.fillRect(-11,-152,22,6);c.fillRect(-10,-149,3,149);c.fillRect(7,-149,3,149);
   if(!d.open){this.texture(c,3,-7,-146,14,146,.2);c.strokeStyle='#b6a18488';c.lineWidth=1;c.strokeRect(-5,-143,10,140);c.fillStyle='#d1b886';c.fillRect(-3,-74,6,3);}
   else{c.save();this.path(c,[{x:8,y:-146},{x:31,y:-135},{x:31,y:0},{x:8,y:0}]);c.clip();this.texture(c,3,8,-146,25,146,.25);c.fillStyle='#0d152333';c.fillRect(8,-146,25,146);c.restore();}c.restore();}}
- floors(c:CanvasRenderingContext2D,landingOnly=false){for(const b of this.level.buildings)for(const floor of b.floors){if(landingOnly&&!this.level.stairs.some(s=>s.to===floor&&s.b>=b.x&&s.b<=b.end))continue;const y=this.floorY(floor);for(const [x,end] of floorSpans(this.level,b,floor)){
-  this.texture(c,floor<0?4:3,x,y-18,end-x,30,.43);const shade=c.createLinearGradient(0,y-18,0,y+12);shade.addColorStop(0,'#ced0b81e');shade.addColorStop(1,'#07101b55');c.fillStyle=shade;c.fillRect(x,y-18,end-x,30);c.fillStyle='#d2b98b55';c.fillRect(x,y-18,end-x,1);
- }}}
+ floors(c:CanvasRenderingContext2D,landingOnly=false){for(const b of this.level.buildings)for(const floor of b.floors){if(landingOnly&&!this.level.stairs.some(s=>s.to===floor&&s.b>=b.x&&s.b<=b.end))continue;const y=this.floorY(floor);
+  // Only the rear strip has a stairwell opening. The front surface and fascia span it.
+  if(!landingOnly)for(const [x,end] of floorOccluderSpans(this.level,b,floor)){this.texture(c,floor<0?4:3,x,y-18,end-x,12,.43);c.fillStyle='#d2b98b55';c.fillRect(x,y-18,end-x,1);}
+  for(const [x,end] of floorSpans(this.level,b,floor)){
+   this.texture(c,floor<0?4:3,x,y-6,end-x,18,.43);const shade=c.createLinearGradient(0,y-6,0,y+12);shade.addColorStop(0,'#ced0b81e');shade.addColorStop(1,'#07101b55');c.fillStyle=shade;c.fillRect(x,y-6,end-x,18);c.fillStyle='#d2b98b55';c.fillRect(x,y-6,end-x,1);
+  }
+  if(!landingOnly)for(const [left,right] of stairApertures(this.level,b,floor)){c.fillStyle='#080e1666';c.fillRect(left,y-18,right-left,12);c.strokeStyle='#8c7d6055';c.lineWidth=1;c.strokeRect(left,y-18,right-left,12);}
+ }}
  stair(c:CanvasRenderingContext2D,x:number,y:number,x2:number,y2:number){
   c.fillStyle='#0a0f13';c.beginPath();c.moveTo(x-20,y+6);c.lineTo(x2+15,y2+4);c.lineTo(x2+15,y2+21);c.lineTo(x-20,y+23);c.closePath();c.fill();
   const count=15;for(let i=0;i<count;i++){const px=x+(x2-x)*i/count,py=y+(y2-y)*(i+1)/count,run=(x2-x)/count;
    c.fillStyle=i%2?'#5c5548':'#665f50';c.fillRect(px-21,py,run+28,5);c.fillStyle='#292a28';c.fillRect(px-21,py+5,run,10);c.strokeStyle='#a59a7c77';c.lineWidth=.8;c.beginPath();c.moveTo(px-21,py);c.lineTo(px+run+7,py);c.stroke();}
  }
  architectureEdges(c:CanvasRenderingContext2D){for(const b of this.level.buildings)for(const f of b.floors){const y=this.floorY(f);for(const [x,end] of floorSpans(this.level,b,f)){this.texture(c,f<0?4:3,x,y+10,end-x,17,.4);c.fillStyle='#080f1b99';c.fillRect(x,y+14,end-x,12);c.fillStyle='#b9ac8655';c.fillRect(x,y+10,end-x,2);}}}
- stairRails(c:CanvasRenderingContext2D){c.save();c.beginPath();c.rect(-1000,-1000,this.level.width+2000,this.level.height+2000);for(const b of this.level.buildings)for(const f of b.floors)c.rect(b.x,this.floorY(f)-18,b.end-b.x,45);c.clip('evenodd');for(const s of this.level.stairs){const y=this.floorY(s.from),y2=this.floorY(s.to);c.strokeStyle='#0c1116';c.lineWidth=4;c.beginPath();c.moveTo(s.a-10,y-39);c.lineTo(s.b+8,y2-39);c.stroke();c.strokeStyle='#86827188';c.lineWidth=1;c.stroke();for(let i=0;i<4;i++){const t=i/3,x=lerp(s.a,s.b,t),yy=lerp(y,y2,t);c.strokeStyle='#4c514a';c.lineWidth=2;c.beginPath();c.moveTo(x,yy-39);c.lineTo(x,yy+7);c.stroke();}}c.restore();}
+ stairRails(c:CanvasRenderingContext2D){c.save();c.beginPath();c.rect(-1000,-1000,this.level.width+2000,this.level.height+2000);for(const b of this.level.buildings)for(const f of b.floors)c.rect(b.x,this.floorY(f)-6,b.end-b.x,33);c.clip('evenodd');for(const s of this.level.stairs){const y=this.floorY(s.from),y2=this.floorY(s.to);c.strokeStyle='#0c1116';c.lineWidth=4;c.beginPath();c.moveTo(s.a-10,y-39);c.lineTo(s.b+8,y2-39);c.stroke();c.strokeStyle='#86827188';c.lineWidth=1;c.stroke();for(let i=0;i<4;i++){const t=i/3,x=lerp(s.a,s.b,t),yy=lerp(y,y2,t);c.strokeStyle='#4c514a';c.lineWidth=2;c.beginPath();c.moveTo(x,yy-39);c.lineTo(x,yy+7);c.stroke();}}c.restore();}
  yard(c:CanvasRenderingContext2D){
   for(const side of [[90,451],[1590,2160]]){const [start,end]=side;c.strokeStyle='#2c322d';c.lineWidth=4;c.beginPath();c.moveTo(start,574);c.lineTo(end,574);c.moveTo(start,535);c.lineTo(end,535);c.stroke();for(let x=start;x<end;x+=29){c.fillStyle='#3c4138';c.fillRect(x,510+(x%7),10,99);c.fillStyle='#82836b22';c.fillRect(x,514,2,93);}}
   c.strokeStyle='#6b6c5440';c.lineWidth=1;for(let i=0;i<130;i++){const x=(i*193.37)%2220;if(this.level.buildings.some(b=>x>b.x-30&&x<b.end+50))continue;const y=620+(i%4)*5;c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(x-7,y-18,x+(i%3-1)*5,y-28-i%8);c.stroke();}
@@ -146,7 +152,7 @@ export class BaseRenderer{
  lighting(w:BaseWorld){
   const c=this.illumination.getContext('2d')!;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,this.illumination.width,this.illumination.height);
   c.fillStyle=`rgba(5,10,22,${this.environment.exteriorDark})`;c.fillRect(0,0,this.illumination.width,this.illumination.height);this.transform(c);
-  for(const room of this.level.rooms){const y=this.floorY(room.floor)-this.level.floorHeight+8,h=this.level.floorHeight+20;c.clearRect(room.x,y,room.end-room.x,h);c.fillStyle=`rgba(3,8,18,${this.environment.interiorDark})`;c.fillRect(room.x,y,room.end-room.x,h);}
+  for(const room of this.level.rooms){const y=this.floorY(room.floor)-this.level.floorHeight+8,h=this.level.floorHeight+20;c.clearRect(room.x,y,room.end-room.x,h);c.fillStyle=`rgba(3,8,18,${w.powered?.48:this.environment.interiorDark})`;c.fillRect(room.x,y,room.end-room.x,h);}
   // Only real exterior openings remove ambient darkness. There is no player-centred light.
   for(const {source,polygon} of this.lightSources(w)){c.save();this.path(c,polygon);c.clip();c.globalCompositeOperation='destination-out';const {x,y}=source.origin,g=c.createRadialGradient(x,y,0,x,y,source.range);g.addColorStop(0,`rgba(0,0,0,${source.strength})`);g.addColorStop(.35,`rgba(0,0,0,${source.strength*.6})`);g.addColorStop(.7,`rgba(0,0,0,${source.strength*.25})`);g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(x-source.range,y-source.range,source.range*2,source.range*2);c.restore();}
   if(w.flashlight){const origin=w.lightOrigin;c.save();this.path(c,visibilityPolygon(origin,w.aim,BEAM_HALF,BEAM_RANGE,w.sight.segments));c.clip();c.globalCompositeOperation='destination-out';const end={x:origin.x+Math.cos(w.aim)*BEAM_RANGE,y:origin.y+Math.sin(w.aim)*BEAM_RANGE},g=c.createLinearGradient(origin.x,origin.y,end.x,end.y);g.addColorStop(0,'rgba(0,0,0,.82)');g.addColorStop(.5,'rgba(0,0,0,.7)');g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(origin.x-BEAM_RANGE,origin.y-BEAM_RANGE,BEAM_RANGE*2,BEAM_RANGE*2);c.restore();}
@@ -156,13 +162,26 @@ export class BaseRenderer{
  }
  fogOfWar(w:BaseWorld){
   const sharp=this.sceneCopy.getContext('2d')!;sharp.setTransform(1,0,0,1,0,0);sharp.clearRect(0,0,this.sceneCopy.width,this.sceneCopy.height);sharp.drawImage(this.canvas,0,0);
-  const small=this.blurred.getContext('2d')!;small.setTransform(1,0,0,1,0,0);small.clearRect(0,0,this.blurred.width,this.blurred.height);small.filter=`blur(${5*this.dpr}px)`;small.drawImage(this.sceneCopy,0,0,this.blurred.width,this.blurred.height);small.filter='none';
+  const small=this.blurred.getContext('2d')!;small.setTransform(1,0,0,1,0,0);small.clearRect(0,0,this.blurred.width,this.blurred.height);small.filter=`blur(${1.35*this.dpr}px)`;small.drawImage(this.sceneCopy,0,0,this.blurred.width,this.blurred.height);small.filter='none';
   const fog=this.fog.getContext('2d')!;fog.setTransform(1,0,0,1,0,0);fog.clearRect(0,0,this.fog.width,this.fog.height);fog.drawImage(this.blurred,0,0,this.fog.width,this.fog.height);this.transform(fog);
   fog.save();fog.globalCompositeOperation='destination-out';fog.fillStyle='#fff';this.path(fog,visibilityPolygon(w.sight.origin,0,Math.PI,SIGHT_RANGE,w.sight.segments,140));fog.fill();
-  // The visible front face belongs to the current landing, not to the hidden floor below.
-  for(const room of this.level.rooms){const y=this.floorY(room.floor);for(let x=room.x;x<room.end;x+=16)if(w.visible({x:x+8,y:y-2}))fog.fillRect(x,y-2,Math.min(16,room.end-x),30);}
   fog.fillRect(w.player.x-37,w.player.y-134,74,140);fog.restore();
   this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.fog,0,0);this.c.restore();
+ }
+ /** Restore already-lit structural pixels above fog; interiors remain blurred.
+  * Copying the original composite also preserves actors in front of floor surfaces. */
+ structuralForeground(w:BaseWorld){
+  const c=this.structure.getContext('2d')!;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,this.structure.width,this.structure.height);this.transform(c);c.fillStyle='#fff';
+  for(const b of this.level.buildings){
+   const top=this.floorY(Math.max(...b.floors))-this.level.floorHeight,bottom=this.floorY(Math.min(...b.floors));
+   c.fillRect(b.x-17,top,17,bottom-top+20);c.fillRect(b.end,top,17,bottom-top+20);c.fillRect(b.x-40,top-7,b.end-b.x+80,12);
+   for(const f of b.floors){const y=this.floorY(f);c.fillRect(b.x,y-6,b.end-b.x,33);for(const [left,right] of floorOccluderSpans(this.level,b,f))c.fillRect(left,y-18,right-left,12);}
+  }
+  // Solid vertical partitions and door lintels; the actual open doorway stays unmasked.
+  for(const s of w.sight.segments)if(s.a.x===s.b.x)c.fillRect(s.a.x-8,Math.min(s.a.y,s.b.y),16,Math.abs(s.b.y-s.a.y));
+  for(const d of w.doors){const y=this.floorY(d.floor);c.fillRect(d.x-11,y-152,22,6);c.fillRect(d.x-10,y-149,3,149);c.fillRect(d.x+7,y-149,3,149);}
+  c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-in';c.drawImage(this.sceneCopy,0,0);c.globalCompositeOperation='source-over';
+  this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.structure,0,0);this.c.restore();
  }
  flashlight(c:CanvasRenderingContext2D,w:BaseWorld){
   const origin=w.lightOrigin,angle=w.aim;c.save();this.path(c,visibilityPolygon(origin,angle,BEAM_HALF,BEAM_RANGE,w.sight.segments));c.clip();c.globalCompositeOperation='screen';const end={x:origin.x+Math.cos(angle)*BEAM_RANGE,y:origin.y+Math.sin(angle)*BEAM_RANGE};const g=c.createLinearGradient(origin.x,origin.y,end.x,end.y);g.addColorStop(0,'#f3e2ac18');g.addColorStop(.5,'#e6d39c0c');g.addColorStop(1,'#e6d39c00');c.fillStyle=g;c.fillRect(origin.x-500,origin.y-500,1000,1000);c.restore();
