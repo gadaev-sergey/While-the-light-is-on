@@ -12,7 +12,7 @@ export interface HouseTemplate {width:number;rooms:RoomPlacement[];doors:Door[];
 export interface BuildingPlacement {id:string;template:string;x:number}
 export interface Building {id:string;template:string;x:number;end:number;floors:number[];roof:{rise:number;chimney:number}}
 export interface Opening extends OpeningSpec {roomId:string;buildingId:string;floor:Floor;repairMaterial:'wood';state:OpeningState}
-export interface ForegroundDetail {id:string;roomId:string;floor:Floor;x:number;width:number;height:number}
+export interface ForegroundDetail {id:string;roomId:string;floor:Floor;x:number;width:number;height:number;frame?:number}
 export interface LevelDefinition {
  id:string;width:number;height:number;groundY:number;floorHeight:number;spawn:{x:number;floor:Floor};
  buildings:BuildingPlacement[];objects:BaseObject[];
@@ -38,7 +38,7 @@ export const HOUSE_TEMPLATES:Record<string,HouseTemplate>={
    {id:'utility',name:'Техническая комната',template:'cellar-bare',x:570,width:460,floor:-1},
   ],
   doors:[{id:'entry',name:'Входная дверь',x:0,floor:0,open:true},{id:'kitchen-door',name:'Дверь на кухню',x:550,floor:0,open:false},{id:'yard-door',name:'Дверь во двор',x:1030,floor:0,open:false},{id:'cellar-door',name:'Дверь в кладовую',x:570,floor:-1,open:false}],
-  stairs:[{id:'main-stair',from:0,to:1,a:260,b:450},{id:'cellar-stair',from:-1,to:0,a:690,b:900}],
+  stairs:[{id:'main-stair',from:0,to:1,a:260,b:450,kind:'stairs'},{id:'cellar-stair',from:-1,to:0,a:900,b:900,kind:'ladder'}],
  },
 };
 /** Expand placements into independent world-space instances. Rendering and physics share the result. */
@@ -53,7 +53,8 @@ export function compileLevel(def:LevelDefinition,houses=HOUSE_TEMPLATES,roomTemp
    if(r.width<template.minWidth||r.x<0||r.x+r.width>house.width)throw new Error(`Room outside building: ${prefix+r.id}`);
    const room:Room={id:prefix+r.id,name:r.name,floor:r.floor,x:placement.x+r.x,end:placement.x+r.x+r.width,material:template.material,buildingId:placement.id};result.rooms.push(room);
    for(const o of [...template.openings.map((o,i)=>({...o,id:`${r.id}-window-${i}`})),...(r.openings||[])])result.openings.push({...o,id:prefix+o.id,roomId:room.id,buildingId:placement.id,x:room.x+o.x,floor:r.floor,state:'open',repairMaterial:'wood'});
-   result.foreground.push({id:prefix+r.id+'-chips',roomId:room.id,floor:r.floor,x:room.x+r.width*.3,width:80,height:14});
+   result.foreground.push({id:prefix+r.id+'-chips',roomId:room.id,floor:r.floor,x:room.x+r.width*.22,width:75,height:17,frame:7});
+   if(r.id==='workshop')result.foreground.push({id:prefix+r.id+'-rail',roomId:room.id,floor:r.floor,x:room.end-60,width:78,height:38,frame:8});
   }
   for(const d of house.doors)result.doors.push({...d,id:prefix+d.id,x:placement.x+d.x,exterior:d.x===0||d.x===house.width});
   for(const s of house.stairs)result.stairs.push({...s,id:prefix+s.id,a:placement.x+s.a,b:placement.x+s.b});
@@ -74,6 +75,7 @@ export function floorSpans(_level:CompiledLevel,building:Building,_floor:Floor):
  * The visible front fascia is a different depth plane and does not seal this opening. */
 export function stairApertures(level:CompiledLevel,building:Building,floor:Floor):[number,number][] {
  return level.stairs.filter(s=>s.to===floor&&s.a>=building.x&&s.a<=building.end&&s.b>=building.x&&s.b<=building.end).map(s=>{
+  if(s.kind==='ladder')return [Math.max(building.x,s.b-34),Math.min(building.end,s.b+34)];
   const direction=Math.sign(s.b-s.a)||1,run=Math.abs(s.b-s.a),headroom=Math.min(run,run*142/level.floorHeight+18);
   const start=s.b-direction*headroom,end=s.b+direction*20;
   return [Math.max(building.x,Math.min(start,end)),Math.min(building.end,Math.max(start,end))];
@@ -93,5 +95,5 @@ export function validateLevel(level:CompiledLevel){
   for(const f of b.floors){const rooms=level.rooms.filter(r=>r.buildingId===b.id&&r.floor===f).sort((a,b)=>a.x-b.x);for(let i=1;i<rooms.length;i++)if(rooms[i].x<rooms[i-1].end)throw new Error(`Overlapping rooms: ${rooms[i].id}`);}
  }
  for(const o of level.openings){const r=level.rooms.find(r=>r.id===o.roomId);if(!r||o.bottom<0||o.height<=0||o.bottom+o.height>level.floorHeight-18||o.x<r.x||o.x>r.end||o.plane==='back'&&(o.x-o.width/2<r.x||o.x+o.width/2>r.end))throw new Error(`Invalid opening: ${o.id}`);}
- for(const s of level.stairs){const a=levelRoomAt(level,s.a,s.from),b=levelRoomAt(level,s.b,s.to);if(!a||!b||a.buildingId!==b.buildingId||s.to!==s.from+1)throw new Error(`Unconnected stair: ${s.id}`);}
+ for(const s of level.stairs){const a=levelRoomAt(level,s.a,s.from),b=levelRoomAt(level,s.b,s.to);if(!a||!b||a.buildingId!==b.buildingId||s.to!==s.from+1)throw new Error(`Unconnected stair: ${s.id}`);if(s.kind==='ladder'&&s.a!==s.b)throw new Error(`A vertical ladder must have aligned endpoints: ${s.id}`);}
 }

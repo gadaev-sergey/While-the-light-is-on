@@ -67,11 +67,11 @@ try {
   await mobile.page.screenshot({path: 'artifacts/deployment/mobile.png'});
   await mobile.context.close();
 
-  for (const asset of ['base/district', 'base/materials', 'base/furniture', 'base/objects', 'base/dog', 'base/house-damage', 'developer-walk', 'developer-attack', 'developer-left-punch']) {
+  for (const asset of ['base/district', 'base/materials', 'base/furniture', 'base/objects', 'base/dog', 'base/house-damage', 'base/interior-front', 'base/crates-front', 'developer-walk', 'developer-attack', 'developer-left-punch']) {
     expect(loadedImages.has(`${url.pathname}assets/${asset}.png`), `Missing image: ${asset}`).toBe(true);
   }
   expect(failures).toEqual([]);
-  console.log(`Deployment OK: ${url.href}\n9 image assets, desktop and mobile interaction, flashlight, map and time controls; no runtime or network errors.`);
+  console.log(`Deployment OK: ${url.href}\n11 image assets, desktop and mobile interaction, flashlight, map and time controls; no runtime or network errors.`);
 } finally {
   await browser.close();
 }

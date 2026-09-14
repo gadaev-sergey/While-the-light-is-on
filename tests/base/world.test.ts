@@ -9,9 +9,9 @@ const step=(w:BaseWorld,seconds:number,dx=0)=>{for(let t=0;t<seconds;t+=1/60)w.u
 const at=(w:BaseWorld,x:number,floor=0)=>{Object.assign(w.player,{x,previousX:x,floor,y:w.floorY(floor),previousY:w.floorY(floor)});w.mouseAim=false;w.aim=w.player.facing===1?0:Math.PI;w.refreshSight();};
 const fixture=(kind:BaseObject['kind'],x:number,floor:number):BaseObject=>({id:kind,name:kind,kind,x,floor,atlas:'objects',frame:1,width:70,height:60,searched:false,uses:0});
 
-test('The current house is empty, damaged and contains only its architecture',()=>{
+test('The damaged house has new interior supplies and hides objects behind rooms',()=>{
  const w=new BaseWorld();assert.equal(w.level.buildings.length,1);assert.equal(w.level.rooms.length,6);assert.ok(w.level.rooms.some(r=>r.floor===-1));
- assert.ok(w.objects.every(o=>!levelRoomAt(w.level,o.x,o.floor)));assert.deepEqual(w.visibleObjects().map(o=>o.id),['barrel']);assert.equal(w.currentRoom?.id,'home/hall');
+ assert.equal(w.objects.filter(o=>levelRoomAt(w.level,o.x,o.floor)).length,7);assert.ok(w.objects.filter(o=>levelRoomAt(w.level,o.x,o.floor)).every(o=>o.atlas==='interior'));assert.deepEqual(w.visibleObjects().map(o=>o.id),['barrel','home/supply-crates']);assert.equal(w.currentRoom?.id,'home/hall');
  assert.equal(w.openings.filter(o=>o.kind==='window').length,6);assert.equal(w.openings.filter(o=>o.kind==='breach').length,3);assert.ok(w.openings.every(o=>o.state==='open'&&o.repairMaterial==='wood'));
  step(w,120);assert.equal(w.player.hp,100);assert.equal(w.dogVisible,false);
 });
@@ -63,14 +63,14 @@ test('Navigation uses stairs and the open breach to reach upper rooms',()=>{
  const w=new BaseWorld();w.setTarget(1300,1);step(w,12);assert.equal(w.player.floor,1);assert.ok(Math.abs(w.player.x-1300)<10);assert.equal(w.navigation,null);
  w.setTarget(1400,-1);step(w,12);assert.equal(w.player.floor,0);assert.equal(w.player.x,1038);assert.equal(w.navigation,null);
 });
-test('Closed doors stop walking and can still be operated in the empty house',()=>{
+test('Closed doors stop walking and can still be operated in the furnished house',()=>{
  const w=new BaseWorld();at(w,1000);step(w,1,1);assert.equal(w.player.x,1038);w.action({type:'interact',target:'home/kitchen-door'});step(w,1,1);assert.ok(w.player.x>1100);
 });
 test('Outdoor searches still cancel, pause and yield resources only on completion',()=>{
  const w=new BaseWorld();at(w,1690);w.action({type:'interact',target:'yard-toolbox'});step(w,.4);assert.equal(w.inventory.scrap,0);w.update(1/60,1);assert.equal(w.task,null);
  w.action({type:'interact',target:'yard-toolbox'});step(w,.4);const remaining=w.task!.remaining;w.phase='paused';step(w,1);assert.equal(w.task!.remaining,remaining);w.phase='playing';step(w,2);assert.equal(w.inventory.scrap,2);w.action({type:'interact',target:'yard-toolbox'});step(w,2);assert.equal(w.inventory.scrap,2);
 });
-test('Future room contents use the retained interaction system without being instantiated in this level',()=>{
+test('Interaction modules still accept additional furniture instances',()=>{
  const w=new BaseWorld();w.objects.push(fixture('generator',1430,-1),fixture('workbench',680,1));at(w,1430,-1);w.action({type:'interact',target:'generator'});assert.equal(w.task,null);
  Object.assign(w.inventory,{scrap:2,fuse:1,cloth:2});w.action({type:'interact',target:'generator'});step(w,1);assert.equal(w.inventory.scrap,2);step(w,2);assert.equal(w.powered,true);assert.equal(w.inventory.scrap,0);
  at(w,680,1);w.action({type:'interact',target:'workbench'});step(w,3);assert.equal(w.inventory.bandage,1);assert.equal(w.inventory.cloth,0);
@@ -84,5 +84,19 @@ test('New saves restore individual damage states without sharing them between wo
 });
 test('Old saves cannot resurrect removed furniture or the old generator light',()=>{
  const old:BaseSave={version:1,player:{x:595,floor:0,hp:80},inventory:{wood:3,scrap:2,cloth:0,water:0,fuse:0,bandage:0},doors:[{id:'kitchen-door',open:true}],objects:[{id:'hall-chest',searched:true,uses:1},{id:'generator',searched:false,uses:1}],explored:['hall','kitchen'],powered:true,flashlight:true,time:42,dogHp:60};
- const w=new BaseWorld();assert.ok(w.restore(old));assert.equal(w.objects.length,2);assert.equal(w.powered,false);assert.equal(w.doors.find(d=>d.id==='home/kitchen-door')?.open,true);assert.ok(w.explored.has('home/kitchen'));assert.equal(w.inventory.wood,3);
+ const w=new BaseWorld();assert.ok(w.restore(old));assert.equal(w.objects.length,9);assert.ok(w.objects.every(o=>!o.searched));assert.equal(w.powered,false);assert.equal(w.doors.find(d=>d.id==='home/kitchen-door')?.open,true);assert.ok(w.explored.has('home/kitchen'));assert.equal(w.inventory.wood,3);
+});
+
+test('Door leaves animate continuously, reverse without snapping, pause and restore at rest',()=>{
+ const w=new BaseWorld();at(w,1005);const door=w.doors.find(d=>d.id==='home/kitchen-door')!;
+ w.action({type:'interact',target:door.id});step(w,.15);assert.ok(door.openness!>0&&door.openness!<1);const before=door.openness!;
+ w.action({type:'interact',target:door.id});w.update(1/60);assert.ok(door.openness!<before&&door.openness!>before-.05);w.phase='paused';const paused=door.openness;step(w,1);assert.equal(door.openness,paused);
+ w.phase='playing';step(w,1);assert.equal(door.openness,0);w.action({type:'interact',target:door.id});const restored=new BaseWorld();restored.restore(w.save());assert.equal(restored.doors.find(d=>d.id===door.id)?.openness,1);
+});
+test('New room supplies can restore power through the real cellar ladder route',()=>{
+ const w=new BaseWorld();at(w,688);w.action({type:'interact',target:'home/supply-crates'});step(w,2);assert.equal(w.inventory.scrap,2);
+ at(w,1180,1);w.action({type:'interact',target:'home/linen-cabinet'});step(w,2);assert.equal(w.inventory.fuse,1);
+ at(w,1400,0);assert.ok(w.tryStair(-1));step(w,2);assert.equal(w.player.floor,-1);assert.equal(w.player.x,1400);
+ at(w,1230,-1);w.action({type:'interact',target:'home/backup-generator'});step(w,3);assert.equal(w.powered,true);assert.equal(w.inventory.fuse,0);assert.equal(w.inventory.scrap,0);
+ const restored=new BaseWorld();assert.ok(restored.restore(w.save()));assert.equal(restored.powered,true);assert.ok(restored.objects.find(o=>o.id==='home/linen-cabinet')?.searched);
 });

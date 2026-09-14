@@ -47,7 +47,7 @@ export class BaseUI{
  }
  $(selector:string){return document.querySelector<HTMLElement>(selector)!;}
  loading(n:number){this.$('.load-track i').style.width=`${n*100}%`;this.$('#base-progress').textContent=`Подготовка дома · ${Math.round(n*100)}%`;}
- loaded(image:HTMLImageElement){this.$('#base-loading').classList.add('hidden');const canvas=document.querySelector<HTMLCanvasElement>('#base-portrait')!;const c=canvas.getContext('2d')!;c.fillStyle='#202a2d';c.fillRect(0,0,96,108);c.drawImage(image,126,12,145,174,0,0,96,115);this.canvas.focus();}
+ loaded(image:CanvasImageSource){this.$('#base-loading').classList.add('hidden');const canvas=document.querySelector<HTMLCanvasElement>('#base-portrait')!;const c=canvas.getContext('2d')!;c.fillStyle='#202a2d';c.fillRect(0,0,96,108);c.drawImage(image,126,12,145,174,0,0,96,115);this.canvas.focus();}
  update(){
   const w=this.w,p=w.player;this.$('#room-count').textContent=`${w.explored.size} / ${w.level.rooms.length}`;this.$('#base-location').textContent=w.location;this.$('#floor-label').textContent=p.stair?'ПЕРЕХОД МЕЖДУ ЭТАЖАМИ':p.floor<0?`ПОДВАЛ ${Math.abs(p.floor)}`:p.floor===0?'ПЕРВЫЙ ЭТАЖ':p.floor===1?'ВТОРОЙ ЭТАЖ':`${p.floor+1}-Й ЭТАЖ`;
   this.$('#base-health').style.width=p.hp+'%';this.$('#base-condition').textContent=p.hp>80?'В порядке':p.hp>40?'Лёгкая рана · H — бинт':'Нужна перевязка · H';

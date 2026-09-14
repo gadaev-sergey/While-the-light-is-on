@@ -7,9 +7,9 @@ async function stair(page:Page,key:string,floor:number){await page.keyboard.pres
 async function aim(page:Page,x:number,y:number){const point=await page.evaluate(({x,y})=>(window as any).__BASE__.projection(x,y),{x,y});const box=(await page.locator('#base-canvas').boundingBox())!;await page.mouse.move(box.x+point.x,box.y+point.y);}
 async function shot(page:Page,name:string){await fs.mkdir('artifacts/modular-house',{recursive:true});await page.screenshot({path:`artifacts/modular-house/${name}.png`});}
 
-test('The empty modular house loads without old furniture prompts or invisible objects',async({page})=>{
+test('The furnished modular house loads and important objects obey room visibility',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await ready(page);
- const w=await state(page);expect(w.objects.map((o:any)=>o.id)).toEqual(['barrel','yard-toolbox']);expect(w.visibleObjects).toEqual(['barrel']);expect(w.openings).toHaveLength(9);expect(w.buildings).toHaveLength(1);
+ const w=await state(page);expect(w.objects).toHaveLength(9);expect(w.visibleObjects).toEqual(['barrel','home/supply-crates']);expect(w.visibleObjects).not.toContain('home/backup-generator');expect(w.openings).toHaveLength(9);expect(w.buildings).toHaveLength(1);
  await expect(page.locator('#goal-text')).toHaveText('Осмотрите верхний этаж и подвал');await expect(page.locator('#quick-wood')).toHaveText('0');await page.keyboard.press('KeyE');expect((await state(page)).task).toBeNull();await shot(page,'entrance');
  await page.keyboard.press('KeyM');await expect(page.locator('.plan-room')).toHaveCount(6);await expect(page.locator('.plan-room.unknown')).toHaveCount(3);await page.getByRole('button',{name:'Закрыть',exact:true}).click();expect(errors).toEqual([]);
 });
@@ -22,8 +22,8 @@ test('Doors clip visibility while the flashlight changes illumination',async({pa
  await ready(page);await move(page,1008);await aim(page,1300,550);await shot(page,'closed-door');await page.keyboard.press('KeyE');expect((await state(page)).doors.find((d:any)=>d.id==='home/kitchen-door').open).toBe(true);await shot(page,'open-door');
  await page.keyboard.press('KeyF');await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed','false');await page.keyboard.press('KeyF');await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed','true');
 });
-test('The retained outdoor supplies persist after reload without restoring interior props',async({page})=>{
- await ready(page);await move(page,365);await page.keyboard.press('KeyE');await expect.poll(async()=>(await state(page)).task).not.toBeNull();await page.waitForTimeout(250);await page.keyboard.press('Escape');const remaining=(await state(page)).task.remaining;await page.waitForTimeout(250);expect((await state(page)).task.remaining).toBe(remaining);await page.getByRole('button',{name:'Продолжить',exact:true}).click();await expect(page.locator('#quick-water')).toHaveText('1');await page.waitForTimeout(2200);await page.reload();await expect(page.locator('#base-loading')).toBeHidden();await expect(page.locator('#quick-water')).toHaveText('1');expect((await state(page)).objects).toHaveLength(2);
+test('Outdoor supplies persist alongside the new interior objects',async({page})=>{
+ await ready(page);await move(page,365);await page.keyboard.press('KeyE');await expect.poll(async()=>(await state(page)).task).not.toBeNull();await page.waitForTimeout(250);await page.keyboard.press('Escape');const remaining=(await state(page)).task.remaining;await page.waitForTimeout(250);expect((await state(page)).task.remaining).toBe(remaining);await page.getByRole('button',{name:'Продолжить',exact:true}).click();await expect(page.locator('#quick-water')).toHaveText('1');await page.waitForTimeout(2200);await page.reload();await expect(page.locator('#base-loading')).toBeHidden();await expect(page.locator('#quick-water')).toHaveText('1');expect((await state(page)).objects).toHaveLength(9);
 });
 test('Canvas navigation reaches a room through stairs and the open breach',async({page})=>{
  await ready(page);const box=(await page.locator('#base-canvas').boundingBox())!,point=await page.evaluate(()=>(window as any).__BASE__.projection(1280,400));await page.mouse.click(box.x+point.x,box.y+point.y);

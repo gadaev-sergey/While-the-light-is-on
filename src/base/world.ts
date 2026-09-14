@@ -18,9 +18,9 @@ export class BaseWorld{
  reset(){
   this.player={x:this.level.spawn.x,y:this.floorY(this.level.spawn.floor),previousX:this.level.spawn.x,previousY:this.floorY(this.level.spawn.floor),floor:this.level.spawn.floor,facing:1,moving:false,distance:0,previousDistance:0,hp:100,attack:0,attackHit:false,hurt:0,stair:null};
   this.dog={x:2010,previousX:2010,facing:-1,mode:'idle',timer:3,hp:60,hit:0};
-  this.inventory={wood:0,scrap:0,cloth:0,water:0,fuse:0,bandage:0};this.doors=this.level.doors.map(d=>({...d}));this.objects=this.level.objects.map(o=>({...o}));this.openings=this.level.openings.map(o=>({...o}));this.explored=new Set<string>();
+  this.inventory={wood:0,scrap:0,cloth:0,water:0,fuse:0,bandage:0};this.doors=this.level.doors.map(d=>({...d,openness:Number(d.open)}));this.objects=this.level.objects.map(o=>({...o}));this.openings=this.level.openings.map(o=>({...o}));this.explored=new Set<string>();
   this.flashlight=true;this.powered=false;this.time=0;this.dayMinutes=720;this.timeRunning=false;this.aim=0;this.mouseAim=false;this.task=null;this.navigation=null;this.phase='playing';this.refreshSight();this.revision++;
-  this.notify('Дом опустел. Осмотрите комнаты и повреждения стен.');
+  this.notify('Осмотрите дом. В комнатах могли остаться полезные вещи.');
  }
  notify(text:string,kind:'info'|'good'|'warn'='info'){this.toast=text;this.toastKind=kind;this.toastTime=4.5;}
  get currentRoom(){return levelRoomAt(this.level,this.player.x,this.player.floor);}
@@ -103,12 +103,13 @@ export class BaseWorld{
  update(dt:number,direction=0,run=false){
   if(this.phase!=='playing')return;dt=Math.min(dt,.05);const p=this.player;p.previousX=p.x;p.previousY=p.y;p.previousDistance=p.distance;this.dog.previousX=this.dog.x;
   this.time+=dt;if(this.timeRunning)this.dayMinutes=wrapMinutes(this.dayMinutes+dt*2);this.toastTime=Math.max(0,this.toastTime-dt);p.hurt=Math.max(0,p.hurt-dt);
+  for(const d of this.doors){const target=Number(d.open),value=d.openness??target;d.openness=value+Math.sign(target-value)*Math.min(Math.abs(target-value),dt*2.5);}
   if(p.attack){p.attack=Math.max(0,p.attack-dt);p.moving=false;if(p.attack<.25&&!p.attackHit){p.attackHit=true;if(this.dog.hp>0&&p.floor===0&&Math.abs(p.x-this.dog.x)<110&&(this.dog.x-p.x)*p.facing>-10){this.dog.hp-=20;this.dog.x=clamp(this.dog.x+p.facing*85,1730,2150);this.dog.hit=.25;this.dog.mode='retreat';this.dog.timer=3;this.onSound('hit');}}}
   else if(p.stair){
    const s=this.level.stairs.find(s=>s.id===p.stair!.id)!,reverse=p.stair.reverse;
    if(p.stair.approach>0){const entry=reverse?s.b:s.a,dx=entry-p.x;p.x+=Math.sign(dx)*Math.min(Math.abs(dx),BASE.speed*dt);p.stair.approach=Math.max(0,p.stair.approach-dt);if(!p.stair.approach)p.x=entry;}
    else{p.stair.t=Math.min(1,p.stair.t+dt/1.85);const t=reverse?1-p.stair.t:p.stair.t;p.x=s.a+(s.b-s.a)*t;p.y=this.floorY(s.from)+(this.floorY(s.to)-this.floorY(s.from))*t;}
-   p.facing=p.x>=p.previousX?1:-1;p.moving=true;p.distance+=Math.hypot(p.x-p.previousX,(p.y-p.previousY)*.45);if(!this.mouseAim)this.aim=p.facing===1?-.22:Math.PI-.22;
+   if(Math.abs(p.x-p.previousX)>.001)p.facing=p.x>p.previousX?1:-1;p.moving=true;p.distance+=Math.hypot(p.x-p.previousX,(p.y-p.previousY)*.45);if(!this.mouseAim)this.aim=s.kind==='ladder'?(reverse?Math.PI/2:-Math.PI/2):p.facing===1?-.22:Math.PI-.22;
    if(p.stair.t>=1){p.floor=reverse?s.from:s.to;p.y=this.floorY(p.floor);p.stair=null;p.moving=false;this.revision++;}
   }else if(this.task){p.moving=false;if(direction){this.cancelTask();this.navigation=null;this.move(direction,dt,run);}else{this.task.remaining=Math.max(0,this.task.remaining-dt);if(!this.task.remaining)this.finishTask();}}
   else if(direction){this.navigation=null;this.move(direction,dt,run);}
@@ -145,7 +146,7 @@ export class BaseWorld{
   this.reset();const p=this.player,[left,right]=walkBounds(this.level,s.player.x,s.player.floor);p.floor=s.player.floor;p.x=clamp(s.player.x,left,right);p.y=this.floorY(p.floor);p.previousX=p.x;p.previousY=p.y;p.hp=clamp(Number(s.player.hp)||100,1,100);
   const sameId=(old:string,current:string)=>old===current||(s.version===1&&`home/${old}`===current);
   for(const k of Object.keys(this.inventory) as (keyof Resources)[])this.inventory[k]=clamp(Number(s.inventory[k])||0,0,999);
-  for(const d of this.doors){const entry=Array.isArray(s.doors)?s.doors.find(x=>sameId(x.id,d.id)):null;if(entry)d.open=!!entry.open;}
+  for(const d of this.doors){const entry=Array.isArray(s.doors)?s.doors.find(x=>sameId(x.id,d.id)):null;if(entry)d.open=!!entry.open;d.openness=Number(d.open);}
   for(const o of this.objects){const entry=Array.isArray(s.objects)?s.objects.find(x=>sameId(x.id,o.id)):null;if(entry){o.searched=!!entry.searched;o.uses=clamp(Number(entry.uses)||0,0,999);}}
   for(const o of this.openings){const entry=Array.isArray(s.openings)?s.openings.find(x=>x.id===o.id):null;if(entry&&['open','boarded'].includes(entry.state))o.state=entry.state;}
   this.explored=new Set(this.level.rooms.filter(r=>Array.isArray(s.explored)&&s.explored.some(id=>sameId(id,r.id))).map(r=>r.id));this.powered=s.version>=2&&!!s.powered;if(s.clock&&Number.isFinite(s.clock.minutes)){this.dayMinutes=wrapMinutes(s.clock.minutes);this.timeRunning=!!s.clock.running;}this.flashlight=!!s.flashlight;this.time=Math.max(0,Number(s.time)||0);this.dog.hp=clamp(Number(s.dogHp)||0,0,60);this.refreshSight();this.notify('Вы вернулись на базу');return true;

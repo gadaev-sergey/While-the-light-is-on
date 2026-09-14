@@ -1,15 +1,41 @@
 import {test,expect} from '@playwright/test';
+test('Door openings remain free of black cut material and the swinging leaf stays visible',async({page})=>{
+ await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ const result=await page.evaluate(async()=>{
+  const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);
+  const clear=()=>{r.c.setTransform(1,0,0,1,0,0);r.c.fillStyle='#ff00ff';r.c.fillRect(0,0,canvas.width,canvas.height);r.transform(r.c);};
+  const sample=(x:number,y:number)=>{const p=r.worldToScreen({x,y});return Array.from<number>(r.c.getImageData(Math.round(p.x*r.dpr),Math.round(p.y*r.dpr),1,1).data).slice(0,3);};
+  clear();r.cutaway(r.c,w);const openings=w.doors.map((d:any)=>sample(d.x+4,w.floorY(d.floor)-75)),door=w.doors.find((d:any)=>d.id==='home/kitchen-door');
+  const closed=()=>{clear();r.doors(r.c,w);r.cutaway(r.c,w);return sample(1096,540);};const shut=closed();door.open=true;for(let i=0;i<30;i++)w.update(1/60);const open=closed();canvas.remove();return {openings,shut,open};
+ });
+ for(const sample of result.openings)expect(sample).toEqual([255,0,255]);expect(result.shut).toEqual([255,0,255]);expect(result.open[2]).toBeLessThan(150);expect(Math.max(...result.open)).toBeGreaterThan(10);
+});
+
+test('Rough cuts join floor slabs, outside walls and ground without seams at different zooms',async({page})=>{
+ await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ const result=await page.evaluate(async()=>{
+  const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();let gaps=0;const edgeHeights=new Set<number>();
+  for(const zoom of [.8,1,1.3]){r.zoom=zoom;r.draw(w,0,1);const c=r.c;c.setTransform(1,0,0,1,0,0);c.fillStyle='#fff';c.fillRect(0,0,canvas.width,canvas.height);r.transform(c);r.cutaway(c,w);
+   const pixel=(x:number,y:number)=>{const p=r.worldToScreen({x,y});return c.getImageData(Math.round(p.x*r.dpr),Math.round(p.y*r.dpr),1,1).data[0];};
+   for(const floor of [-1,0,1])for(let x=487;x<=1563;x+=2)if(pixel(x,w.floorY(floor)+15)!==0)gaps++;
+   if(zoom===1)for(let x=560;x<740;x+=3)for(let y=397;y<412;y++)if(pixel(x,y)<5){edgeHeights.add(y);break;}
+  }canvas.remove();return {gaps,variation:edgeHeights.size};
+ });expect(result.gaps).toBe(0);expect(result.variation).toBeGreaterThan(2);
+});
+
 test('New cutouts have true alpha, and rendered light stops at closed doors and floors',async({page})=>{
  await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);
   const assets=new BaseAssets();await assets.load(()=>{});const alpha:Record<string,number>={};
-  for(const name of ['furniture','objects','dog','walk','idle','punch','damage']){const im=assets.images[name],canvas=document.createElement('canvas');canvas.width=im.width;canvas.height=im.height;const c=canvas.getContext('2d')!;c.drawImage(im,0,0);const data=c.getImageData(0,0,im.width,im.height).data;let count=0;for(let i=3;i<data.length;i+=4)if(data[i]<8)count++;alpha[name]=count/(im.width*im.height);}
+  for(const name of ['furniture','objects','dog','walk','idle','punch','damage','interior','crate']){const im=assets.images[name],canvas=document.createElement('canvas');canvas.width=im.width;canvas.height=im.height;const c=canvas.getContext('2d')!;c.drawImage(im,0,0);const data=c.getImageData(0,0,im.width,im.height).data;let count=0;for(let i=3;i<data.length;i+=4)if(data[i]<8)count++;alpha[name]=count/(im.width*im.height);}
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const renderer=new BaseRenderer(canvas,assets),w=new BaseWorld();Object.assign(w.player,{x:1000,previousX:1000});w.setTime(0);w.refreshSight();
   const luminance=(x:number,y:number)=>{const p=renderer.worldToScreen({x,y}),d=renderer.c.getImageData(Math.round(p.x*renderer.dpr),Math.round(p.y*renderer.dpr),3,3).data;let sum=0;for(let i=0;i<d.length;i+=4)sum+=(d[i]+d[i+1]+d[i+2])/3;return sum/9;};
   renderer.draw(w,0,1);const closed=luminance(1280,520),aboveClosed=luminance(1000,330);w.action({type:'interact',target:'home/kitchen-door'});renderer.draw(w,0,1);const open=luminance(1280,520),aboveOpen=luminance(1000,330);canvas.remove();return {alpha,closed,open,aboveClosed,aboveOpen};
  });
- for(const [name,alpha] of Object.entries(result.alpha))expect(alpha,`${name} needs transparent space`).toBeGreaterThan(.3);
+ for(const [name,alpha] of Object.entries(result.alpha))expect(alpha,`${name} needs transparent space`).toBeGreaterThan(name==='crate'?.2:.3);
  expect(result.open).toBeGreaterThan(result.closed+8);expect(Math.abs(result.aboveOpen-result.aboveClosed)).toBeLessThan(3);
  console.log('Door light pixels:',result.closed,'→',result.open,'floor:',result.aboveClosed,'→',result.aboveOpen);
 });

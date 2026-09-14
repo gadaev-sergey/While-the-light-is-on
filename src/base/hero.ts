@@ -19,10 +19,10 @@ export class BaseHero{
   if(sheet==='punch'&&(i===5||i===6)){ctx.beginPath();ctx.rect(-a.x*scale,-a.y*scale,width*scale,ch*scale);ctx.rect(-a.x*scale,(80-a.y)*scale,27*scale,90*scale);ctx.clip('evenodd');}
   ctx.drawImage(im,i%4*cw,Math.floor(i/4)*ch,width,ch,-a.x*scale,-a.y*scale,width*scale,ch*scale);this.cache.set(key,c);return c;
  }
- draw(c:CanvasRenderingContext2D,p:Player,dt:number,alpha:number,working:boolean){
+ draw(c:CanvasRenderingContext2D,p:Player,dt:number,alpha:number,working:boolean,ladder=false){
   let layers:PoseLayer[];
   if(p.attack>0){if(!this.attacking){this.attackFrom=this.animator.current;this.attacking=true;}const t=.42-p.attack,target=sampleClip({frames:Array.from({length:8},(_,i)=>`punch:${i}`),duration:.42},t);layers=blendPoses(this.attackFrom,target,smoothstep(t/.055));this.animator.current=layers;this.animator.key='punch';}
-  else{this.attacking=false;const key=p.moving?'walk':'idle';layers=this.animator.update(key,{frames:p.moving?Array.from({length:8},(_,i)=>`walk:${i}`):['idle:0'],duration:1,loop:true},dt,1,.10,p.moving?lerp(p.previousDistance,p.distance,alpha)/145:0);}
+  else{this.attacking=false;const key=p.moving?(ladder?'climb':'walk'):'idle';layers=this.animator.update(key,{frames:p.moving?(ladder?['walk:2','walk:6']:Array.from({length:8},(_,i)=>`walk:${i}`)):['idle:0'],duration:1,loop:true},dt,1,.10,p.moving?lerp(p.previousDistance,p.distance,alpha)/(ladder?46:145):0);}
   const x=lerp(p.previousX,p.x,alpha),y=lerp(p.previousY,p.y,alpha);c.save();c.translate(x,y);c.scale(p.facing,1);
   if(working)c.rotate(.06);if(p.hurt)c.filter='brightness(1.6)';
   if(layers.length===1)c.drawImage(this.texture(layers[0].frame),-90,-160,200,180);
