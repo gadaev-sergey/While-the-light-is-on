@@ -1,11 +1,15 @@
 import {BASE,LOCATION,clamp} from './config.ts';
+import {wrapMinutes,flashlightReaches} from './lighting.ts';
 import {levelFloorY,levelRoomAt,walkBounds,type CompiledLevel,type Opening,type OpeningState} from './level.ts';
-import {canSee,occluders,visibleRoomSamples,angularDifference,BEAM_HALF,type Sight} from './visibility.ts';
+import {canSee,occluders,visibleRoomSamples,type Sight} from './visibility.ts';
 import type {Action,BaseObject,BaseSave,Dog,Door,Floor,Navigation,Player,Resources,Task,Vec} from './types.ts';
 export class BaseWorld{
  player!:Player;dog!:Dog;doors:Door[]=[];objects:BaseObject[]=[];inventory!:Resources;explored=new Set<string>();
  phase:'playing'|'paused'='playing';flashlight=true;powered=false;time=0;aim=0;mouseAim=false;task:Task|null=null;navigation:Navigation|null=null;
  toast='';toastTime=0;toastKind:'info'|'good'|'warn'='info';sight!:Sight;onSound=(name:string)=>{};revision=0;
+ dayMinutes=720;timeRunning=false;
+ setTime(minutes:number){if(!Number.isFinite(minutes))return;this.dayMinutes=wrapMinutes(minutes);this.timeRunning=false;this.revision++;}
+ setTimeRunning(running:boolean){this.timeRunning=running;this.revision++;}
  openings:Opening[]=[];
  level:CompiledLevel;
  constructor(level:CompiledLevel=LOCATION){this.level=level;this.reset();}
@@ -15,14 +19,14 @@ export class BaseWorld{
   this.player={x:this.level.spawn.x,y:this.floorY(this.level.spawn.floor),previousX:this.level.spawn.x,previousY:this.floorY(this.level.spawn.floor),floor:this.level.spawn.floor,facing:1,moving:false,distance:0,previousDistance:0,hp:100,attack:0,attackHit:false,hurt:0,stair:null};
   this.dog={x:2010,previousX:2010,facing:-1,mode:'idle',timer:3,hp:60,hit:0};
   this.inventory={wood:0,scrap:0,cloth:0,water:0,fuse:0,bandage:0};this.doors=this.level.doors.map(d=>({...d}));this.objects=this.level.objects.map(o=>({...o}));this.openings=this.level.openings.map(o=>({...o}));this.explored=new Set<string>();
-  this.flashlight=true;this.powered=false;this.time=0;this.aim=0;this.mouseAim=false;this.task=null;this.navigation=null;this.phase='playing';this.refreshSight();this.revision++;
+  this.flashlight=true;this.powered=false;this.time=0;this.dayMinutes=720;this.timeRunning=false;this.aim=0;this.mouseAim=false;this.task=null;this.navigation=null;this.phase='playing';this.refreshSight();this.revision++;
   this.notify('Дом опустел. Осмотрите комнаты и повреждения стен.');
  }
  notify(text:string,kind:'info'|'good'|'warn'='info'){this.toast=text;this.toastKind=kind;this.toastTime=4.5;}
  get currentRoom(){return levelRoomAt(this.level,this.player.x,this.player.floor);}
  get location(){return this.player.stair?'Лестница':this.currentRoom?.name||'Двор';}
  get lightOrigin(){return {x:this.player.x+this.player.facing*17,y:this.player.y-69};}
- refreshSight(){this.sight={origin:this.lightOrigin,angle:this.aim,flashlight:this.flashlight,powered:this.powered,segments:occluders(this.doors,this.level,this.openings)};for(const id of visibleRoomSamples(this.sight,this.level))this.explored.add(id);}
+ refreshSight(){this.sight={origin:{x:this.player.x,y:this.player.y-82},segments:occluders(this.doors,this.level,this.openings)};for(const id of visibleRoomSamples(this.sight,this.level))this.explored.add(id);}
  visible(point:Vec){return canSee(this.sight,point);}
  objectPoint(o:BaseObject){return {x:o.x,y:this.floorY(o.floor)-Math.min(o.height*.5,58)};}
  visibleObjects(){return this.objects.filter(o=>!(o.kind==='rubble'&&o.searched)&&this.visible(this.objectPoint(o)));}
@@ -98,7 +102,7 @@ export class BaseWorld{
  }
  update(dt:number,direction=0,run=false){
   if(this.phase!=='playing')return;dt=Math.min(dt,.05);const p=this.player;p.previousX=p.x;p.previousY=p.y;p.previousDistance=p.distance;this.dog.previousX=this.dog.x;
-  this.time+=dt;this.toastTime=Math.max(0,this.toastTime-dt);p.hurt=Math.max(0,p.hurt-dt);
+  this.time+=dt;if(this.timeRunning)this.dayMinutes=wrapMinutes(this.dayMinutes+dt*2);this.toastTime=Math.max(0,this.toastTime-dt);p.hurt=Math.max(0,p.hurt-dt);
   if(p.attack){p.attack=Math.max(0,p.attack-dt);p.moving=false;if(p.attack<.25&&!p.attackHit){p.attackHit=true;if(this.dog.hp>0&&p.floor===0&&Math.abs(p.x-this.dog.x)<110&&(this.dog.x-p.x)*p.facing>-10){this.dog.hp-=20;this.dog.x=clamp(this.dog.x+p.facing*85,1730,2150);this.dog.hit=.25;this.dog.mode='retreat';this.dog.timer=3;this.onSound('hit');}}}
   else if(p.stair){
    const s=this.level.stairs.find(s=>s.id===p.stair!.id)!,reverse=p.stair.reverse;
@@ -122,8 +126,8 @@ export class BaseWorld{
  updateDog(dt:number){
   const d=this.dog,p=this.player;d.hit=Math.max(0,d.hit-dt);if(d.hp<=0){d.mode='rest';return;}d.timer-=dt;
   const near=p.floor===0&&!p.stair&&Math.abs(p.x-d.x)<135;
-  const dogPoint={x:d.x,y:this.floorY(0)-35},beamAngle=Math.atan2(dogPoint.y-this.sight.origin.y,dogPoint.x-this.sight.origin.x);
-  const lit=this.flashlight&&Math.abs(angularDifference(beamAngle,this.aim))<=BEAM_HALF&&this.visible(dogPoint)&&Math.abs(p.x-d.x)<330;
+  const dogPoint={x:d.x,y:this.floorY(0)-35};
+  const lit=this.flashlight&&flashlightReaches(this.lightOrigin,this.aim,dogPoint,this.sight.segments)&&Math.abs(p.x-d.x)<330;
   if(lit&&p.x>1630){d.mode='retreat';d.timer=2.5;}
   if(d.mode==='retreat'){d.x+=Math.sign(2100-d.x)*48*dt;d.facing=1;if(Math.abs(d.x-2100)<5||d.timer<=0){d.mode='idle';d.timer=3;}}
   else if(near&&d.mode!=='warn'){d.mode='warn';d.timer=1.15;this.notify('Не подходите близко. Фонарик заставит пса отступить','warn');}
@@ -134,9 +138,9 @@ export class BaseWorld{
   if(d.mode==='walk')d.x=clamp(d.x+d.facing*23*dt,1870,2110);
  }
  aimAt(point:Vec){const origin=this.lightOrigin;this.aim=Math.atan2(point.y-origin.y,point.x-origin.x);this.mouseAim=true;if(!this.player.stair&&!this.player.attack)this.player.facing=point.x>=this.player.x?1:-1;this.refreshSight();}
- save():BaseSave{return {version:2,levelId:this.level.id,openings:this.openings.map(o=>({id:o.id,state:o.state})),player:{x:this.player.x,floor:this.player.floor,hp:this.player.hp},inventory:{...this.inventory},doors:this.doors.map(d=>({id:d.id,open:d.open})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),explored:[...this.explored],powered:this.powered,flashlight:this.flashlight,time:this.time,dogHp:this.dog.hp};}
+ save():BaseSave{return {version:3,clock:{minutes:this.dayMinutes,running:this.timeRunning},levelId:this.level.id,openings:this.openings.map(o=>({id:o.id,state:o.state})),player:{x:this.player.x,floor:this.player.floor,hp:this.player.hp},inventory:{...this.inventory},doors:this.doors.map(d=>({id:d.id,open:d.open})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),explored:[...this.explored],powered:this.powered,flashlight:this.flashlight,time:this.time,dogHp:this.dog.hp};}
  restore(data:unknown){
-  const s=data as BaseSave;if(!s||![1,2].includes(s.version)||s.version===2&&s.levelId!==this.level.id||!s.player||!Number.isInteger(s.player.floor)||!Number.isFinite(s.player.x)||!s.inventory)return false;
+  const s=data as BaseSave;if(!s||![1,2,3].includes(s.version)||s.version>=2&&s.levelId!==this.level.id||!s.player||!Number.isInteger(s.player.floor)||!Number.isFinite(s.player.x)||!s.inventory)return false;
   if(s.player.floor!==0&&!levelRoomAt(this.level,s.player.x,s.player.floor))return false;
   this.reset();const p=this.player,[left,right]=walkBounds(this.level,s.player.x,s.player.floor);p.floor=s.player.floor;p.x=clamp(s.player.x,left,right);p.y=this.floorY(p.floor);p.previousX=p.x;p.previousY=p.y;p.hp=clamp(Number(s.player.hp)||100,1,100);
   const sameId=(old:string,current:string)=>old===current||(s.version===1&&`home/${old}`===current);
@@ -144,7 +148,7 @@ export class BaseWorld{
   for(const d of this.doors){const entry=Array.isArray(s.doors)?s.doors.find(x=>sameId(x.id,d.id)):null;if(entry)d.open=!!entry.open;}
   for(const o of this.objects){const entry=Array.isArray(s.objects)?s.objects.find(x=>sameId(x.id,o.id)):null;if(entry){o.searched=!!entry.searched;o.uses=clamp(Number(entry.uses)||0,0,999);}}
   for(const o of this.openings){const entry=Array.isArray(s.openings)?s.openings.find(x=>x.id===o.id):null;if(entry&&['open','boarded'].includes(entry.state))o.state=entry.state;}
-  this.explored=new Set(this.level.rooms.filter(r=>Array.isArray(s.explored)&&s.explored.some(id=>sameId(id,r.id))).map(r=>r.id));this.powered=s.version===2&&!!s.powered;this.flashlight=!!s.flashlight;this.time=Math.max(0,Number(s.time)||0);this.dog.hp=clamp(Number(s.dogHp)||0,0,60);this.refreshSight();this.notify('Вы вернулись на базу');return true;
+  this.explored=new Set(this.level.rooms.filter(r=>Array.isArray(s.explored)&&s.explored.some(id=>sameId(id,r.id))).map(r=>r.id));this.powered=s.version>=2&&!!s.powered;if(s.clock&&Number.isFinite(s.clock.minutes)){this.dayMinutes=wrapMinutes(s.clock.minutes);this.timeRunning=!!s.clock.running;}this.flashlight=!!s.flashlight;this.time=Math.max(0,Number(s.time)||0);this.dog.hp=clamp(Number(s.dogHp)||0,0,60);this.refreshSight();this.notify('Вы вернулись на базу');return true;
  }
- snapshot(){return {levelId:this.level.id,rooms:this.level.rooms.map(r=>({...r})),buildings:this.level.buildings.map(b=>({...b})),openings:this.openings.map(o=>({...o})),phase:this.phase,player:{...this.player,stair:this.player.stair?{...this.player.stair}:null},location:this.location,inventory:{...this.inventory},powered:this.powered,flashlight:this.flashlight,aim:this.aim,task:this.task?{...this.task}:null,navigation:this.navigation?{...this.navigation}:null,explored:[...this.explored],visibleObjects:this.visibleObjects().map(o=>o.id),visibleDoors:this.visibleDoors().map(d=>d.id),doors:this.doors.map(d=>({...d})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),dog:{...this.dog,visible:this.dogVisible},time:this.time,toast:this.toast};}
+ snapshot(){return {dayMinutes:this.dayMinutes,timeRunning:this.timeRunning,levelId:this.level.id,rooms:this.level.rooms.map(r=>({...r})),buildings:this.level.buildings.map(b=>({...b})),openings:this.openings.map(o=>({...o})),phase:this.phase,player:{...this.player,stair:this.player.stair?{...this.player.stair}:null},location:this.location,inventory:{...this.inventory},powered:this.powered,flashlight:this.flashlight,aim:this.aim,task:this.task?{...this.task}:null,navigation:this.navigation?{...this.navigation}:null,explored:[...this.explored],visibleObjects:this.visibleObjects().map(o=>o.id),visibleDoors:this.visibleDoors().map(d=>d.id),doors:this.doors.map(d=>({...d})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),dog:{...this.dog,visible:this.dogVisible},time:this.time,toast:this.toast};}
 }

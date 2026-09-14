@@ -11,7 +11,7 @@ const fixture=(kind:BaseObject['kind'],x:number,floor:number):BaseObject=>({id:k
 
 test('The current house is empty, damaged and contains only its architecture',()=>{
  const w=new BaseWorld();assert.equal(w.level.buildings.length,1);assert.equal(w.level.rooms.length,6);assert.ok(w.level.rooms.some(r=>r.floor===-1));
- assert.ok(w.objects.every(o=>!levelRoomAt(w.level,o.x,o.floor)));assert.deepEqual(w.visibleObjects(),[]);assert.equal(w.currentRoom?.id,'home/hall');
+ assert.ok(w.objects.every(o=>!levelRoomAt(w.level,o.x,o.floor)));assert.deepEqual(w.visibleObjects().map(o=>o.id),['barrel']);assert.equal(w.currentRoom?.id,'home/hall');
  assert.equal(w.openings.filter(o=>o.kind==='window').length,6);assert.equal(w.openings.filter(o=>o.kind==='breach').length,3);assert.ok(w.openings.every(o=>o.state==='open'&&o.repairMaterial==='wood'));
  step(w,120);assert.equal(w.player.hp,100);assert.equal(w.dogVisible,false);
 });
@@ -34,10 +34,10 @@ test('A template can omit a basement or add an extra floor',()=>{
  const level=compileLevel({...LOCATION,buildings:[{id:'home',template:'damaged-house',x:500}]},houses);assert.deepEqual(level.buildings[0].floors,[0,1,2]);
  const w=new BaseWorld(level);at(w,1190,1);assert.ok(w.tryStair(1));step(w,2);assert.equal(w.player.floor,2);assert.equal(w.player.y,185);
 });
-test('Multiple stair apertures share the same floor geometry',()=>{
+test('Multiple staircases retain a continuous front floor that blocks inter-storey sight',()=>{
  const level=structuredClone(LOCATION);level.stairs.push({id:'second-stair',from:0,to:1,a:1180,b:1360});
- const spans=floorSpans(level,level.buildings[0],1);assert.equal(spans.length,3);
- const walls=occluders(level.doors,level);assert.ok(!walls.some(s=>s.a.y===400&&s.b.y===400&&s.a.x<1260&&s.b.x>1260));
+ const spans=floorSpans(level,level.buildings[0],1);assert.deepEqual(spans,[[500,1530]]);
+ const walls=occluders(level.doors,level);assert.ok(walls.some(s=>s.a.y===400&&s.b.y===400&&s.a.x<1260&&s.b.x>1260));
 });
 test('Closed doors and intact floor slabs stop sight',()=>{
  const w=new BaseWorld();at(w,1005);assert.equal(w.visible({x:1195,y:559}),false);assert.equal(w.visible({x:1005,y:330}),false);

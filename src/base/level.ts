@@ -66,13 +66,10 @@ export function walkBounds(level:CompiledLevel,x:number,floor:Floor):[number,num
  if(floor===0)return [70,level.width-70];
  const b=level.buildings.find(b=>b.floors.includes(floor)&&x>=b.x&&x<=b.end);return b?[b.x+23,b.end-23]:[x,x];
 }
-/** All stair apertures, shared by floor drawing and light occlusion. */
-export function floorSpans(level:CompiledLevel,building:Building,floor:Floor):[number,number][] {
- let parts:[number,number][]=[[building.x,building.end]];
- for(const stair of level.stairs.filter(s=>s.to===floor&&Math.min(s.a,s.b)>=building.x&&Math.max(s.a,s.b)<=building.end)){
-  const left=Math.min(stair.a,stair.b)-15,right=Math.max(stair.a,stair.b)+15;
-  parts=parts.flatMap(([a,b])=>b<=left||a>=right?[[a,b]]:([[a,Math.max(a,left)],[Math.min(b,right),b]] as [number,number][]).filter(([a,b])=>b>a));
- }return parts;
+/** The stair travels in depth behind a continuous front floor/landing.
+ * The front plane remains opaque to sight and daylight between storeys. */
+export function floorSpans(_level:CompiledLevel,building:Building,_floor:Floor):[number,number][] {
+ return [[building.x,building.end]];
 }
 export function validateLevel(level:CompiledLevel){
  const seen=new Set<string>();for(const item of [...level.buildings,...level.rooms,...level.doors,...level.stairs,...level.openings,...level.objects,...level.gateways,...level.foreground]){if(seen.has(item.id))throw new Error(`Duplicate module id: ${item.id}`);seen.add(item.id);}

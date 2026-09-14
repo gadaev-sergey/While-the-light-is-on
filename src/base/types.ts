@@ -12,4 +12,4 @@ export interface Navigation {x:number;floor:Floor;object?:string}
 export interface Dog {x:number;previousX:number;facing:1|-1;mode:'idle'|'walk'|'warn'|'retreat'|'rest';timer:number;hp:number;hit:number}
 export interface Segment {a:Vec;b:Vec}
 export interface Action {type:'interact'|'flashlight'|'up'|'down'|'shove'|'bandage';target?:string}
-export interface BaseSave {version:1|2;levelId?:string;player:{x:number;floor:Floor;hp:number};inventory:Resources;doors:{id:string;open:boolean}[];objects:{id:string;searched:boolean;uses:number}[];openings?:{id:string;state:'open'|'boarded'}[];explored:string[];powered:boolean;flashlight:boolean;time:number;dogHp:number}
+export interface BaseSave {version:1|2|3;clock?:{minutes:number;running:boolean};levelId?:string;player:{x:number;floor:Floor;hp:number};inventory:Resources;doors:{id:string;open:boolean}[];objects:{id:string;searched:boolean;uses:number}[];openings?:{id:string;state:'open'|'boarded'}[];explored:string[];powered:boolean;flashlight:boolean;time:number;dogHp:number}

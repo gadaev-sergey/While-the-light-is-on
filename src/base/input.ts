@@ -7,7 +7,8 @@ export class BaseInput{
  constructor(private w:BaseWorld,private renderer:BaseRenderer,private ui:BaseUI){
   const canvas=renderer.canvas;
   window.addEventListener('keydown',e=>{
-   if(e.code==='Escape'){e.preventDefault();if(!e.repeat){this.clear();ui.togglePause();}return;}
+   if(e.code==='Escape'){e.preventDefault();if(!e.repeat){this.clear();if(ui.timeOpen)ui.setTimePanel(false);else ui.togglePause();}return;}
+   if((e.target as HTMLElement).closest('input,textarea,select,#time-panel')||(['Space','Enter'].includes(e.code)&&(e.target as HTMLElement).closest('button')))return;
    if(['KeyI','KeyM'].includes(e.code)){e.preventDefault();if(!e.repeat){this.clear();if(ui.dialog.open)ui.close();else ui.open(e.code==='KeyI'?'inventory':'map');}return;}
    if(w.phase!=='playing')return;
    const controlled=['KeyA','KeyD','KeyW','KeyS','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyE','KeyF','KeyJ','KeyH','ShiftLeft','ShiftRight','Space'];if(controlled.includes(e.code))e.preventDefault();
@@ -24,7 +25,7 @@ export class BaseInput{
  }
  clear(){this.keys.clear();}
  update(dt:number){
-  const keys=this.keys;if(this.w.phase==='playing'&&!this.w.player.stair){if(keys.has('KeyW')||keys.has('ArrowUp'))this.w.tryStair(1);else if(keys.has('KeyS')||keys.has('ArrowDown'))this.w.tryStair(-1);}
+  const keys=this.keys;if(this.ui.timeOpen)keys.clear();if(this.w.phase==='playing'&&!this.w.player.stair){if(keys.has('KeyW')||keys.has('ArrowUp'))this.w.tryStair(1);else if(keys.has('KeyS')||keys.has('ArrowDown'))this.w.tryStair(-1);}
   const dx=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
   this.w.update(dt,dx,keys.has('ShiftLeft')||keys.has('ShiftRight'));
  }

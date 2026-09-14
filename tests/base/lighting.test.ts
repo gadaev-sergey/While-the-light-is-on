@@ -1,0 +1,49 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {BaseWorld} from '../../src/base/world.ts';
+import {canSee,occluders} from '../../src/base/visibility.ts';
+import {daylightAt,daylightSources,daylightStyle,flashlightReaches,timeLabel,timeOfDay} from '../../src/base/lighting.ts';
+const tick=(w:BaseWorld,seconds:number)=>{for(let t=0;t<seconds;t+=1/60)w.update(1/60);};
+
+test('Visibility is geometric and identical with either lamp state, aim and time of day',()=>{
+ const w=new BaseWorld(),points=[{x:365,y:550},{x:980,y:530},{x:1200,y:530},{x:600,y:330},{x:600,y:780}];
+ const expected=points.map(p=>w.visible(p)),objects=w.visibleObjects().map(o=>o.id);assert.deepEqual(expected,[true,true,false,false,false]);
+ for(const minutes of [0,420,720,1140])for(const lamp of [true,false]){w.setTime(minutes);w.flashlight=lamp;w.aim=Math.PI;w.player.facing=-1;w.refreshSight();assert.deepEqual(points.map(p=>w.visible(p)),expected);assert.deepEqual(w.visibleObjects().map(o=>o.id),objects);}
+ assert.equal(canSee({origin:{x:0,y:0},segments:[]},{x:900,y:0}),false);
+});
+test('Windows and breaches light their floor; boarding each aperture removes that source',()=>{
+ const w=new BaseWorld();w.doors.forEach(d=>d.open=false);
+ for(const id of ['home/hall-window-0','home/hall-breach']){
+  const opening=w.openings.find(o=>o.id===id)!;
+  const isolated=w.openings.map(o=>({...o,state:o.id===opening.id?'open' as const:'boarded' as const}));
+  const sources=daylightSources(w.level,w.doors,isolated,720),segments=occluders(w.doors,w.level,isolated);
+  assert.equal(sources.length,3);assert.ok(daylightAt({x:opening.x,y:550},sources,segments)>.1);
+  assert.equal(daylightAt({x:opening.x,y:330},sources,segments),0);assert.equal(daylightAt({x:opening.x,y:760},sources,segments),0);
+  assert.equal(daylightAt({x:1200,y:550},sources,segments),0);
+  isolated.forEach(o=>o.state='boarded');assert.equal(daylightSources(w.level,w.doors,isolated,720).length,0);
+ }
+});
+test('Exterior doors admit daylight only when open; internal doors transmit existing light',()=>{
+ const w=new BaseWorld();w.openings.forEach(o=>o.state='boarded');w.doors.forEach(d=>d.open=false);assert.equal(daylightSources(w.level,w.doors,w.openings,720).length,0);
+ const entry=w.doors.find(d=>d.id==='home/entry')!;entry.open=true;let sources=daylightSources(w.level,w.doors,w.openings,720);assert.ok(daylightAt({x:600,y:550},sources,occluders(w.doors,w.level,w.openings))>.1);
+ entry.open=false;const yard=w.doors.find(d=>d.id==='home/yard-door')!;yard.open=true;sources=daylightSources(w.level,w.doors,w.openings,720);assert.ok(daylightAt({x:1450,y:550},sources,occluders(w.doors,w.level,w.openings))>.1);
+ assert.equal(daylightSources(w.level,w.doors,w.openings,0).length,0);
+ const breach=w.openings.find(o=>o.id==='home/hall-breach')!;breach.state='open';sources=daylightSources(w.level,w.doors,w.openings,720).filter(s=>s.id.startsWith(breach.id));
+ assert.equal(daylightAt({x:1120,y:550},sources,occluders(w.doors,w.level,w.openings)),0);
+ w.doors.find(d=>d.id==='home/kitchen-door')!.open=true;assert.ok(daylightAt({x:1120,y:550},sources,occluders(w.doors,w.level,w.openings))>.05);
+});
+test('Flashlight has a directional beam without a radial reveal and stops at architecture',()=>{
+ const w=new BaseWorld(),o={x:1000,y:546};
+ assert.ok(flashlightReaches(o,Math.PI,{x:800,y:546},w.sight.segments));assert.equal(flashlightReaches(o,0,{x:970,y:546},w.sight.segments),false);
+ assert.equal(flashlightReaches(o,0,{x:1200,y:546},w.sight.segments),false);assert.equal(flashlightReaches(o,-Math.PI/2,{x:1000,y:350},w.sight.segments),false);
+ w.doors.find(d=>d.id==='home/kitchen-door')!.open=true;w.refreshSight();assert.ok(flashlightReaches(o,0,{x:1200,y:546},w.sight.segments));
+});
+test('Manual clock, midnight rollover, pause, reset and v1/v2 migration remain deterministic',()=>{
+ const w=new BaseWorld();assert.equal(w.dayMinutes,720);tick(w,2);assert.equal(w.dayMinutes,720);
+ w.setTime(1439);w.setTimeRunning(true);tick(w,1);assert.ok(w.dayMinutes>0&&w.dayMinutes<2);w.phase='paused';const now=w.dayMinutes;tick(w,1);assert.equal(w.dayMinutes,now);
+ w.setTime(420);assert.equal(w.timeRunning,false);assert.equal(timeLabel(w.dayMinutes),'07:00');assert.equal(timeOfDay(w.dayMinutes),'УТРО');w.setTime(NaN);assert.equal(w.dayMinutes,420);
+ w.setTimeRunning(true);const saved=w.save(),copy=new BaseWorld();assert.ok(copy.restore(saved));assert.equal(copy.dayMinutes,420);assert.equal(copy.timeRunning,true);
+ for(const version of [1,2] as const){const legacy={...saved,version,clock:undefined};const old=new BaseWorld();assert.ok(old.restore(legacy));assert.equal(old.dayMinutes,720);assert.equal(old.timeRunning,false);}
+ w.reset();assert.equal(w.dayMinutes,720);assert.equal(w.timeRunning,false);assert.equal(timeLabel(-1),'23:59');
+ assert.ok(daylightStyle(720).sun>daylightStyle(420).sun);assert.ok(daylightStyle(1140).sun>daylightStyle(0).sun);
+});

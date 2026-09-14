@@ -9,7 +9,7 @@ async function shot(page:Page,name:string){await fs.mkdir('artifacts/modular-hou
 
 test('The empty modular house loads without old furniture prompts or invisible objects',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await ready(page);
- const w=await state(page);expect(w.objects.map((o:any)=>o.id)).toEqual(['barrel','yard-toolbox']);expect(w.visibleObjects).toEqual([]);expect(w.openings).toHaveLength(9);expect(w.buildings).toHaveLength(1);
+ const w=await state(page);expect(w.objects.map((o:any)=>o.id)).toEqual(['barrel','yard-toolbox']);expect(w.visibleObjects).toEqual(['barrel']);expect(w.openings).toHaveLength(9);expect(w.buildings).toHaveLength(1);
  await expect(page.locator('#goal-text')).toHaveText('Осмотрите верхний этаж и подвал');await expect(page.locator('#quick-wood')).toHaveText('0');await page.keyboard.press('KeyE');expect((await state(page)).task).toBeNull();await shot(page,'entrance');
  await page.keyboard.press('KeyM');await expect(page.locator('.plan-room')).toHaveCount(6);await expect(page.locator('.plan-room.unknown')).toHaveCount(5);await page.getByRole('button',{name:'Закрыть',exact:true}).click();expect(errors).toEqual([]);
 });
@@ -18,7 +18,7 @@ test('A real route crosses every floor and the breached upper partition',async({
  expect((await state(page)).location).toBe('Спальня');await move(page,950);await stair(page,'KeyS',0);await move(page,1010);await page.keyboard.press('KeyE');await move(page,1398);await stair(page,'KeyS',-1);await shot(page,'empty-basement');
  await move(page,1100);await page.keyboard.press('KeyE');await move(page,820);expect((await state(page)).explored).toHaveLength(6);await expect(page.locator('#goal-caption')).toHaveText('ДОМ ОСМОТРЕН');await page.keyboard.press('KeyM');await shot(page,'explored-map');expect(errors).toEqual([]);
 });
-test('Doors and flashlight still clip visibility in the empty house',async({page})=>{
+test('Doors clip visibility while the flashlight changes illumination',async({page})=>{
  await ready(page);await move(page,1008);await aim(page,1300,550);await shot(page,'closed-door');await page.keyboard.press('KeyE');expect((await state(page)).doors.find((d:any)=>d.id==='home/kitchen-door').open).toBe(true);await shot(page,'open-door');
  await page.keyboard.press('KeyF');await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed','false');await page.keyboard.press('KeyF');await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed','true');
 });
@@ -36,4 +36,18 @@ test('Mobile controls remain visible and move the preserved developer',async({br
  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),page=await context.newPage();await ready(page);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(390);await expect(page.locator('.touch-controls')).toBeVisible();
  const before=(await state(page)).player.x,right=page.getByRole('button',{name:'Вправо',exact:true});await right.dispatchEvent('pointerdown',{pointerId:1,pointerType:'touch'});await page.waitForTimeout(400);await right.dispatchEvent('pointerup',{pointerId:1,pointerType:'touch'});expect((await state(page)).player.x).toBeGreaterThan(before+45);
  await page.locator('#flashlight').tap();await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed','false');await page.getByRole('button',{name:'Приблизить',exact:true}).tap();await expect(page.locator('#zoom-value')).toHaveText('110%');await shot(page,'mobile');await context.close();
+});
+
+test('Time controls switch lighting, preserve sight, support keyboard input and persist',async({page})=>{
+ await ready(page);const before=await state(page);await page.getByRole('button',{name:'Время суток',exact:true}).click();await expect(page.locator('#time-panel')).toBeVisible();
+ for(const [name,time] of [['Ночь','00:00'],['Утро','07:00'],['Вечер','19:00'],['День','12:00']]){await page.getByRole('button',{name,exact:true}).click();await expect(page.locator('#base-clock')).toHaveText(time);expect((await state(page)).visibleObjects).toEqual(before.visibleObjects);await shot(page,`time-${name}`);}
+ await page.getByRole('slider',{name:'Выбрать время'}).fill('1199');await page.getByRole('slider').press('ArrowRight');await expect(page.locator('#base-clock')).toHaveText('20:00');expect((await state(page)).player.x).toBe(before.player.x);
+ await page.locator('#time-auto').click();await expect.poll(async()=>(await state(page)).dayMinutes).toBeGreaterThan(1200.5);
+ await page.getByRole('button',{name:'Ночь',exact:true}).click();expect((await state(page)).timeRunning).toBe(false);await page.keyboard.press('Escape');await expect(page.locator('#time-panel')).toBeHidden();expect((await state(page)).phase).toBe('playing');
+ await page.keyboard.press('KeyF');expect((await state(page)).visibleObjects).toEqual(before.visibleObjects);await shot(page,'night-no-lamp');await page.waitForTimeout(2200);await page.reload();await expect(page.locator('#base-clock')).toHaveText('00:00');expect((await state(page)).timeRunning).toBe(false);
+});
+
+test('Time controls fit the mobile viewport',async({browser})=>{
+ const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),page=await context.newPage();await ready(page);
+ await page.getByRole('button',{name:'Время суток',exact:true}).tap();await page.getByRole('button',{name:'Ночь',exact:true}).tap();await expect(page.locator('#base-clock')).toHaveText('00:00');const box=(await page.locator('#time-panel').boundingBox())!;expect(box.x).toBeGreaterThanOrEqual(0);expect(box.x+box.width).toBeLessThanOrEqual(390);await shot(page,'mobile-clock');await context.close();
 });

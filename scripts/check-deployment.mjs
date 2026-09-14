@@ -44,6 +44,13 @@ try {
   await expect(page.getByRole('heading', {name: 'План дома', exact: true})).toBeVisible();
   await expect(page.locator('.plan-room')).toHaveCount(6);
   await page.getByRole('button', {name: 'Закрыть', exact: true}).click();
+  await page.getByRole('button', {name: 'Время суток', exact: true}).click();
+  await page.getByRole('button', {name: 'Ночь', exact: true}).click();
+  await expect(page.locator('#base-clock')).toHaveText('00:00');
+  await page.getByRole('button', {name: 'День', exact: true}).click();
+  await expect(page.locator('#base-clock')).toHaveText('12:00');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#time-panel')).toBeHidden();
   await page.screenshot({path: 'artifacts/deployment/desktop.png'});
   await context.close();
 
@@ -54,6 +61,9 @@ try {
   await expect(mobile.page.locator('#interact')).toHaveAttribute('aria-disabled', 'true');
   await mobile.page.locator('#flashlight').tap();
   await expect(mobile.page.locator('#flashlight')).toHaveAttribute('aria-pressed', 'false');
+  await mobile.page.getByRole('button', {name: 'Время суток', exact: true}).tap();
+  await mobile.page.getByRole('button', {name: 'Утро', exact: true}).tap();
+  await expect(mobile.page.locator('#base-clock')).toHaveText('07:00');
   await mobile.page.screenshot({path: 'artifacts/deployment/mobile.png'});
   await mobile.context.close();
 
@@ -61,7 +71,7 @@ try {
     expect(loadedImages.has(`${url.pathname}assets/${asset}.png`), `Missing image: ${asset}`).toBe(true);
   }
   expect(failures).toEqual([]);
-  console.log(`Deployment OK: ${url.href}\n9 image assets, desktop and mobile interaction, flashlight and map; no runtime or network errors.`);
+  console.log(`Deployment OK: ${url.href}\n9 image assets, desktop and mobile interaction, flashlight, map and time controls; no runtime or network errors.`);
 } finally {
   await browser.close();
 }

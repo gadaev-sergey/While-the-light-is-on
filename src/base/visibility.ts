@@ -10,16 +10,17 @@ export function rayDistance(origin:Vec,angle:number,segments:Segment[],range:num
 }
 export function lineOfSight(origin:Vec,target:Vec,segments:Segment[]){const d=Math.hypot(target.x-origin.x,target.y-origin.y);return rayDistance(origin,Math.atan2(target.y-origin.y,target.x-origin.x),segments,d)>=d-2;}
 export const angularDifference=(a:number,b:number)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
-export interface Sight {origin:Vec;angle:number;flashlight:boolean;powered:boolean;segments:Segment[]}
-export const NEAR_SIGHT=110,BEAM_RANGE=455,BEAM_HALF=.43;
+export interface Sight {origin:Vec;segments:Segment[]}
+export const SIGHT_RANGE=800,BEAM_RANGE=455,BEAM_HALF=.43;
+/** Perception depends only on distance and geometry. Light never unlocks visibility. */
 export function canSee(sight:Sight,target:Vec){
- const dx=target.x-sight.origin.x,dy=target.y-sight.origin.y,d=Math.hypot(dx,dy),delta=Math.abs(angularDifference(Math.atan2(dy,dx),sight.angle));
- const near=d<=NEAR_SIGHT,forward=delta<1.02&&d<185,beam=sight.flashlight&&delta<=BEAM_HALF&&d<=BEAM_RANGE;
- const ambient=sight.powered&&d<245;
- return (near||forward||beam||ambient)&&lineOfSight(sight.origin,target,sight.segments);
+ return Math.hypot(target.x-sight.origin.x,target.y-sight.origin.y)<=SIGHT_RANGE&&lineOfSight(sight.origin,target,sight.segments);
 }
-export function visibilityPolygon(origin:Vec,angle:number,spread:number,range:number,segments:Segment[],steps=90){
- const result:Vec[]=[origin];for(let i=0;i<=steps;i++){const a=angle-spread+i/steps*spread*2,d=rayDistance(origin,a,segments,range);result.push({x:origin.x+Math.cos(a)*d,y:origin.y+Math.sin(a)*d});}return result;
+export function visibilityPolygon(origin:Vec,angle:number,spread:number,range:number,segments:Segment[],steps=100){
+ const offsets:number[]=[];for(let i=0;i<=steps;i++)offsets.push(-spread+i/steps*spread*2);
+ // Include wall corners so the mask follows narrow doorways without angular stair-stepping.
+ for(const s of segments)for(const p of [s.a,s.b]){const delta=angularDifference(Math.atan2(p.y-origin.y,p.x-origin.x),angle);for(const epsilon of [-.0001,0,.0001])if(Math.abs(delta+epsilon)<spread)offsets.push(delta+epsilon);}
+ offsets.sort((a,b)=>a-b);const result:Vec[]=[origin];for(const offset of offsets){const a=angle+offset,d=rayDistance(origin,a,segments,range);result.push({x:origin.x+Math.cos(a)*d,y:origin.y+Math.sin(a)*d});}return result;
 }
 /** Back-wall openings are in depth. Dividers are on the movement plane and block both actors and rays. */
 export function occluders(doors:Door[],level:CompiledLevel=LOCATION,openings:Opening[]=level.openings):Segment[]{
