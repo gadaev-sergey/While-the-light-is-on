@@ -30,8 +30,12 @@ async function openGame(options) {
 
 try {
   const {page, context} = await openGame({viewport: {width: 1440, height: 1000}});
+  await expect(page.locator('#interact')).toHaveAttribute('aria-disabled', 'true');
+  await page.keyboard.down('KeyA');
+  await page.waitForTimeout(1250);
+  await page.keyboard.up('KeyA');
   await page.keyboard.press('KeyE');
-  await expect(page.locator('#quick-wood')).toHaveText('3', {timeout: 10000});
+  await expect(page.locator('#quick-water')).toHaveText('1', {timeout: 10000});
   await page.keyboard.press('KeyF');
   await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed', 'false');
   await page.keyboard.press('KeyF');
@@ -46,18 +50,18 @@ try {
   const mobile = await openGame({viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true});
   expect(await mobile.page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   await expect(mobile.page.locator('.touch-controls')).toBeVisible();
-  await mobile.page.locator('#interact').tap();
-  await expect(mobile.page.locator('#quick-wood')).toHaveText('3', {timeout: 10000});
+  await expect(mobile.page.locator('#quick-wood')).toHaveText('0');
+  await expect(mobile.page.locator('#interact')).toHaveAttribute('aria-disabled', 'true');
   await mobile.page.locator('#flashlight').tap();
   await expect(mobile.page.locator('#flashlight')).toHaveAttribute('aria-pressed', 'false');
   await mobile.page.screenshot({path: 'artifacts/deployment/mobile.png'});
   await mobile.context.close();
 
-  for (const asset of ['base/district', 'base/materials', 'base/furniture', 'base/objects', 'base/dog', 'developer-walk', 'developer-attack', 'developer-left-punch']) {
+  for (const asset of ['base/district', 'base/materials', 'base/furniture', 'base/objects', 'base/dog', 'base/house-damage', 'developer-walk', 'developer-attack', 'developer-left-punch']) {
     expect(loadedImages.has(`${url.pathname}assets/${asset}.png`), `Missing image: ${asset}`).toBe(true);
   }
   expect(failures).toEqual([]);
-  console.log(`Deployment OK: ${url.href}\n8 image assets, desktop and mobile interaction, flashlight and map; no runtime or network errors.`);
+  console.log(`Deployment OK: ${url.href}\n9 image assets, desktop and mobile interaction, flashlight and map; no runtime or network errors.`);
 } finally {
   await browser.close();
 }

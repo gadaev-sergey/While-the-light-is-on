@@ -1,4 +1,5 @@
-import {BASE,ROOMS,STAIRS,floorY} from './config.ts';
+import {LOCATION} from './config.ts';
+import {floorSpans,levelFloorY,type CompiledLevel,type Opening} from './level.ts';
 import type {Vec,Segment,Door,Floor} from './types.ts';
 const cross=(a:Vec,b:Vec)=>a.x*b.y-a.y*b.x;
 export function rayDistance(origin:Vec,angle:number,segments:Segment[],range:number){
@@ -20,16 +21,18 @@ export function canSee(sight:Sight,target:Vec){
 export function visibilityPolygon(origin:Vec,angle:number,spread:number,range:number,segments:Segment[],steps=90){
  const result:Vec[]=[origin];for(let i=0;i<=steps;i++){const a=angle-spread+i/steps*spread*2,d=rayDistance(origin,a,segments,range);result.push({x:origin.x+Math.cos(a)*d,y:origin.y+Math.sin(a)*d});}return result;
 }
-/** Every floor slab and closed door blocks light. Stair apertures are real gaps. */
-export function occluders(doors:Door[]):Segment[]{
+/** Back-wall openings are in depth. Dividers are on the movement plane and block both actors and rays. */
+export function occluders(doors:Door[],level:CompiledLevel=LOCATION,openings:Opening[]=level.openings):Segment[]{
  const result:Segment[]=[];const add=(x:number,y:number,x2:number,y2:number)=>result.push({a:{x,y},b:{x:x2,y:y2}});
- for(const f of [-1,0,1] as Floor[]){
-  const y=floorY(f),stair=STAIRS.find(s=>s.to===f);
-  if(stair){add(BASE.houseLeft,y,Math.min(stair.a,stair.b)-15,y);add(Math.max(stair.a,stair.b)+15,y,BASE.houseRight,y);}else add(BASE.houseLeft,y,BASE.houseRight,y);
-  for(const x of [BASE.houseLeft,BASE.houseRight])if(f!==0)add(x,y-215,x,y);
- }
- add(BASE.houseLeft,floorY(1)-215,BASE.houseRight,floorY(1)-215);
- for(const d of doors){const y=floorY(d.floor);add(d.x,y-215,d.x,d.open?y-148:y);}
- return result;
+ for(const b of level.buildings){
+  for(const f of b.floors){const y=levelFloorY(level,f);
+   for(const [left,right] of floorSpans(level,b,f))add(left,y,right,y);
+   const walls=new Set(level.rooms.filter(r=>r.buildingId===b.id&&r.floor===f).flatMap(r=>[r.x,r.end]));
+   for(const x of walls){const door=doors.find(d=>d.floor===f&&d.x===x),hole=openings.find(o=>o.floor===f&&o.plane==='divider'&&o.x===x);
+    const bottom=door?.open?y-148:hole?.state==='open'?y-hole.height:y;add(x,y-level.floorHeight,x,bottom);
+   }
+  }
+  const roof=levelFloorY(level,Math.max(...b.floors))-level.floorHeight;add(b.x,roof,b.end,roof);
+ }return result;
 }
-export function visibleRoomSamples(sight:Sight){return ROOMS.filter(r=>[.15,.5,.85].some(t=>canSee(sight,{x:r.x+(r.end-r.x)*t,y:floorY(r.floor)-75}))).map(r=>r.id);}
+export function visibleRoomSamples(sight:Sight,level:CompiledLevel=LOCATION){return level.rooms.filter(r=>[.15,.5,.85].some(t=>canSee(sight,{x:r.x+(r.end-r.x)*t,y:levelFloorY(level,r.floor)-75}))).map(r=>r.id);}

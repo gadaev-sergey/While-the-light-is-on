@@ -1,28 +1,33 @@
-import {BASE,DOORS,OBJECTS,ROOMS,STAIRS,clamp,floorY,roomAt} from './config.ts';
+import {BASE,LOCATION,clamp} from './config.ts';
+import {levelFloorY,levelRoomAt,walkBounds,type CompiledLevel,type Opening,type OpeningState} from './level.ts';
 import {canSee,occluders,visibleRoomSamples,angularDifference,BEAM_HALF,type Sight} from './visibility.ts';
 import type {Action,BaseObject,BaseSave,Dog,Door,Floor,Navigation,Player,Resources,Task,Vec} from './types.ts';
 export class BaseWorld{
  player!:Player;dog!:Dog;doors:Door[]=[];objects:BaseObject[]=[];inventory!:Resources;explored=new Set<string>();
  phase:'playing'|'paused'='playing';flashlight=true;powered=false;time=0;aim=0;mouseAim=false;task:Task|null=null;navigation:Navigation|null=null;
  toast='';toastTime=0;toastKind:'info'|'good'|'warn'='info';sight!:Sight;onSound=(name:string)=>{};revision=0;
- constructor(){this.reset();}
+ openings:Opening[]=[];
+ level:CompiledLevel;
+ constructor(level:CompiledLevel=LOCATION){this.level=level;this.reset();}
+ floorY(floor:Floor){return levelFloorY(this.level,floor);}
+ setOpeningState(id:string,state:OpeningState){const o=this.openings.find(o=>o.id===id);if(!o)return false;o.state=state;this.revision++;this.refreshSight();return true;}
  reset(){
-  this.player={x:595,y:floorY(0),previousX:595,previousY:floorY(0),floor:0,facing:1,moving:false,distance:0,previousDistance:0,hp:100,attack:0,attackHit:false,hurt:0,stair:null};
+  this.player={x:this.level.spawn.x,y:this.floorY(this.level.spawn.floor),previousX:this.level.spawn.x,previousY:this.floorY(this.level.spawn.floor),floor:this.level.spawn.floor,facing:1,moving:false,distance:0,previousDistance:0,hp:100,attack:0,attackHit:false,hurt:0,stair:null};
   this.dog={x:2010,previousX:2010,facing:-1,mode:'idle',timer:3,hp:60,hit:0};
-  this.inventory={wood:0,scrap:0,cloth:0,water:0,fuse:0,bandage:0};this.doors=DOORS.map(d=>({...d}));this.objects=OBJECTS.map(o=>({...o}));this.explored=new Set(['hall']);
+  this.inventory={wood:0,scrap:0,cloth:0,water:0,fuse:0,bandage:0};this.doors=this.level.doors.map(d=>({...d}));this.objects=this.level.objects.map(o=>({...o}));this.openings=this.level.openings.map(o=>({...o}));this.explored=new Set<string>();
   this.flashlight=true;this.powered=false;this.time=0;this.aim=0;this.mouseAim=false;this.task=null;this.navigation=null;this.phase='playing';this.refreshSight();this.revision++;
-  this.notify('Дом — ваша база. Осмотритесь и загляните в ящик рядом.');
+  this.notify('Дом опустел. Осмотрите комнаты и повреждения стен.');
  }
  notify(text:string,kind:'info'|'good'|'warn'='info'){this.toast=text;this.toastKind=kind;this.toastTime=4.5;}
- get currentRoom(){return roomAt(this.player.x,this.player.floor);}
+ get currentRoom(){return levelRoomAt(this.level,this.player.x,this.player.floor);}
  get location(){return this.player.stair?'Лестница':this.currentRoom?.name||'Двор';}
  get lightOrigin(){return {x:this.player.x+this.player.facing*17,y:this.player.y-69};}
- refreshSight(){this.sight={origin:this.lightOrigin,angle:this.aim,flashlight:this.flashlight,powered:this.powered,segments:occluders(this.doors)};for(const id of visibleRoomSamples(this.sight))this.explored.add(id);}
+ refreshSight(){this.sight={origin:this.lightOrigin,angle:this.aim,flashlight:this.flashlight,powered:this.powered,segments:occluders(this.doors,this.level,this.openings)};for(const id of visibleRoomSamples(this.sight,this.level))this.explored.add(id);}
  visible(point:Vec){return canSee(this.sight,point);}
- objectPoint(o:BaseObject){return {x:o.x,y:floorY(o.floor)-Math.min(o.height*.5,58)};}
+ objectPoint(o:BaseObject){return {x:o.x,y:this.floorY(o.floor)-Math.min(o.height*.5,58)};}
  visibleObjects(){return this.objects.filter(o=>!(o.kind==='rubble'&&o.searched)&&this.visible(this.objectPoint(o)));}
- visibleDoors(){return this.doors.filter(d=>this.visible({x:d.x,y:floorY(d.floor)-65}));}
- get dogVisible(){return this.dog.hp>0&&this.visible({x:this.dog.x,y:floorY(0)-35});}
+ visibleDoors(){return this.doors.filter(d=>this.visible({x:d.x,y:this.floorY(d.floor)-65}));}
+ get dogVisible(){return this.dog.hp>0&&this.visible({x:this.dog.x,y:this.floorY(0)-35});}
  nearby(){
   const p=this.player;if(p.stair||p.attack||p.hurt)return null;
   const targets=[...this.visibleObjects(),...this.visibleDoors()].filter(o=>o.floor===p.floor&&Math.abs(o.x-p.x)<76);
@@ -52,7 +57,7 @@ export class BaseWorld{
    if(p.stair||p.attack||p.hurt)return;if(this.task){this.cancelTask();return;}
    const id=action.target||this.nearby()?.id;if(!id)return;
    const object=this.objects.find(o=>o.id===id),door=this.doors.find(o=>o.id===id),target=object||door;
-   if(!target||target.floor!==p.floor||Math.abs(target.x-p.x)>76||!this.visible({x:target.x,y:floorY(target.floor)-55}))return;
+   if(!target||target.floor!==p.floor||Math.abs(target.x-p.x)>76||!this.visible({x:target.x,y:this.floorY(target.floor)-55}))return;
    if(door){door.open=!door.open;this.navigation=null;this.refreshSight();this.onSound('door');this.revision++;return;}
    if(!object)return;
    if(['chest','wardrobe','medicine','rubble'].includes(object.kind)&&object.searched){this.notify('Здесь больше ничего нет');return;}
@@ -79,15 +84,15 @@ export class BaseWorld{
   }
   this.notify(message,'good');this.onSound('done');this.revision++;this.refreshSight();
  }
- setTarget(x:number,floor:Floor,object?:string){if(this.phase!=='playing')return;if(this.task)this.cancelTask();this.navigation={x:clamp(x,floor===0?70:BASE.houseLeft+25,floor===0?BASE.width-70:BASE.houseRight-25),floor,object};}
+ setTarget(x:number,floor:Floor,object?:string){if(this.phase!=='playing')return;if(this.task)this.cancelTask();if(floor!==0&&!levelRoomAt(this.level,x,floor))return;const [left,right]=walkBounds(this.level,x,floor);this.navigation={x:clamp(x,left,right),floor,object};}
  tryStair(direction:number){
   const p=this.player;if(p.stair||p.attack||this.task)return false;
-  const link=STAIRS.find(s=>direction>0?s.from===p.floor&&Math.abs(p.x-s.a)<70:s.to===p.floor&&Math.abs(p.x-s.b)<70);
+  const link=this.level.stairs.find(s=>direction>0?s.from===p.floor&&Math.abs(p.x-s.a)<70:s.to===p.floor&&Math.abs(p.x-s.b)<70);
   if(!link)return false;const reverse=direction<0;p.stair={id:link.id,t:0,reverse,approach:Math.abs(p.x-(reverse?link.b:link.a))/BASE.speed};return true;
  }
  move(dx:number,dt:number,run:boolean){
-  const p=this.player,from=p.x;let next=clamp(from+dx*(run?BASE.runSpeed:BASE.speed)*dt,p.floor===0?70:BASE.houseLeft+23,p.floor===0?BASE.width-70:BASE.houseRight-23);
-  for(const d of this.doors)if(d.floor===p.floor&&!d.open){if(from<=d.x-12&&next>d.x-12)next=d.x-12;if(from>=d.x+12&&next<d.x+12)next=d.x+12;}
+  const p=this.player,from=p.x,[left,right]=walkBounds(this.level,from,p.floor);let next=clamp(from+dx*(run?BASE.runSpeed:BASE.speed)*dt,left,right);
+  for(const wall of occluders(this.doors,this.level,this.openings)){if(wall.a.x!==wall.b.x||Math.min(wall.a.y,wall.b.y)>p.y-65||Math.max(wall.a.y,wall.b.y)<p.y-65)continue;const x=wall.a.x;if(from<=x-12&&next>x-12)next=x-12;if(from>=x+12&&next<x+12)next=x+12;}
   p.x=next;if(dx){p.facing=dx>0?1:-1;if(!this.mouseAim)this.aim=p.facing===1?0:Math.PI;}
   p.moving=Math.abs(next-from)>.001;p.distance+=Math.abs(next-from);
  }
@@ -96,18 +101,20 @@ export class BaseWorld{
   this.time+=dt;this.toastTime=Math.max(0,this.toastTime-dt);p.hurt=Math.max(0,p.hurt-dt);
   if(p.attack){p.attack=Math.max(0,p.attack-dt);p.moving=false;if(p.attack<.25&&!p.attackHit){p.attackHit=true;if(this.dog.hp>0&&p.floor===0&&Math.abs(p.x-this.dog.x)<110&&(this.dog.x-p.x)*p.facing>-10){this.dog.hp-=20;this.dog.x=clamp(this.dog.x+p.facing*85,1730,2150);this.dog.hit=.25;this.dog.mode='retreat';this.dog.timer=3;this.onSound('hit');}}}
   else if(p.stair){
-   const s=STAIRS.find(s=>s.id===p.stair!.id)!,reverse=p.stair.reverse;
+   const s=this.level.stairs.find(s=>s.id===p.stair!.id)!,reverse=p.stair.reverse;
    if(p.stair.approach>0){const entry=reverse?s.b:s.a,dx=entry-p.x;p.x+=Math.sign(dx)*Math.min(Math.abs(dx),BASE.speed*dt);p.stair.approach=Math.max(0,p.stair.approach-dt);if(!p.stair.approach)p.x=entry;}
-   else{p.stair.t=Math.min(1,p.stair.t+dt/1.85);const t=reverse?1-p.stair.t:p.stair.t;p.x=s.a+(s.b-s.a)*t;p.y=floorY(s.from)+(floorY(s.to)-floorY(s.from))*t;}
+   else{p.stair.t=Math.min(1,p.stair.t+dt/1.85);const t=reverse?1-p.stair.t:p.stair.t;p.x=s.a+(s.b-s.a)*t;p.y=this.floorY(s.from)+(this.floorY(s.to)-this.floorY(s.from))*t;}
    p.facing=p.x>=p.previousX?1:-1;p.moving=true;p.distance+=Math.hypot(p.x-p.previousX,(p.y-p.previousY)*.45);if(!this.mouseAim)this.aim=p.facing===1?-.22:Math.PI-.22;
-   if(p.stair.t>=1){p.floor=reverse?s.from:s.to;p.y=floorY(p.floor);p.stair=null;p.moving=false;this.revision++;}
+   if(p.stair.t>=1){p.floor=reverse?s.from:s.to;p.y=this.floorY(p.floor);p.stair=null;p.moving=false;this.revision++;}
   }else if(this.task){p.moving=false;if(direction){this.cancelTask();this.navigation=null;this.move(direction,dt,run);}else{this.task.remaining=Math.max(0,this.task.remaining-dt);if(!this.task.remaining)this.finishTask();}}
   else if(direction){this.navigation=null;this.move(direction,dt,run);}
   else if(this.navigation){
    const dest=this.navigation;let x=dest.x;
-   if(p.floor!==dest.floor){const up=dest.floor>p.floor,stair=STAIRS.find(s=>up?s.from===p.floor:s.to===p.floor);if(stair){x=up?stair.a:stair.b;if(Math.abs(x-p.x)<15){this.tryStair(up?1:-1);this.refreshSight();return;}}}
+   const current=levelRoomAt(this.level,p.x,p.floor),target=levelRoomAt(this.level,dest.x,dest.floor);
+   const wanted=current?.buildingId!==target?.buildingId&&p.floor!==0?0:dest.floor;
+   if(p.floor!==wanted){const up=wanted>p.floor,building=p.floor===0?target?.buildingId:current?.buildingId,stair=this.level.stairs.filter(s=>levelRoomAt(this.level,s.a,s.from)?.buildingId===building).find(s=>up?s.from===p.floor:s.to===p.floor);if(!stair){this.navigation=null;return;}x=up?stair.a:stair.b;if(Math.abs(x-p.x)<15){this.tryStair(up?1:-1);this.refreshSight();return;}}
    if(dest.object&&p.floor===dest.floor&&Math.abs(dest.x-p.x)<68){this.navigation=null;this.action({type:'interact',target:dest.object});this.refreshSight();return;}
-   const distance=x-p.x;if(Math.abs(distance)>8){const before=p.x;this.move(Math.sign(distance),Math.min(dt,Math.abs(distance)/(run?BASE.runSpeed:BASE.speed)),run);if(before===p.x){this.navigation=null;this.notify('Дверь закрыта. E — открыть');}}
+   const distance=x-p.x;if(Math.abs(distance)>8){const before=p.x;this.move(Math.sign(distance),Math.min(dt,Math.abs(distance)/(run?BASE.runSpeed:BASE.speed)),run);if(before===p.x){this.navigation=null;this.notify('Проход закрыт. Подойдите к двери, чтобы открыть её');}}
    else{p.moving=false;this.navigation=null;if(dest.object)this.action({type:'interact',target:dest.object});}
   }else p.moving=false;
   this.refreshSight();this.updateDog(dt);if(this.currentRoom)this.explored.add(this.currentRoom.id);
@@ -115,26 +122,29 @@ export class BaseWorld{
  updateDog(dt:number){
   const d=this.dog,p=this.player;d.hit=Math.max(0,d.hit-dt);if(d.hp<=0){d.mode='rest';return;}d.timer-=dt;
   const near=p.floor===0&&!p.stair&&Math.abs(p.x-d.x)<135;
-  const dogPoint={x:d.x,y:floorY(0)-35},beamAngle=Math.atan2(dogPoint.y-this.sight.origin.y,dogPoint.x-this.sight.origin.x);
+  const dogPoint={x:d.x,y:this.floorY(0)-35},beamAngle=Math.atan2(dogPoint.y-this.sight.origin.y,dogPoint.x-this.sight.origin.x);
   const lit=this.flashlight&&Math.abs(angularDifference(beamAngle,this.aim))<=BEAM_HALF&&this.visible(dogPoint)&&Math.abs(p.x-d.x)<330;
   if(lit&&p.x>1630){d.mode='retreat';d.timer=2.5;}
   if(d.mode==='retreat'){d.x+=Math.sign(2100-d.x)*48*dt;d.facing=1;if(Math.abs(d.x-2100)<5||d.timer<=0){d.mode='idle';d.timer=3;}}
   else if(near&&d.mode!=='warn'){d.mode='warn';d.timer=1.15;this.notify('Не подходите близко. Фонарик заставит пса отступить','warn');}
   else if(d.mode==='warn'){
    d.facing=p.x<d.x?-1:1;if(!near){d.mode='idle';d.timer=2;}
-   else if(d.timer<=0){if(Math.abs(p.x-d.x)<90&&!p.hurt){p.hp=Math.max(0,p.hp-6);p.hurt=.8;this.onSound('hit');}d.mode='retreat';d.timer=2;if(p.hp<=0){p.hp=70;p.x=595;p.floor=0;p.y=floorY(0);p.previousX=p.x;p.previousY=p.y;this.notify('Вы отступили к дому','warn');}}
+   else if(d.timer<=0){if(Math.abs(p.x-d.x)<90&&!p.hurt){p.hp=Math.max(0,p.hp-6);p.hurt=.8;this.onSound('hit');}d.mode='retreat';d.timer=2;if(p.hp<=0){p.hp=70;p.x=595;p.floor=0;p.y=this.floorY(0);p.previousX=p.x;p.previousY=p.y;this.notify('Вы отступили к дому','warn');}}
   }else if(d.timer<=0){d.mode=d.mode==='idle'?'walk':'idle';d.timer=d.mode==='walk'?3:4;d.facing=d.x>2000?-1:1;}
   if(d.mode==='walk')d.x=clamp(d.x+d.facing*23*dt,1870,2110);
  }
  aimAt(point:Vec){const origin=this.lightOrigin;this.aim=Math.atan2(point.y-origin.y,point.x-origin.x);this.mouseAim=true;if(!this.player.stair&&!this.player.attack)this.player.facing=point.x>=this.player.x?1:-1;this.refreshSight();}
- save():BaseSave{return {version:1,player:{x:this.player.x,floor:this.player.floor,hp:this.player.hp},inventory:{...this.inventory},doors:this.doors.map(d=>({id:d.id,open:d.open})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),explored:[...this.explored],powered:this.powered,flashlight:this.flashlight,time:this.time,dogHp:this.dog.hp};}
+ save():BaseSave{return {version:2,levelId:this.level.id,openings:this.openings.map(o=>({id:o.id,state:o.state})),player:{x:this.player.x,floor:this.player.floor,hp:this.player.hp},inventory:{...this.inventory},doors:this.doors.map(d=>({id:d.id,open:d.open})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),explored:[...this.explored],powered:this.powered,flashlight:this.flashlight,time:this.time,dogHp:this.dog.hp};}
  restore(data:unknown){
-  const s=data as BaseSave;if(!s||s.version!==1||!s.player||![-1,0,1].includes(s.player.floor)||!Number.isFinite(s.player.x)||!s.inventory)return false;
-  this.reset();const p=this.player;p.floor=s.player.floor;p.x=clamp(s.player.x,p.floor===0?70:525,p.floor===0?2150:1505);p.y=floorY(p.floor);p.previousX=p.x;p.previousY=p.y;p.hp=clamp(Number(s.player.hp)||100,1,100);
+  const s=data as BaseSave;if(!s||![1,2].includes(s.version)||s.version===2&&s.levelId!==this.level.id||!s.player||!Number.isInteger(s.player.floor)||!Number.isFinite(s.player.x)||!s.inventory)return false;
+  if(s.player.floor!==0&&!levelRoomAt(this.level,s.player.x,s.player.floor))return false;
+  this.reset();const p=this.player,[left,right]=walkBounds(this.level,s.player.x,s.player.floor);p.floor=s.player.floor;p.x=clamp(s.player.x,left,right);p.y=this.floorY(p.floor);p.previousX=p.x;p.previousY=p.y;p.hp=clamp(Number(s.player.hp)||100,1,100);
+  const sameId=(old:string,current:string)=>old===current||(s.version===1&&`home/${old}`===current);
   for(const k of Object.keys(this.inventory) as (keyof Resources)[])this.inventory[k]=clamp(Number(s.inventory[k])||0,0,999);
-  for(const d of this.doors){const entry=s.doors?.find(x=>x.id===d.id);if(entry)d.open=!!entry.open;}
-  for(const o of this.objects){const entry=s.objects?.find(x=>x.id===o.id);if(entry){o.searched=!!entry.searched;o.uses=clamp(Number(entry.uses)||0,0,999);}}
-  this.explored=new Set((s.explored||[]).filter(id=>ROOMS.some(r=>r.id===id)));this.powered=!!s.powered;this.flashlight=!!s.flashlight;this.time=Math.max(0,Number(s.time)||0);this.dog.hp=clamp(Number(s.dogHp)||0,0,60);this.refreshSight();this.notify('Вы вернулись на базу');return true;
+  for(const d of this.doors){const entry=Array.isArray(s.doors)?s.doors.find(x=>sameId(x.id,d.id)):null;if(entry)d.open=!!entry.open;}
+  for(const o of this.objects){const entry=Array.isArray(s.objects)?s.objects.find(x=>sameId(x.id,o.id)):null;if(entry){o.searched=!!entry.searched;o.uses=clamp(Number(entry.uses)||0,0,999);}}
+  for(const o of this.openings){const entry=Array.isArray(s.openings)?s.openings.find(x=>x.id===o.id):null;if(entry&&['open','boarded'].includes(entry.state))o.state=entry.state;}
+  this.explored=new Set(this.level.rooms.filter(r=>Array.isArray(s.explored)&&s.explored.some(id=>sameId(id,r.id))).map(r=>r.id));this.powered=s.version===2&&!!s.powered;this.flashlight=!!s.flashlight;this.time=Math.max(0,Number(s.time)||0);this.dog.hp=clamp(Number(s.dogHp)||0,0,60);this.refreshSight();this.notify('Вы вернулись на базу');return true;
  }
- snapshot(){return {phase:this.phase,player:{...this.player,stair:this.player.stair?{...this.player.stair}:null},location:this.location,inventory:{...this.inventory},powered:this.powered,flashlight:this.flashlight,aim:this.aim,task:this.task?{...this.task}:null,navigation:this.navigation?{...this.navigation}:null,explored:[...this.explored],visibleObjects:this.visibleObjects().map(o=>o.id),visibleDoors:this.visibleDoors().map(d=>d.id),doors:this.doors.map(d=>({...d})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),dog:{...this.dog,visible:this.dogVisible},time:this.time,toast:this.toast};}
+ snapshot(){return {levelId:this.level.id,rooms:this.level.rooms.map(r=>({...r})),buildings:this.level.buildings.map(b=>({...b})),openings:this.openings.map(o=>({...o})),phase:this.phase,player:{...this.player,stair:this.player.stair?{...this.player.stair}:null},location:this.location,inventory:{...this.inventory},powered:this.powered,flashlight:this.flashlight,aim:this.aim,task:this.task?{...this.task}:null,navigation:this.navigation?{...this.navigation}:null,explored:[...this.explored],visibleObjects:this.visibleObjects().map(o=>o.id),visibleDoors:this.visibleDoors().map(d=>d.id),doors:this.doors.map(d=>({...d})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),dog:{...this.dog,visible:this.dogVisible},time:this.time,toast:this.toast};}
 }
