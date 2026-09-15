@@ -8,9 +8,9 @@ test('Rear shafts stay behind solid sprites, while gaps and surface lighting rem
   const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);
   const r=new BaseRenderer(canvas,assets),w=new BaseWorld();w.flashlight=false;w.player.x=w.player.previousX=1260;w.player.y=w.player.previousY=400;w.player.floor=1;w.refreshSight();w.visible=()=>true;w.visibleObjects=()=>w.objects;w.dog.hp=0;
-  // Isolate composition from perception. Keep the real furniture, stairs, doors
-  // and animated hero; a strong rear test shaft makes any leak unambiguous.
-  r.fogOfWar=()=>{};r.structuralForeground=()=>{};r.markers=()=>{};
+  // Include the complete fog/structure pipeline: rear light must not be mixed
+  // back into opaque surfaces when hidden details are blurred.
+  r.markers=()=>{};
   let beam=false;r.directLight=(c:CanvasRenderingContext2D)=>{if(beam){c.fillStyle='#fff';c.fillRect(400,180,1180,650);}};
   const regions:Record<string,[number,number,number,number]>={wardrobe:[1145,285,1215,365],hero:[1240,285,1280,385],stairs:[810,430,900,560],ladder:[1378,660,1422,800],door:[1055,485,1085,575]};
   const indices=(bounds:number[])=>{const a=r.worldToScreen({x:bounds[0],y:bounds[1]}),b=r.worldToScreen({x:bounds[2],y:bounds[3]}),result:number[]=[];for(let y=Math.ceil(a.y*r.dpr);y<Math.floor(b.y*r.dpr);y++)for(let x=Math.ceil(a.x*r.dpr);x<Math.floor(b.x*r.dpr);x++)if(x>=0&&x<canvas.width&&y>=0&&y<canvas.height)result.push((y*canvas.width+x)*4);return result;};

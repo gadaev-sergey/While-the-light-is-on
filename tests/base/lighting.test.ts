@@ -3,8 +3,24 @@ import assert from 'node:assert/strict';
 import {BaseWorld} from '../../src/base/world.ts';
 import {floorOccluderSpans,stairApertures} from '../../src/base/level.ts';
 import {canSee,occluders} from '../../src/base/visibility.ts';
-import {daylightAt,daylightSources,daylightStyle,flashlightReaches,timeLabel,timeOfDay} from '../../src/base/lighting.ts';
+import {daylightAt,daylightSources,daylightStyle,nightSources,flashlightReaches,timeLabel,timeOfDay} from '../../src/base/lighting.ts';
 const tick=(w:BaseWorld,seconds:number)=>{for(let t=0;t<seconds;t+=1/60)w.update(1/60);};
+
+test('Moonlight and starlight are weaker than daylight and only enter through open apertures',()=>{
+ const w=new BaseWorld();w.doors.forEach(d=>d.open=false);w.openings.forEach(o=>o.state=o.id==='home/hall-window-0'?'open':'boarded');w.refreshSight();
+ const night=nightSources(w.level,w.doors,w.openings,0),day=daylightSources(w.level,w.doors,w.openings,720),point={x:650,y:530},nightLevel=daylightAt(point,night,w.sight.segments);
+ assert.equal(night.filter(s=>s.celestial==='moon').length,3);assert.equal(night.filter(s=>s.celestial==='stars').length,1);assert.ok(nightLevel>.015&&nightLevel<daylightAt(point,day,w.sight.segments)*.4);assert.equal(night.find(s=>s.celestial==='stars')!.beamStrength,0);
+ assert.equal(daylightAt({x:1200,y:530},night,w.sight.segments),0);assert.equal(daylightAt({x:650,y:780},night,w.sight.segments),0);assert.equal(nightSources(w.level,w.doors,w.openings,720).length,0);
+ w.openings.forEach(o=>o.state='boarded');assert.equal(nightSources(w.level,w.doors,w.openings,0).length,0);
+ w.doors.find(d=>d.exterior)!.open=true;assert.ok(nightSources(w.level,w.doors,w.openings,0).length>0);
+});
+
+test('Celestial light fades smoothly at dusk and dawn without a midnight discontinuity',()=>{
+ assert.equal(daylightStyle(720).night,0);assert.equal(daylightStyle(0).night,1);assert.equal(daylightStyle(1440).night,1);
+ assert.ok(daylightStyle(1140).night<daylightStyle(1200).night);assert.ok(daylightStyle(1200).night<daylightStyle(1260).night);
+ for(const minutes of [300,360,1140,1200,1260,1439])assert.ok(Math.abs(daylightStyle(minutes+.01).night-daylightStyle(minutes).night)<.001);
+ assert.equal(daylightStyle(0).interiorDark,daylightStyle(720).interiorDark);
+});
 
 test('Visibility is geometric and identical with either lamp state, aim and time of day',()=>{
  const w=new BaseWorld(),points=[{x:365,y:550},{x:980,y:530},{x:1200,y:530},{x:600,y:330},{x:600,y:780}];

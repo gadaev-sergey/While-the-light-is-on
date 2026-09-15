@@ -1,7 +1,7 @@
 import {BASE,LOCATION,clamp,lerp} from './config.ts';
 import {floorSpans,floorOccluderSpans,stairApertures,levelFloorY,levelRoomAt,type CompiledLevel,type Opening} from './level.ts';
 import {BEAM_HALF,BEAM_RANGE,SIGHT_RANGE,visibilityPolygon} from './visibility.ts';
-import {daylightStyle,daylightSources,type DaylightSource} from './lighting.ts';
+import {daylightStyle,exteriorLightSources,type DaylightSource} from './lighting.ts';
 import type {BaseAssets,ImageId} from './assets.ts';
 import {BaseHero} from './hero.ts';
 import type {BaseWorld} from './world.ts';
@@ -9,6 +9,7 @@ import type {Vec,Room,Floor} from './types.ts';
 import {ROOM_DEPTH,backPoint,floorFace,doorLeaf,grain,raggedEdge,openingPlacement} from './architecture.ts';
 import {apertureBeam,drawApertureBeam,type ApertureBeam} from './aperture-light.ts';
 import type {RenderLayerId} from './layers.ts';
+import {NightSky} from './night-sky.ts';
 export {HOUSE_LAYERS} from './layers.ts';
 type Rect={x:number;y:number;w:number;h:number};
 const furnitureRects:Rect[]=[{x:0,y:95,w:592,h:355},{x:595,y:35,w:432,h:406},{x:1034,y:45,w:502,h:426},{x:18,y:524,w:564,h:425},{x:604,y:443,w:412,h:536},{x:1042,y:463,w:494,h:516}];
@@ -17,6 +18,7 @@ const objectRects:Rect[]=[{x:0,y:100,w:385,h:388},{x:391,y:135,w:410,h:340},{x:8
 const interiorRects:Rect[]=[{x:35,y:30,w:330,h:435},{x:405,y:125,w:440,h:330},{x:885,y:75,w:345,h:380},{x:12,y:545,w:500,h:283},{x:524,y:557,w:312,h:267},{x:880,y:510,w:350,h:315},{x:0,y:934,w:405,h:249},{x:423,y:1030,w:413,h:162},{x:869,y:902,w:358,h:285}];
 export class BaseRenderer{
  solidLayer=document.createElement('canvas');
+ rearLayer=document.createElement('canvas');nightSky=new NightSky();
  structure=document.createElement('canvas');beamTextures=new Map<string,HTMLCanvasElement>();floorTextures=new Map<string,HTMLCanvasElement>();doorTexture?:HTMLCanvasElement;
  environment=daylightStyle(720);illumination=document.createElement('canvas');sceneCopy=document.createElement('canvas');blurred=document.createElement('canvas');
  lightKey='';lightLevel?:CompiledLevel;lightFields:{source:DaylightSource;polygon:Vec[];shaft?:ApertureBeam}[]=[];
@@ -59,10 +61,13 @@ export class BaseRenderer{
   if(w.dogVisible){const dog=w.dog,frame=dog.mode==='warn'?3:dog.mode==='walk'||dog.mode==='retreat'?1+Math.floor(this.time*5)%2:0;solid.save();solid.translate(lerp(dog.previousX,dog.x,alpha),615);solid.scale(-dog.facing,1);if(dog.hit)solid.filter='brightness(2)';this.sprite(solid,'dog',frame,0,-2,144,96);solid.restore();}
   this.shadow(solid,lerp(w.player.previousX,w.player.x,alpha),lerp(w.player.previousY,w.player.y,alpha)+1,38);
   this.hero.draw(solid,w.player,w.phase==='playing'?dt:0,alpha,!!w.task,this.level.stairs.find(s=>s.id===w.player.stair?.id)?.kind==='ladder');
+  if(w.flashlight)this.flashlight(solid,w);
   layer('foreground');this.stairRails(solid);this.architectureEdges(solid);this.foreground(solid,w);
   layer('lighting');this.lighting(w,this.solidLayer);
-  c.save();c.setTransform(1,0,0,1,0,0);c.drawImage(this.solidLayer,0,0);c.restore();this.transform(c);if(w.flashlight)this.flashlight(c,w);
-  layer('visibility');this.fogOfWar(w);layer('structure');this.structuralForeground(w);this.transform(c);
+  if(this.rearLayer.width!==this.canvas.width||this.rearLayer.height!==this.canvas.height){this.rearLayer.width=this.canvas.width;this.rearLayer.height=this.canvas.height;}
+  this.rearLayer.getContext('2d')!.drawImage(this.canvas,0,0);
+  c.save();c.setTransform(1,0,0,1,0,0);c.drawImage(this.solidLayer,0,0);c.restore();this.transform(c);
+  layer('visibility');this.fogOfWar(w,this.rearLayer,this.solidLayer);layer('structure');this.structuralForeground(w);this.transform(c);
   layer('markers');this.markers(c,w);
   if(w.task){const p=w.player,t=1-w.task.remaining/w.task.duration;c.save();c.translate(p.x,p.y-151);c.fillStyle='#0b1016dc';c.fillRect(-31,-5,62,9);c.fillStyle='#d7bd8a';c.fillRect(-29,-3,58*t,5);c.restore();}
   if(w.dogVisible&&w.dog.mode==='warn'){c.fillStyle='#db866b';c.font='bold 20px Georgia';c.textAlign='center';c.fillText('!',w.dog.x,515);}
@@ -71,8 +76,10 @@ export class BaseRenderer{
   if(w.player.hurt){c.fillStyle=`rgba(145,47,37,${w.player.hurt*.12})`;c.fillRect(0,0,this.width,this.height);}
  }
  texture(c:CanvasRenderingContext2D,index:number,x:number,y:number,w:number,h:number,scale=1){const pattern=c.createPattern(this.assets.tiles[index],'repeat')!;pattern.setTransform(new DOMMatrix().scale(scale));c.fillStyle=pattern;c.fillRect(x,y,w,h);}
+ skyFrame(){const top=Math.min(-80,this.camera.y-this.height/this.scale/2);return {x:this.camera.x*.15-310,y:top,width:this.level.width+630,height:800-top};}
  background(c:CanvasRenderingContext2D){
-  const im=this.assets.images.district,top=Math.min(-80,this.camera.y-this.height/this.scale/2);c.save();c.filter=`brightness(${.88+this.environment.sun*.4}) saturate(${.55+this.environment.sun*.25})`;c.drawImage(im,this.camera.x*.15-310,top,this.level.width+630,800-top);c.filter='none';c.globalCompositeOperation='screen';c.globalAlpha=this.environment.skyMix;c.fillStyle=this.environment.sky;c.fillRect(-500,top,this.level.width+1000,1000-top);c.restore();
+  const im=this.assets.images.district,f=this.skyFrame();c.save();c.filter=`brightness(${.88+this.environment.sun*.4}) saturate(${.55+this.environment.sun*.25})`;c.drawImage(im,f.x,f.y,f.width,f.height);c.filter='none';c.globalCompositeOperation='screen';c.globalAlpha=this.environment.skyMix;c.fillStyle=this.environment.sky;c.fillRect(-500,f.y,this.level.width+1000,1000-f.y);c.restore();
+  this.nightSky.draw(c,f,this.environment.night,this.time);
   const earth=c.createLinearGradient(0,606,0,935);earth.addColorStop(0,'#282b29');earth.addColorStop(.25,'#181b1b');earth.addColorStop(1,'#090c10');c.fillStyle=earth;c.fillRect(-300,607,2900,420);
   for(const p of this.grit){c.fillStyle=p.r>2?'#a09b7132':'#0006';c.fillRect(p.x,p.y,p.r*5,p.r);}
   c.strokeStyle='#0d151b';c.lineWidth=4;c.beginPath();c.moveTo(90,370);c.quadraticCurveTo(660,450,1720,100);c.stroke();
@@ -224,7 +231,7 @@ export class BaseRenderer{
  path(c:CanvasRenderingContext2D,points:Vec[]){c.beginPath();points.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.closePath();}
  lightSources(w:BaseWorld){
   const key=`${Math.floor(w.dayMinutes/2)}|${w.doors.map(d=>Number(d.open)).join('')}|${w.openings.map(o=>o.state).join(',')}`;
-  if(key!==this.lightKey||this.lightLevel!==w.level){this.lightKey=key;this.lightLevel=w.level;this.lightFields=daylightSources(w.level,w.doors,w.openings,w.dayMinutes).map(source=>({source,polygon:visibilityPolygon(source.origin,0,Math.PI,source.range,w.sight.segments),shaft:source.apertureBeam?apertureBeam(this.assets,w.level,w.openings.find(o=>o.id===source.openingId)!,source,w.sight.segments):undefined}));}
+  if(key!==this.lightKey||this.lightLevel!==w.level){this.lightKey=key;this.lightLevel=w.level;this.lightFields=exteriorLightSources(w.level,w.doors,w.openings,w.dayMinutes).map(source=>({source,polygon:visibilityPolygon(source.origin,0,Math.PI,source.range,w.sight.segments),shaft:source.apertureBeam?apertureBeam(this.assets,w.level,w.openings.find(o=>o.id===source.openingId)!,source,w.sight.segments):undefined}));}
   return this.lightFields;
  }
  directLight(c:CanvasRenderingContext2D,field:typeof this.lightFields[number]){if(field.shaft)drawApertureBeam(c,field.shaft);else if(!field.source.openingId){c.save();this.path(c,field.polygon);c.clip();this.sunBeam(c,field.source);c.restore();}}
@@ -244,13 +251,24 @@ export class BaseRenderer{
   const out=this.c;for(const field of this.lightFields){out.save();out.globalCompositeOperation='screen';out.globalAlpha=field.source.beamStrength*.22;this.directLight(out,field);out.restore();}
   if(w.flashlight)this.flashlightHaze(out,w);
  }
- fogOfWar(w:BaseWorld){
+ fogOfWar(w:BaseWorld,rearScene?:HTMLCanvasElement,solidScene?:HTMLCanvasElement){
   const sharp=this.sceneCopy.getContext('2d')!;sharp.setTransform(1,0,0,1,0,0);sharp.clearRect(0,0,this.sceneCopy.width,this.sceneCopy.height);sharp.drawImage(this.canvas,0,0);
-  const small=this.blurred.getContext('2d')!;small.setTransform(1,0,0,1,0,0);small.clearRect(0,0,this.blurred.width,this.blurred.height);small.filter=`blur(${1.35*this.dpr}px)`;small.drawImage(this.sceneCopy,0,0,this.blurred.width,this.blurred.height);small.filter='none';
+  const small=this.blurred.getContext('2d')!;small.setTransform(1,0,0,1,0,0);small.clearRect(0,0,this.blurred.width,this.blurred.height);small.filter=`blur(${1.35*this.dpr}px)`;small.drawImage(rearScene??this.sceneCopy,0,0,this.blurred.width,this.blurred.height);small.filter='none';
   const fog=this.fog.getContext('2d')!;fog.setTransform(1,0,0,1,0,0);fog.clearRect(0,0,this.fog.width,this.fog.height);fog.drawImage(this.blurred,0,0,this.fog.width,this.fog.height);this.transform(fog);
   fog.save();fog.globalCompositeOperation='destination-out';fog.filter=`blur(${5*this.dpr}px)`;fog.fillStyle='#fff';this.path(fog,visibilityPolygon(w.sight.origin,0,Math.PI,SIGHT_RANGE,w.sight.segments,140));fog.fill();
   fog.fillRect(w.player.x-37,w.player.y-134,74,140);fog.restore();
-  this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.fog,0,0);this.c.restore();
+  // Celestial background is not room discovery. Keep it legible only in the
+  // exposed sky; this never reveals a room, an object or sky through a solid roof.
+  if(this.environment.night>0){fog.save();fog.globalCompositeOperation='destination-out';fog.globalAlpha=this.environment.night;this.nightSky.path(fog,this.skyFrame());fog.clip();fog.beginPath();fog.rect(-2000,-2000,this.level.width+4000,this.level.height+4000);
+   for(const b of this.level.buildings){const top=this.floorY(Math.max(...b.floors))-this.level.floorHeight-b.roof.rise-55;fog.rect(b.x-44,top,b.end-b.x+88,this.floorY(Math.min(...b.floors))-top+40);}fog.clip('evenodd');fog.fillRect(-2000,-2000,this.level.width+4000,this.level.height+4000);fog.restore();}
+  this.c.save();this.c.setTransform(1,0,0,1,0,0);if(rearScene)this.c.drawImage(rearScene,0,0);this.c.drawImage(this.fog,0,0);
+  if(solidScene){
+   // Blur material colour independently of the rear rays. Source-atop retains
+   // each original silhouette, so even hidden rails remain solid against light.
+   small.clearRect(0,0,this.blurred.width,this.blurred.height);small.filter=`blur(${1.35*this.dpr}px)`;small.drawImage(solidScene,0,0,this.blurred.width,this.blurred.height);small.filter='none';
+   const masked=this.structure.getContext('2d')!;masked.setTransform(1,0,0,1,0,0);masked.clearRect(0,0,this.structure.width,this.structure.height);masked.drawImage(this.blurred,0,0,this.structure.width,this.structure.height);masked.globalCompositeOperation='destination-in';masked.drawImage(this.fog,0,0);masked.globalCompositeOperation='source-over';
+   const solid=solidScene.getContext('2d')!;solid.save();solid.setTransform(1,0,0,1,0,0);solid.globalCompositeOperation='source-atop';solid.drawImage(this.structure,0,0);solid.restore();this.c.drawImage(solidScene,0,0);
+  }this.c.restore();
  }
  /** Soft rectangular shafts for exterior doors; windows use their full alpha aperture. */
  sunBeam(c:CanvasRenderingContext2D,source:DaylightSource){
