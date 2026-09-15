@@ -1,15 +1,24 @@
-import type {Vec,Door} from './types.ts';
+import type {Vec,Door,Room} from './types.ts';
+import type {CompiledLevel,Opening} from './level.ts';
 
-/** Shallow oblique cutaway: every depth edge shares this projection. World physics
- * stays on the front walking plane. Front-facing sprites are never skewed. */
-export const ROOM_DEPTH={x:22,y:-26} as const;
-export const backPoint=(x:number,y:number):Vec=>({x:x+ROOM_DEPTH.x,y:y+ROOM_DEPTH.y});
-export const floorFace=(left:number,right:number,y:number):Vec[]=>[
- {x:left,y:y+3},{x:right,y:y+3},backPoint(right,y),backPoint(left,y),
+/** Each module has its own vanishing point, centred horizontally at standing eye
+ * height. The front plane is shared with physics; depth contracts towards that point. */
+export const ROOM_DEPTH={contraction:.18,eyeHeight:142} as const;
+export type RoomSpan=Pick<Room,'x'|'end'>;
+export const backPoint=(room:RoomSpan,x:number,y:number,floorY:number,depth=1):Vec=>({
+ x:x+((room.x+room.end)/2-x)*ROOM_DEPTH.contraction*depth,
+ y:y+(floorY-ROOM_DEPTH.eyeHeight-y)*ROOM_DEPTH.contraction*depth,
+});
+export const floorFace=(room:RoomSpan,left:number,right:number,y:number):Vec[]=>[
+ {x:left,y:y+3},{x:right,y:y+3},backPoint(room,right,y+3,y),backPoint(room,left,y+3,y),
 ];
-export function doorLeaf(door:Pick<Door,'openness'|'open'>){
+export function openingPlacement(level:CompiledLevel,o:Opening){
+ const floorY=level.groundY-o.floor*level.floorHeight,room=level.rooms.find(r=>r.id===o.roomId)!,p=backPoint(room,o.x,floorY-o.bottom,floorY),scale=1-ROOM_DEPTH.contraction;
+ return {x:p.x,bottom:p.y,width:o.width*scale,height:o.height*scale};
+}
+export function doorLeaf(door:Pick<Door,'openness'|'open'>,depth:Vec){
  const amount=door.openness??Number(door.open),angle=amount*1.38;
- return {x:ROOM_DEPTH.x*Math.cos(angle)+62*Math.sin(angle),y:ROOM_DEPTH.y*Math.cos(angle)};
+ return {x:depth.x*Math.cos(angle)+62*Math.sin(angle)*(Math.sign(depth.x)||1),y:depth.y*Math.cos(angle),contraction:ROOM_DEPTH.contraction*Math.cos(angle)};
 }
 /** World-anchored variation: no random numbers per frame or at adjoining modules. */
 export const grain=(n:number)=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};

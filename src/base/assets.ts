@@ -1,6 +1,6 @@
 export type ImageId='district'|'materials'|'furniture'|'objects'|'dog'|'walk'|'idle'|'punch'|'damage'|'interior'|'crate';
 export class BaseAssets{
- images={} as Record<ImageId,HTMLImageElement|HTMLCanvasElement>;tiles:HTMLCanvasElement[]=[];damageFrames:{image:HTMLCanvasElement;mask:HTMLCanvasElement}[]=[];
+ images={} as Record<ImageId,HTMLImageElement|HTMLCanvasElement>;tiles:HTMLCanvasElement[]=[];damageFrames:{image:HTMLCanvasElement;mask:HTMLCanvasElement;aperture:HTMLCanvasElement}[]=[];
  async load(progress:(n:number)=>void){
   const files:Record<ImageId,string>={district:'base/district',materials:'base/materials',furniture:'base/furniture',objects:'base/objects',dog:'base/dog',walk:'developer-walk',idle:'developer-attack',punch:'developer-left-punch',damage:'base/house-damage',interior:'base/interior-front',crate:'base/crates-front'};let done=0;
   await Promise.all(Object.entries(files).map(([key,file])=>new Promise<void>((resolve,reject)=>{const im=new Image();im.onload=()=>{this.images[key as ImageId]=im;progress(++done/Object.keys(files).length);resolve();};im.onerror=()=>reject(new Error(`Не удалось загрузить ${file}`));im.src=`${import.meta.env.BASE_URL}assets/${file}.png`;})));
@@ -29,6 +29,7 @@ export class BaseAssets{
   while(head<tail){const i=queue[head++],x=i%size,y=Math.floor(i/size);if(x)visit(i-1);if(x<size-1)visit(i+1);if(y)visit(i-size);if(y<height-1)visit(i+size);}
   const mask=document.createElement('canvas');mask.width=image.width;mask.height=image.height;const mc=mask.getContext('2d')!,data=mc.createImageData(mask.width,mask.height);
   for(let y=0;y<mask.height;y++)for(let x=0;x<mask.width;x++){const i=(top+y)*size+left+x;data.data[(y*mask.width+x)*4+3]=outside[i]?0:255;}mc.putImageData(data,0,0);
-  return {image,mask};
+  const aperture=document.createElement('canvas');aperture.width=image.width;aperture.height=image.height;const ac=aperture.getContext('2d')!;ac.drawImage(mask,0,0);ac.globalCompositeOperation='destination-out';ac.drawImage(image,0,0);
+  return {image,mask,aperture};
  }
 }

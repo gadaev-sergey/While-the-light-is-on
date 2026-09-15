@@ -1,4 +1,25 @@
 import {test,expect} from '@playwright/test';
+test('Sunlight emerges from separated open areas across the aperture and respects a solid wall',async({page})=>{
+ await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ const result=await page.evaluate(async()=>{
+  const am='/src/base/assets.ts',bm='/src/base/aperture-light.ts',gm='/src/base/architecture.ts',wm='/src/base/world.ts',lm='/src/base/lighting.ts';const {BaseAssets}=await import(am),{apertureBeam,drawApertureBeam}=await import(bm),{openingPlacement}=await import(gm),{BaseWorld}=await import(wm),{daylightSources}=await import(lm),assets=new BaseAssets();await assets.load(()=>{});const w=new BaseWorld(),opening=w.openings.find((o:any)=>o.id==='home/hall-window-0');
+  const aperture=document.createElement('canvas');aperture.width=aperture.height=200;const ac=aperture.getContext('2d')!;ac.fillStyle='#fff';ac.fillRect(40,25,50,45);ac.fillRect(110,130,50,45);
+  const image=document.createElement('canvas');image.width=image.height=200;const ic=image.getContext('2d')!;ic.fillStyle='#fff';ic.fillRect(0,0,200,200);ic.globalCompositeOperation='destination-out';ic.drawImage(aperture,0,0);assets.damageFrames[0]={aperture,image,mask:image};
+  const source={...daylightSources(w.level,w.doors,[opening],720)[1],angle:0,range:180},p=openingPlacement(w.level,opening),size=Math.min(p.width,p.height),point=(x:number,y:number)=>({x:p.x-size/2+x*size/200,y:p.bottom-size+y*size/200});
+  const canvas=document.createElement('canvas');canvas.width=2220;canvas.height=930;const c=canvas.getContext('2d')!,sample=(p:any)=>c.getImageData(Math.round(p.x),Math.round(p.y),1,1).data[3];
+  const beam=apertureBeam(assets,w.level,opening,source,[]);drawApertureBeam(c,beam);const upper=point(65,48),lower=point(135,153),opaque=point(100,100),farX=p.x+size/2+35,open=[sample(upper),sample(lower),sample(opaque),sample({x:farX,y:upper.y}),sample({x:farX,y:lower.y}),sample({x:farX,y:opaque.y})];
+  c.clearRect(0,0,2220,930);const blocked=apertureBeam(assets,w.level,opening,source,[{a:{x:farX-12,y:0},b:{x:farX-12,y:930}}]);drawApertureBeam(c,blocked);return {open,blocked:[sample({x:farX,y:upper.y}),sample({x:farX,y:lower.y})]};
+ });expect(result.open[0]).toBeGreaterThan(170);expect(result.open[1]).toBeGreaterThan(170);expect(result.open[2]).toBeLessThan(5);expect(result.open[3]).toBeGreaterThan(40);expect(result.open[4]).toBeGreaterThan(40);expect(result.open[5]).toBeLessThan(10);expect(result.blocked).toEqual([0,0]);
+});
+
+test('Internal passages retain an interior backing between the centred room modules',async({page})=>{
+ await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ const result=await page.evaluate(async()=>{
+  const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),assets=new BaseAssets();await assets.load(()=>{});const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);r.c.setTransform(1,0,0,1,0,0);r.c.fillStyle='#ff00ff';r.c.fillRect(0,0,canvas.width,canvas.height);r.transform(r.c);r.house(r.c,w);
+  const pixels=[{x:1070,y:335},{x:1110,y:335},{x:1030,y:535}].map(p=>{const s=r.worldToScreen(p);return Array.from<number>(r.c.getImageData(Math.round(s.x*r.dpr),Math.round(s.y*r.dpr),1,1).data).slice(0,3);});canvas.remove();return pixels;
+ });for(const pixel of result)expect(pixel).not.toEqual([255,0,255]);
+});
+
 test('Door openings remain free of black cut material and the swinging leaf stays visible',async({page})=>{
  await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
@@ -7,7 +28,8 @@ test('Door openings remain free of black cut material and the swinging leaf stay
   const clear=()=>{r.c.setTransform(1,0,0,1,0,0);r.c.fillStyle='#ff00ff';r.c.fillRect(0,0,canvas.width,canvas.height);r.transform(r.c);};
   const sample=(x:number,y:number)=>{const p=r.worldToScreen({x,y});return Array.from<number>(r.c.getImageData(Math.round(p.x*r.dpr),Math.round(p.y*r.dpr),1,1).data).slice(0,3);};
   clear();r.cutaway(r.c,w);const openings=w.doors.map((d:any)=>sample(d.x+4,w.floorY(d.floor)-75)),door=w.doors.find((d:any)=>d.id==='home/kitchen-door');
-  const closed=()=>{clear();r.doors(r.c,w);r.cutaway(r.c,w);return sample(1096,540);};const shut=closed();door.open=true;for(let i=0;i<30;i++)w.update(1/60);const open=closed();canvas.remove();return {openings,shut,open};
+  // Sample beyond the deeper jamb, in the area swept only by the opening leaf.
+  const closed=()=>{clear();r.doors(r.c,w);r.cutaway(r.c,w);return sample(1107,540);};const shut=closed();door.open=true;for(let i=0;i<30;i++)w.update(1/60);const open=closed();canvas.remove();return {openings,shut,open};
  });
  for(const sample of result.openings)expect(sample).toEqual([255,0,255]);expect(result.shut).toEqual([255,0,255]);expect(result.open[2]).toBeLessThan(150);expect(Math.max(...result.open)).toBeGreaterThan(10);
 });
