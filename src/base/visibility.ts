@@ -8,13 +8,16 @@ export function rayDistance(origin:Vec,angle:number,segments:Segment[],range:num
   const t=cross(delta,edge)/den,u=cross(delta,dir)/den;if(t>=0&&u>=0&&u<=1&&t<nearest)nearest=t;
  }return nearest;
 }
-export function lineOfSight(origin:Vec,target:Vec,segments:Segment[]){const d=Math.hypot(target.x-origin.x,target.y-origin.y);return rayDistance(origin,Math.atan2(target.y-origin.y,target.x-origin.x),segments,d)>=d-2;}
+export function lineOfSight(origin:Vec,target:Vec,segments:Segment[]){const d=Math.hypot(target.x-origin.x,target.y-origin.y);return rayDistance(origin,Math.atan2(target.y-origin.y,target.x-origin.x),segments,d)>=d-.001;}
 export const angularDifference=(a:number,b:number)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
-export interface Sight {origin:Vec;segments:Segment[]}
+export interface PeekSight {origin:Vec;angle:number;half:number;range:number;segments:Segment[]}
+export interface Sight {origin:Vec;segments:Segment[];peek?:PeekSight}
 export const SIGHT_RANGE=800,BEAM_RANGE=455,BEAM_HALF=.43;
 /** Perception depends only on distance and geometry. Light never unlocks visibility. */
 export function canSee(sight:Sight,target:Vec){
- return Math.hypot(target.x-sight.origin.x,target.y-sight.origin.y)<=SIGHT_RANGE&&lineOfSight(sight.origin,target,sight.segments);
+ if(Math.hypot(target.x-sight.origin.x,target.y-sight.origin.y)<=SIGHT_RANGE&&lineOfSight(sight.origin,target,sight.segments))return true;
+ const p=sight.peek;if(!p)return false;const dx=target.x-p.origin.x,dy=target.y-p.origin.y;
+ return Math.hypot(dx,dy)<=p.range&&Math.abs(angularDifference(Math.atan2(dy,dx),p.angle))<=p.half&&lineOfSight(p.origin,target,p.segments);
 }
 export function visibilityPolygon(origin:Vec,angle:number,spread:number,range:number,segments:Segment[],steps=100){
  const offsets:number[]=[];for(let i=0;i<=steps;i++)offsets.push(-spread+i/steps*spread*2);

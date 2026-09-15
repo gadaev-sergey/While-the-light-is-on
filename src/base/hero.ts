@@ -1,6 +1,6 @@
 import type {BaseAssets} from './assets.ts';
 import {BASE,lerp} from './config.ts';
-import type {Player} from './types.ts';
+import type {Player,DoorInteraction} from './types.ts';
 import {PoseAnimator,type PoseLayer,blendPoses,sampleClip,smoothstep} from './animation.ts';
 const walkX=[194,193,164,173,211,203,179,177];
 const punchX=[197,197,185,175,181,182,196,194];
@@ -11,6 +11,14 @@ export class BaseHero{
  reset(){this.animator.reset();this.attacking=false;}
  texture(key:string){
   if(this.cache.has(key))return this.cache.get(key)!;
+  if(key.startsWith('door:')){
+   const i=Number(key.split(':')[1]),image=this.assets.images.doorPose;
+   // Hand-authored atlas bounds: the generator did not use equal row heights.
+   // One scale and ground anchor preserve body size and planted feet while bending.
+   const rects=[{x:285,y:0,w:395,h:550,ax:165,ay:536},{x:885,y:0,w:400,h:550,ax:163,ay:536},{x:285,y:550,w:395,h:474,ax:165,ay:456},{x:875,y:550,w:410,h:474,ax:173,ay:456}],r=rects[i],scale=.51;
+   const canvas=document.createElement('canvas');canvas.width=400;canvas.height=360;const ctx=canvas.getContext('2d')!;
+   ctx.drawImage(image,r.x,r.y,r.w,r.h,180-r.ax*scale,320-r.ay*scale,r.w*scale,r.h*scale);this.cache.set(key,canvas);return canvas;
+  }
   const [name,n]=key.split(':'),i=+n,sheet=name as 'walk'|'punch'|'idle',im=this.assets.images[sheet],cw=im.width/4,ch=im.height/2;
   const a={x:sheet==='walk'?walkX[i]:sheet==='punch'?punchX[i]:190,y:sheet==='walk'?(i<4?486:483):sheet==='punch'?(i<4?496:494):504};
   const scale=BASE.heroScale*2,c=document.createElement('canvas');c.width=400;c.height=360;const ctx=c.getContext('2d')!;ctx.translate(180,320);
@@ -19,9 +27,10 @@ export class BaseHero{
   if(sheet==='punch'&&(i===5||i===6)){ctx.beginPath();ctx.rect(-a.x*scale,-a.y*scale,width*scale,ch*scale);ctx.rect(-a.x*scale,(80-a.y)*scale,27*scale,90*scale);ctx.clip('evenodd');}
   ctx.drawImage(im,i%4*cw,Math.floor(i/4)*ch,width,ch,-a.x*scale,-a.y*scale,width*scale,ch*scale);this.cache.set(key,c);return c;
  }
- draw(c:CanvasRenderingContext2D,p:Player,dt:number,alpha:number,working:boolean,ladder=false){
+ draw(c:CanvasRenderingContext2D,p:Player,dt:number,alpha:number,working:boolean,ladder=false,door:DoorInteraction|null=null){
   let layers:PoseLayer[];
-  if(p.attack>0){if(!this.attacking){this.attackFrom=this.animator.current;this.attacking=true;}const t=.42-p.attack,target=sampleClip({frames:Array.from({length:8},(_,i)=>`punch:${i}`),duration:.42},t);layers=blendPoses(this.attackFrom,target,smoothstep(t/.055));this.animator.current=layers;this.animator.key='punch';}
+  if(door&&door.phase!=='approach'){this.attacking=false;layers=this.animator.update('door',{frames:['door:0','door:1','door:2','door:3'],duration:3},dt,1,.18,door.reach<1?door.reach:1+2*door.lean);}
+  else if(p.attack>0){if(!this.attacking){this.attackFrom=this.animator.current;this.attacking=true;}const t=.42-p.attack,target=sampleClip({frames:Array.from({length:8},(_,i)=>`punch:${i}`),duration:.42},t);layers=blendPoses(this.attackFrom,target,smoothstep(t/.055));this.animator.current=layers;this.animator.key='punch';}
   else{this.attacking=false;const key=p.moving?(ladder?'climb':'walk'):'idle';layers=this.animator.update(key,{frames:p.moving?(ladder?['walk:2','walk:6']:Array.from({length:8},(_,i)=>`walk:${i}`)):['idle:0'],duration:1,loop:true},dt,1,.10,p.moving?lerp(p.previousDistance,p.distance,alpha)/(ladder?46:145):0);}
   const x=lerp(p.previousX,p.x,alpha),y=lerp(p.previousY,p.y,alpha);c.save();c.translate(x,y);c.scale(p.facing,1);
   if(working)c.rotate(.06);if(p.hurt)c.filter='brightness(1.6)';

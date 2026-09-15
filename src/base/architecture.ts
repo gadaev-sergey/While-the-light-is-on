@@ -18,7 +18,8 @@ export function openingPlacement(level:CompiledLevel,o:Opening){
 }
 export function doorLeaf(door:Pick<Door,'openness'|'open'>,depth:Vec){
  const amount=door.openness??Number(door.open),angle=amount*1.38;
- return {x:depth.x*Math.cos(angle)+62*Math.sin(angle)*(Math.sign(depth.x)||1),y:depth.y*Math.cos(angle),contraction:ROOM_DEPTH.contraction*Math.cos(angle)};
+ // The hinge is fixed at the BACK jamb. Only the free edge sweeps into the room.
+ return {x:62*Math.sin(angle)*(Math.sign(depth.x)||1)-depth.x*Math.cos(angle),y:-depth.y*Math.cos(angle),nearScale:1-ROOM_DEPTH.contraction+ROOM_DEPTH.contraction*Math.cos(angle)};
 }
 /** World-anchored variation: no random numbers per frame or at adjoining modules. */
 export const grain=(n:number)=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};

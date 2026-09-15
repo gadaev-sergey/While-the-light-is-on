@@ -4,11 +4,12 @@
 export const RENDER_LAYERS=[
  {id:'background',target:'rear',contents:'Квартал, двор, грунт, дальний забор; ночная луна и звёзды'},
  {id:'walls',target:'rear',contents:'Оболочка, задние стены, проёмы, откосы и потолки'},
- {id:'fixtures',target:'solid',contents:'Дверные коробки и полотна, радиаторы'},
+ {id:'fixtures',target:'solid',contents:'Радиаторы у задних стен'},
  {id:'interactables',target:'solid',contents:'Мебель и предметы дома и двора'},
  {id:'floors',target:'solid',contents:'Поверхности полов с лестничными проёмами'},
  {id:'stairs',target:'solid',contents:'Марши, вертикальные лестницы и дальние перила'},
  {id:'landings',target:'solid',contents:'Верхние площадки перед лестницами'},
+ {id:'doors',target:'solid',contents:'Коробки и полотна: перед мебелью, позади героя; петли у задней стены'},
  {id:'actors',target:'solid',contents:'Герой с клавиатурой, пёс'},
  {id:'foreground',target:'solid',contents:'Торцы, ближние перила, обломки и трава'},
  {id:'lighting',target:'composite',contents:'Дневное и ночное освещение; дымка позади solid; сборка сцены'},

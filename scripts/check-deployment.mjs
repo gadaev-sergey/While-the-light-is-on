@@ -8,7 +8,7 @@ const failures = [];
 const loadedImages = new Set();
 await mkdir('artifacts/deployment', {recursive: true});
 
-async function openGame(options) {
+async function openGame(options, nearDoor = false) {
   const context = await browser.newContext(options);
   const page = await context.newPage();
   page.on('pageerror', error => failures.push(error.message));
@@ -21,6 +21,7 @@ async function openGame(options) {
       if (asset.pathname.endsWith('.png')) loadedImages.add(asset.pathname);
     }
   });
+  if (nearDoor) await page.addInitScript(() => localStorage.setItem('shelter-base-v1', JSON.stringify({version: 3, levelId: 'outskirts-house-v2', player: {x: 1000, floor: 0, hp: 100}, inventory: {}, doors: [], objects: [], explored: [], flashlight: true, dogHp: 60})));
   await page.goto(url.href, {waitUntil: 'networkidle', timeout: 60000});
   await expect(page.locator('#base-loading')).toBeHidden({timeout: 60000});
   await expect(page.locator('#base-canvas')).toBeVisible();
@@ -54,6 +55,21 @@ try {
   await page.screenshot({path: 'artifacts/deployment/desktop.png'});
   await context.close();
 
+  const door = await openGame({viewport: {width: 1440, height: 1000}}, true);
+  await door.page.keyboard.press('KeyE');
+  await expect(door.page.locator('#door-panel')).toBeVisible();
+  await expect(door.page.locator('#door-open')).toBeEnabled();
+  await door.page.keyboard.press('KeyQ');
+  await expect(door.page.locator('#door-peek')).toHaveAttribute('aria-pressed', 'true');
+  await expect(door.page.locator('#door-open')).toBeDisabled();
+  await door.page.waitForTimeout(700);
+  await door.page.screenshot({path: 'artifacts/deployment/keyhole.png'});
+  await door.page.keyboard.press('KeyQ');
+  await expect(door.page.locator('#door-open')).toBeEnabled();
+  await door.page.locator('#door-open').click();
+  await expect(door.page.locator('#door-panel')).toBeHidden();
+  await door.context.close();
+
   const mobile = await openGame({viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true});
   expect(await mobile.page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   await expect(mobile.page.locator('.touch-controls')).toBeVisible();
@@ -67,11 +83,11 @@ try {
   await mobile.page.screenshot({path: 'artifacts/deployment/mobile.png'});
   await mobile.context.close();
 
-  for (const asset of ['base/district', 'base/materials', 'base/furniture', 'base/objects', 'base/dog', 'base/house-damage', 'base/interior-front', 'base/crates-front', 'developer-walk', 'developer-attack', 'developer-left-punch']) {
+  for (const asset of ['base/district', 'base/materials', 'base/furniture', 'base/objects', 'base/dog', 'base/house-damage', 'base/interior-front', 'base/crates-front', 'base/developer-door', 'developer-walk', 'developer-attack', 'developer-left-punch']) {
     expect(loadedImages.has(`${url.pathname}assets/${asset}.png`), `Missing image: ${asset}`).toBe(true);
   }
   expect(failures).toEqual([]);
-  console.log(`Deployment OK: ${url.href}\n11 image assets, desktop and mobile interaction, flashlight, map and time controls; no runtime or network errors.`);
+  console.log(`Deployment OK: ${url.href}\n12 image assets, desktop and mobile interaction, door handle and keyhole, flashlight, map and time controls; no runtime or network errors.`);
 } finally {
   await browser.close();
 }

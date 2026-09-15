@@ -1,0 +1,16 @@
+{
+  "mode": "Built-in image_gen.imagegen",
+  "reference": "public/assets/developer-attack.png",
+  "output": "public/assets/base/developer-door.png",
+  "passes": [
+    {
+      "purpose": "Create four additional door interaction poses",
+      "prompt": "Create a transparent-background 2x2 game sprite sheet, four full-body poses of EXACT SAME stocky potbellied developer character from reference: same face, glasses, tousled brown hair, teal zip hoodie, grey tee, dark jeans, off-white sneakers, keyboard. Detailed painterly gritty realistic game art. All four face RIGHT in a side view matching reference, NOT toward camera, same character scale and ground baseline within each equally sized cell. Exactly TWO arms: RIGHT hand holds keyboard lowered against belly/hip, LEFT hand interacts with an imaginary door handle to his right. NO actual door, NO background, NO shadow ground, NO text. Cell top-left: standing reaching left hand rightwards toward handle at waist height, keyboard in right hand. Top-right: holding invisible handle with left hand at waist level, elbow slightly bent, standing natural. Bottom-left: bends torso and knees halfway down toward that handle, keeping left hand at handle. Bottom-right: deep forward bend to look through keyhole at waist height, eye just above left hand, peering RIGHT, right hand keeps keyboard low beside body. In the bottom row the head MUST be substantially lower than top row while feet stay at same ground baseline, do NOT scale up bent poses to fill frame. Keep feet positions, skeleton proportions, outfits and keyboard coherent across poses; lower poses still recognizable overweight developer. Hand contact x and y should be same in holding and peeking poses. Real transparent alpha background, clean cutout edges and generous clear margins between cells. Output a high-resolution 1536x1024 sheet."
+    },
+    {
+      "purpose": "Replace generated checkerboard with removable production matte",
+      "prompt": "Correct this game sprite sheet for production. Preserve exactly this same developer and illustrated rendering, four poses. Replace ALL the checkerboard and woven pattern around the figures with one completely FLAT SOLID PURE CHROMA GREEN #00FF00 background. No checkers, texture, gradients, ground or shadows anywhere outside figures; holes between limbs also flat green. Exactly 1536x1024 canvas, grid2x2, each cell768x512. Reposition/reduce figures to fit entirely INSIDE each cell with 25px minimum margins, feet on y=480 for top row and y=992 for bottom row. Four figures at IDENTICAL scale. Top row standing reaching/holding door handle. Bottom left leaning forward halfway; bottom right bends much deeper with both knees bent so EYES line up just above his outstretched hand at the imaginary keyhole. Bottom right EYE at local y=260, hand at local y=285, feetlocal480. Keep SAME size body parts as standing, bent figure shorter naturally. Exactly two arms, right hand holding keyboard, left hand touching imaginary handle. No real door. Each figure silhouette clean and separate. Flat green #00FF00 is a technical removal matte, not scenery."
+    }
+  ],
+  "integration": "Original PNG retained unchanged. Green matte removed at load time with BaseAssets.keyedTexture. Unequal atlas rows measured in BaseHero.texture; one scale and planted foot anchors across all poses."
+}

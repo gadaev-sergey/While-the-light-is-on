@@ -47,7 +47,7 @@ export class BaseRenderer{
   // drawn twice and alpha holes between rails/legs remain open to the rear scene.
   if(this.solidLayer.width!==this.canvas.width||this.solidLayer.height!==this.canvas.height){this.solidLayer.width=this.canvas.width;this.solidLayer.height=this.canvas.height;}
   const solid=this.solidLayer.getContext('2d')!;solid.setTransform(1,0,0,1,0,0);solid.clearRect(0,0,this.solidLayer.width,this.solidLayer.height);this.transform(solid);
-  layer('fixtures');this.doors(solid,w);this.radiators(solid,w);
+  layer('fixtures');this.radiators(solid,w);
   layer('interactables');
   for(const o of w.visibleObjects()){
    solid.save();if(o.searched&&['chest','wardrobe','medicine'].includes(o.kind))solid.filter='brightness(.72)';
@@ -57,10 +57,11 @@ export class BaseRenderer{
   }
   layer('floors');this.floors(solid);layer('stairs');for(const stair of this.level.stairs)if(stair.kind==='ladder')this.ladder(solid,stair.a,this.floorY(stair.from),this.floorY(stair.to));else this.stair(solid,stair.a,this.floorY(stair.from),stair.b,this.floorY(stair.to));
   layer('landings');this.floors(solid,true);
+  layer('doors');this.doors(solid,w);
   layer('actors');
   if(w.dogVisible){const dog=w.dog,frame=dog.mode==='warn'?3:dog.mode==='walk'||dog.mode==='retreat'?1+Math.floor(this.time*5)%2:0;solid.save();solid.translate(lerp(dog.previousX,dog.x,alpha),615);solid.scale(-dog.facing,1);if(dog.hit)solid.filter='brightness(2)';this.sprite(solid,'dog',frame,0,-2,144,96);solid.restore();}
   this.shadow(solid,lerp(w.player.previousX,w.player.x,alpha),lerp(w.player.previousY,w.player.y,alpha)+1,38);
-  this.hero.draw(solid,w.player,w.phase==='playing'?dt:0,alpha,!!w.task,this.level.stairs.find(s=>s.id===w.player.stair?.id)?.kind==='ladder');
+  this.hero.draw(solid,w.player,w.phase==='playing'?dt:0,alpha,!!w.task,this.level.stairs.find(s=>s.id===w.player.stair?.id)?.kind==='ladder',w.doorInteraction);
   if(w.flashlight)this.flashlight(solid,w);
   layer('foreground');this.stairRails(solid);this.architectureEdges(solid);this.foreground(solid,w);
   layer('lighting');this.lighting(w,this.solidLayer);
@@ -162,9 +163,9 @@ export class BaseRenderer{
   // An open doorway has only its jambs and lintel, never a black rectangle down to the sill.
   c.strokeStyle='#292924';c.lineWidth=7;c.beginPath();c.moveTo(0,1);c.lineTo(0,-151);c.lineTo(depth.x,-151*(1-ROOM_DEPTH.contraction)+depth.y);c.lineTo(depth.x,depth.y);c.stroke();
   c.strokeStyle='#b1a18b';c.lineWidth=1.5;c.stroke();
-  c.save();c.transform(leaf.x/62,leaf.y/62,0,1,0,0);const panel=this.doorPanel();for(let x=0;x<62;x+=2){const scale=1-leaf.contraction*(x+1)/62;c.drawImage(panel,x,0,2,147,x,-147*scale,2.05,147*scale);}c.restore();
-  c.strokeStyle='#cec2a96b';c.lineWidth=1.4;c.beginPath();c.moveTo(leaf.x,leaf.y-147*(1-leaf.contraction));c.lineTo(leaf.x,leaf.y);c.stroke();
-  for(const yy of [-125,-28]){c.fillStyle='#868175';c.fillRect(-2,yy,4,9);}c.restore();}}
+  c.save();c.translate(depth.x,depth.y);c.transform(leaf.x/62,leaf.y/62,0,1,0,0);const panel=this.doorPanel();for(let x=0;x<62;x+=2){const scale=1-ROOM_DEPTH.contraction+(leaf.nearScale-1+ROOM_DEPTH.contraction)*(x+1)/62;c.drawImage(panel,x,0,2,147,x,-147*scale,2.05,147*scale);}c.restore();
+  c.strokeStyle='#cec2a96b';c.lineWidth=1.4;c.beginPath();c.moveTo(depth.x+leaf.x,depth.y+leaf.y-147*leaf.nearScale);c.lineTo(depth.x+leaf.x,depth.y+leaf.y);c.stroke();
+  for(const yy of [-125,-28]){c.fillStyle='#868175';c.fillRect(depth.x-2,depth.y+yy*(1-ROOM_DEPTH.contraction),4,7);}c.restore();}}
  doorPanel(){if(this.doorTexture)return this.doorTexture;const panel=document.createElement('canvas');panel.width=62;panel.height=147;const c=panel.getContext('2d')!;this.texture(c,3,0,0,62,147,.33);c.fillStyle='#47443e55';c.fillRect(0,0,62,147);c.strokeStyle='#1a1b18';c.lineWidth=2;c.strokeRect(1,1,60,144);c.strokeRect(8,13,46,57);c.strokeRect(8,80,46,53);c.strokeStyle='#ae9f7b88';c.lineWidth=1;c.strokeRect(9,14,44,55);c.strokeRect(9,81,44,51);c.fillStyle='#b4a489';c.fillRect(48,70,10,3);c.fillStyle='#151716';c.fillRect(53,74,2,6);this.doorTexture=panel;return panel;}
  roomSlabs(room:Room){const b=this.level.buildings.find(b=>b.id===room.buildingId)!;return floorOccluderSpans(this.level,b,room.floor).map(([a,b])=>[Math.max(a,room.x),Math.min(b,room.end)] as [number,number]).filter(([a,b])=>b>a);}
  floorTexture(room:Room){const y=this.floorY(room.floor),key=[room.x,room.end,y,room.material].join(':'),cached=this.floorTextures.get(key);if(cached)return cached;
@@ -214,7 +215,16 @@ export class BaseRenderer{
   c.strokeStyle='#88897520';c.lineWidth=2;for(let i=0;i<19;i++){const x=160+i*95;c.beginPath();c.moveTo(x,639);c.lineTo(x+45,637);c.stroke();}
  }
  foreground(c:CanvasRenderingContext2D,w:BaseWorld){
-  for(const d of this.level.foreground)if(w.explored.has(d.roomId)){c.save();const distance=Math.abs(w.player.x-d.x);if(d.height>24&&w.player.floor===d.floor)c.globalAlpha=.35+.65*clamp((distance-25)/65,0,1);this.sprite(c,'interior',d.frame??7,d.x,this.floorY(d.floor)+2,d.width,d.height);c.restore();}
+  for(const d of this.level.foreground)if(w.explored.has(d.roomId)){
+   c.save();const y=this.floorY(d.floor)+5;
+   if(d.kind==='planks'){
+    // Short, frontal stacks sit on the near floor edge, below the hero's knees.
+    c.translate(d.x-d.width/2,y);c.rotate(-.028);this.shadow(c,d.width/2,0,d.width*.55);
+    for(let i=0;i<4;i++){const x=i%2*9,yy=-7-i*6,width=d.width-i%3*11;this.texture(c,3,x,yy,width,7,.23);c.strokeStyle='#181b19';c.lineWidth=1.4;c.strokeRect(x,yy,width,7);c.fillStyle='#ae98745c';c.fillRect(x+2,yy+1,width-4,1);c.fillStyle='#171b1a';c.fillRect(x+7,yy+3,2,2);c.fillRect(x+width-10,yy+3,2,2);}
+   }else if(d.kind==='crate'){this.sprite(c,'interior',5,d.x,y,d.width,d.height);}
+   else{if(d.frame===8&&w.player.floor===d.floor)c.globalAlpha=.35+.65*clamp((Math.abs(w.player.x-d.x)-25)/65,0,1);this.sprite(c,'interior',d.frame??7,d.x,y,d.width,d.height);}
+   c.restore();
+  }
   // Only low silhouettes at the yard edge; nothing covers an actor's torso.
   c.strokeStyle='#050a0de8';for(let i=0;i<75;i++){const x=i*31+Math.sin(i*7)*14;if(this.level.buildings.some(b=>x>b.x-10&&x<b.end+20))continue;c.lineWidth=2;c.beginPath();c.moveTo(x,671);c.quadraticCurveTo(x+5,651,x+Math.sin(i)*14,644-i%16);c.stroke();}
  }
@@ -256,6 +266,7 @@ export class BaseRenderer{
   const small=this.blurred.getContext('2d')!;small.setTransform(1,0,0,1,0,0);small.clearRect(0,0,this.blurred.width,this.blurred.height);small.filter=`blur(${1.35*this.dpr}px)`;small.drawImage(rearScene??this.sceneCopy,0,0,this.blurred.width,this.blurred.height);small.filter='none';
   const fog=this.fog.getContext('2d')!;fog.setTransform(1,0,0,1,0,0);fog.clearRect(0,0,this.fog.width,this.fog.height);fog.drawImage(this.blurred,0,0,this.fog.width,this.fog.height);this.transform(fog);
   fog.save();fog.globalCompositeOperation='destination-out';fog.filter=`blur(${5*this.dpr}px)`;fog.fillStyle='#fff';this.path(fog,visibilityPolygon(w.sight.origin,0,Math.PI,SIGHT_RANGE,w.sight.segments,140));fog.fill();
+  const peek=w.sight.peek;if(peek){this.path(fog,visibilityPolygon(peek.origin,peek.angle,peek.half,peek.range,peek.segments,80));fog.fill();}
   fog.fillRect(w.player.x-37,w.player.y-134,74,140);fog.restore();
   // Celestial background is not room discovery. Keep it legible only in the
   // exposed sky; this never reveals a room, an object or sky through a solid roof.

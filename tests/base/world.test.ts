@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {BaseWorld} from '../../src/base/world.ts';
+import {BaseWorld,DOOR_CLEARANCE} from '../../src/base/world.ts';
 import {LOCATION,STAIRS,floorY} from '../../src/base/config.ts';
 import {compileLevel,HOUSE_TEMPLATES,ROOM_TEMPLATES,floorSpans,levelRoomAt,validateLevel} from '../../src/base/level.ts';
 import {lineOfSight,occluders} from '../../src/base/visibility.ts';
 import type {BaseObject,BaseSave} from '../../src/base/types.ts';
 const step=(w:BaseWorld,seconds:number,dx=0)=>{for(let t=0;t<seconds;t+=1/60)w.update(1/60,dx);};
 const at=(w:BaseWorld,x:number,floor=0)=>{Object.assign(w.player,{x,previousX:x,floor,y:w.floorY(floor),previousY:w.floorY(floor)});w.mouseAim=false;w.aim=w.player.facing===1?0:Math.PI;w.refreshSight();};
+const operate=(w:BaseWorld,id:string)=>{w.action({type:'interact',target:id});step(w,.8);w.action({type:'door-open'});step(w,.5);};
 const fixture=(kind:BaseObject['kind'],x:number,floor:number):BaseObject=>({id:kind,name:kind,kind,x,floor,atlas:'objects',frame:1,width:70,height:60,searched:false,uses:0});
 
 test('The damaged house has new interior supplies and hides objects behind rooms',()=>{
@@ -41,8 +42,8 @@ test('Multiple staircases retain the front floor and open independent sight aper
 });
 test('Closed doors and intact floor slabs stop sight',()=>{
  const w=new BaseWorld();at(w,1005);assert.equal(w.visible({x:1195,y:559}),false);assert.equal(w.visible({x:1005,y:330}),false);
- w.action({type:'interact',target:'home/kitchen-door'});assert.equal(w.visible({x:1195,y:559}),true);
- w.action({type:'interact',target:'home/kitchen-door'});assert.equal(w.visible({x:1195,y:559}),false);
+ operate(w,'home/kitchen-door');assert.equal(w.visible({x:1195,y:559}),true);
+ operate(w,'home/kitchen-door');assert.equal(w.visible({x:1195,y:559}),false);
 });
 test('A real divider breach permits passage and light; its future boarded state closes both',()=>{
  const w=new BaseWorld();at(w,1040,1);assert.equal(w.visible({x:1170,y:330}),true);step(w,1,1);assert.ok(w.player.x>1090);
@@ -61,10 +62,10 @@ test('Approaching stairs is smooth and pause freezes the transition',()=>{
 });
 test('Navigation uses stairs and the open breach to reach upper rooms',()=>{
  const w=new BaseWorld();w.setTarget(1300,1);step(w,12);assert.equal(w.player.floor,1);assert.ok(Math.abs(w.player.x-1300)<10);assert.equal(w.navigation,null);
- w.setTarget(1400,-1);step(w,12);assert.equal(w.player.floor,0);assert.equal(w.player.x,1038);assert.equal(w.navigation,null);
+ w.setTarget(1400,-1);step(w,12);assert.equal(w.player.floor,0);assert.equal(w.player.x,1050-DOOR_CLEARANCE);assert.equal(w.navigation,null);
 });
 test('Closed doors stop walking and can still be operated in the furnished house',()=>{
- const w=new BaseWorld();at(w,1000);step(w,1,1);assert.equal(w.player.x,1038);w.action({type:'interact',target:'home/kitchen-door'});step(w,1,1);assert.ok(w.player.x>1100);
+ const w=new BaseWorld();at(w,1000);step(w,1,1);assert.equal(w.player.x,1050-DOOR_CLEARANCE);w.action({type:'interact',target:'home/kitchen-door'});step(w,1,1);assert.ok(w.player.x>1100);
 });
 test('Outdoor searches still cancel, pause and yield resources only on completion',()=>{
  const w=new BaseWorld();at(w,1690);w.action({type:'interact',target:'yard-toolbox'});step(w,.4);assert.equal(w.inventory.scrap,0);w.update(1/60,1);assert.equal(w.task,null);
@@ -87,11 +88,12 @@ test('Old saves cannot resurrect removed furniture or the old generator light',(
  const w=new BaseWorld();assert.ok(w.restore(old));assert.equal(w.objects.length,9);assert.ok(w.objects.every(o=>!o.searched));assert.equal(w.powered,false);assert.equal(w.doors.find(d=>d.id==='home/kitchen-door')?.open,true);assert.ok(w.explored.has('home/kitchen'));assert.equal(w.inventory.wood,3);
 });
 
-test('Door leaves animate continuously, reverse without snapping, pause and restore at rest',()=>{
+test('Door leaves animate continuously, ignore repeated commands, pause and restore at rest',()=>{
  const w=new BaseWorld();at(w,1005);const door=w.doors.find(d=>d.id==='home/kitchen-door')!;
- w.action({type:'interact',target:door.id});step(w,.15);assert.ok(door.openness!>0&&door.openness!<1);const before=door.openness!;
- w.action({type:'interact',target:door.id});w.update(1/60);assert.ok(door.openness!<before&&door.openness!>before-.05);w.phase='paused';const paused=door.openness;step(w,1);assert.equal(door.openness,paused);
- w.phase='playing';step(w,1);assert.equal(door.openness,0);w.action({type:'interact',target:door.id});const restored=new BaseWorld();restored.restore(w.save());assert.equal(restored.doors.find(d=>d.id===door.id)?.openness,1);
+ w.action({type:'interact',target:door.id});step(w,.8);w.action({type:'door-open'});step(w,.15);assert.ok(door.openness!>0&&door.openness!<1);assert.equal(door.open,false);const before=door.openness!;
+ w.action({type:'interact',target:door.id});w.update(1/60);assert.ok(door.openness!>before);w.phase='paused';const paused=door.openness;step(w,1);assert.equal(door.openness,paused);
+ w.phase='playing';step(w,1);assert.equal(door.openness,1);assert.equal(door.open,true);operate(w,door.id);assert.equal(door.openness,0);
+ operate(w,door.id);const restored=new BaseWorld();restored.restore(w.save());assert.equal(restored.doors.find(d=>d.id===door.id)?.openness,1);assert.equal(restored.doorInteraction,null);
 });
 test('New room supplies can restore power through the real cellar ladder route',()=>{
  const w=new BaseWorld();at(w,688);w.action({type:'interact',target:'home/supply-crates'});step(w,2);assert.equal(w.inventory.scrap,2);

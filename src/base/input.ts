@@ -7,13 +7,13 @@ export class BaseInput{
  constructor(private w:BaseWorld,private renderer:BaseRenderer,private ui:BaseUI){
   const canvas=renderer.canvas;
   window.addEventListener('keydown',e=>{
-   if(e.code==='Escape'){e.preventDefault();if(!e.repeat){this.clear();if(ui.timeOpen)ui.setTimePanel(false);else ui.togglePause();}return;}
+   if(e.code==='Escape'){e.preventDefault();if(!e.repeat){this.clear();if(ui.timeOpen)ui.setTimePanel(false);else if(ui.dialog.open)ui.close();else if(w.doorInteraction)w.action({type:'door-leave'});else ui.togglePause();}return;}
    if((e.target as HTMLElement).closest('input,textarea,select,#time-panel')||(['Space','Enter'].includes(e.code)&&(e.target as HTMLElement).closest('button')))return;
    if(['KeyI','KeyM'].includes(e.code)){e.preventDefault();if(!e.repeat){this.clear();if(ui.dialog.open)ui.close();else ui.open(e.code==='KeyI'?'inventory':'map');}return;}
    if(w.phase!=='playing')return;
-   const controlled=['KeyA','KeyD','KeyW','KeyS','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyE','KeyF','KeyJ','KeyH','ShiftLeft','ShiftRight','Space'];if(controlled.includes(e.code))e.preventDefault();
+   const controlled=['KeyA','KeyD','KeyW','KeyS','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyE','KeyQ','KeyF','KeyJ','KeyH','ShiftLeft','ShiftRight','Space'];if(controlled.includes(e.code))e.preventDefault();
    this.keys.add(e.code);if(['KeyA','KeyD','ArrowLeft','ArrowRight'].includes(e.code))w.mouseAim=false;if(e.repeat)return;
-   const action:Record<string,Action['type']>={KeyE:'interact',KeyF:'flashlight',KeyJ:'shove',KeyH:'bandage',KeyW:'up',ArrowUp:'up',KeyS:'down',ArrowDown:'down'};if(action[e.code])w.action({type:action[e.code]});
+   const action:Record<string,Action['type']>={KeyE:'interact',KeyQ:'door-peek',KeyF:'flashlight',KeyJ:'shove',KeyH:'bandage',KeyW:'up',ArrowUp:'up',KeyS:'down',ArrowDown:'down'};if(action[e.code])w.action({type:action[e.code]});
   });
   window.addEventListener('keyup',e=>this.keys.delete(e.code));
   canvas.addEventListener('pointermove',e=>{if(e.pointerType==='touch'||w.phase!=='playing')return;const b=canvas.getBoundingClientRect(),point=renderer.screenToWorld({x:e.clientX-b.left,y:e.clientY-b.top});w.aimAt(point);renderer.hover=renderer.hitAt(point);canvas.style.cursor=renderer.hover?'pointer':'crosshair';});

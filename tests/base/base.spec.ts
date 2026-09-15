@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 const state=(page:Page)=>page.evaluate(()=>(window as any).__BASE__.snapshot());
 async function ready(page:Page){await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();await page.waitForFunction(()=>!!(window as any).__BASE__);}
 async function move(page:Page,x:number){const before=await state(page),right=x>before.player.x,key=right?'KeyD':'KeyA';if(Math.abs(x-before.player.x)<5)return;await page.keyboard.down(key);await expect.poll(async()=>(await state(page)).player.x,{intervals:[15],timeout:15000})[right?'toBeGreaterThanOrEqual':'toBeLessThanOrEqual'](x);await page.keyboard.up(key);}
+async function openDoor(page:Page){await page.keyboard.press('KeyE');await expect(page.locator('#door-open')).toBeEnabled();await page.locator('#door-open').click();await expect(page.locator('#door-panel')).toBeHidden();}
 async function stair(page:Page,key:string,floor:number){await page.keyboard.press(key);await expect.poll(async()=>(await state(page)).player.stair,{intervals:[20]}).not.toBeNull();await expect.poll(async()=>(await state(page)).player.floor,{intervals:[40]}).toBe(floor);}
 async function aim(page:Page,x:number,y:number){const point=await page.evaluate(({x,y})=>(window as any).__BASE__.projection(x,y),{x,y});const box=(await page.locator('#base-canvas').boundingBox())!;await page.mouse.move(box.x+point.x,box.y+point.y);}
 async function shot(page:Page,name:string){await fs.mkdir('artifacts/modular-house',{recursive:true});await page.screenshot({path:`artifacts/modular-house/${name}.png`});}
@@ -15,11 +16,11 @@ test('The furnished modular house loads and important objects obey room visibili
 });
 test('A real route crosses every floor and the breached upper partition',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await ready(page);await move(page,760);await stair(page,'KeyW',1);await move(page,1290);await aim(page,1440,320);await shot(page,'upper-breach');
- expect((await state(page)).location).toBe('Спальня');await move(page,950);await stair(page,'KeyS',0);await move(page,1010);await page.keyboard.press('KeyE');await move(page,1398);await stair(page,'KeyS',-1);await shot(page,'empty-basement');
- await move(page,1100);await page.keyboard.press('KeyE');await move(page,820);expect((await state(page)).explored).toHaveLength(6);await expect(page.locator('#goal-caption')).toHaveText('ДОМ ОСМОТРЕН');await page.keyboard.press('KeyM');await shot(page,'explored-map');expect(errors).toEqual([]);
+ expect((await state(page)).location).toBe('Спальня');await move(page,950);await stair(page,'KeyS',0);await move(page,1005);await openDoor(page);await move(page,1398);await stair(page,'KeyS',-1);await shot(page,'empty-basement');
+ await move(page,1118);await openDoor(page);await move(page,820);expect((await state(page)).explored).toHaveLength(6);await expect(page.locator('#goal-caption')).toHaveText('ДОМ ОСМОТРЕН');await page.keyboard.press('KeyM');await shot(page,'explored-map');expect(errors).toEqual([]);
 });
 test('Doors clip visibility while the flashlight changes illumination',async({page})=>{
- await ready(page);await move(page,1008);await aim(page,1300,550);await shot(page,'closed-door');await page.keyboard.press('KeyE');expect((await state(page)).doors.find((d:any)=>d.id==='home/kitchen-door').open).toBe(true);await shot(page,'open-door');
+ await ready(page);await move(page,1008);await aim(page,1300,550);await shot(page,'closed-door');await openDoor(page);expect((await state(page)).doors.find((d:any)=>d.id==='home/kitchen-door').open).toBe(true);await shot(page,'open-door');
  await page.keyboard.press('KeyF');await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed','false');await page.keyboard.press('KeyF');await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed','true');
 });
 test('Outdoor supplies persist alongside the new interior objects',async({page})=>{
@@ -30,7 +31,7 @@ test('Canvas navigation reaches a room through stairs and the open breach',async
  await expect.poll(async()=>(await state(page)).location,{timeout:15000}).toBe('Спальня');await expect.poll(async()=>(await state(page)).navigation).toBeNull();
 });
 test('One distant dog stays outside and retreats from the beam',async({page})=>{
- await ready(page);await move(page,1010);await page.keyboard.press('KeyE');await move(page,1510);await page.keyboard.press('KeyE');await move(page,1810);await aim(page,2050,575);await expect.poll(async()=>(await state(page)).dog.visible).toBe(true);await expect.poll(async()=>(await state(page)).dog.mode).toBe('retreat');expect((await state(page)).player.hp).toBe(100);await shot(page,'yard');
+ await ready(page);await move(page,1005);await openDoor(page);await move(page,1480);await openDoor(page);await move(page,1810);await aim(page,2050,575);await expect.poll(async()=>(await state(page)).dog.visible).toBe(true);await expect.poll(async()=>(await state(page)).dog.mode).toBe('retreat');expect((await state(page)).player.hp).toBe(100);await shot(page,'yard');
 });
 test('Mobile controls remain visible and move the preserved developer',async({browser})=>{
  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),page=await context.newPage();await ready(page);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(390);await expect(page.locator('.touch-controls')).toBeVisible();

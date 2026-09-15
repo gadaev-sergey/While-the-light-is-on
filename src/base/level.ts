@@ -12,7 +12,7 @@ export interface HouseTemplate {width:number;rooms:RoomPlacement[];doors:Door[];
 export interface BuildingPlacement {id:string;template:string;x:number}
 export interface Building {id:string;template:string;x:number;end:number;floors:number[];roof:{rise:number;chimney:number}}
 export interface Opening extends OpeningSpec {roomId:string;buildingId:string;floor:Floor;repairMaterial:'wood';state:OpeningState}
-export interface ForegroundDetail {id:string;roomId:string;floor:Floor;x:number;width:number;height:number;frame?:number}
+export interface ForegroundDetail {id:string;roomId:string;floor:Floor;x:number;width:number;height:number;frame?:number;kind?:'crate'|'planks'}
 export interface LevelDefinition {
  id:string;width:number;height:number;groundY:number;floorHeight:number;spawn:{x:number;floor:Floor};
  buildings:BuildingPlacement[];objects:BaseObject[];
@@ -53,7 +53,8 @@ export function compileLevel(def:LevelDefinition,houses=HOUSE_TEMPLATES,roomTemp
    if(r.width<template.minWidth||r.x<0||r.x+r.width>house.width)throw new Error(`Room outside building: ${prefix+r.id}`);
    const room:Room={id:prefix+r.id,name:r.name,floor:r.floor,x:placement.x+r.x,end:placement.x+r.x+r.width,material:template.material,buildingId:placement.id};result.rooms.push(room);
    for(const o of [...template.openings.map((o,i)=>({...o,id:`${r.id}-window-${i}`})),...(r.openings||[])])result.openings.push({...o,id:prefix+o.id,roomId:room.id,buildingId:placement.id,x:room.x+o.x,floor:r.floor,state:'open',repairMaterial:'wood'});
-   result.foreground.push({id:prefix+r.id+'-chips',roomId:room.id,floor:r.floor,x:room.x+r.width*.22,width:75,height:17,frame:7});
+   result.foreground.push({id:prefix+r.id+'-chips',roomId:room.id,floor:r.floor,x:room.x+r.width*.22,width:110,height:25,frame:7});
+   result.foreground.push({id:prefix+r.id+'-front',roomId:room.id,floor:r.floor,x:room.end-112,width:90,height:36,kind:r.floor<0?'crate':'planks'});
    if(r.id==='workshop')result.foreground.push({id:prefix+r.id+'-rail',roomId:room.id,floor:r.floor,x:room.end-60,width:78,height:38,frame:8});
   }
   for(const d of house.doors)result.doors.push({...d,id:prefix+d.id,x:placement.x+d.x,exterior:d.x===0||d.x===house.width});
