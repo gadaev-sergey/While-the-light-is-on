@@ -1,23 +1,31 @@
 import type {BaseAssets} from './assets.ts';
 import {BASE,lerp} from './config.ts';
-import type {Player,DoorInteraction} from './types.ts';
+import type {Player,DoorInteraction,Vec} from './types.ts';
+import {DOOR_POSES,DOOR_POSE_SCALE} from './door-contact.ts';
 import {PoseAnimator,type PoseLayer,blendPoses,sampleClip,smoothstep} from './animation.ts';
 const walkX=[194,193,164,173,211,203,179,177];
 const punchX=[197,197,185,175,181,182,196,194];
 /** The approved developer artwork is unchanged. Poses share one ground origin. */
 export class BaseHero{
+ gripTarget:Vec={x:50,y:-78};
  animator=new PoseAnimator();cache=new Map<string,HTMLCanvasElement>();surface=document.createElement('canvas');attackFrom:PoseLayer[]=[];attacking=false;
  constructor(private assets:BaseAssets){this.surface.width=400;this.surface.height=360;for(const sheet of ['walk','punch'])for(let i=0;i<8;i++)this.texture(`${sheet}:${i}`);this.texture('idle:0');}
  reset(){this.animator.reset();this.attacking=false;}
  texture(key:string){
-  if(this.cache.has(key))return this.cache.get(key)!;
+  const cacheKey=key.startsWith('door:')?`${key}:${this.gripTarget.x.toFixed(3)}:${this.gripTarget.y.toFixed(3)}`:key;
+  if(this.cache.has(cacheKey))return this.cache.get(cacheKey)!;
   if(key.startsWith('door:')){
    const i=Number(key.split(':')[1]),image=this.assets.images.doorPose;
-   // Hand-authored atlas bounds: the generator did not use equal row heights.
-   // One scale and ground anchor preserve body size and planted feet while bending.
-   const rects=[{x:285,y:0,w:395,h:550,ax:165,ay:536},{x:885,y:0,w:400,h:550,ax:163,ay:536},{x:285,y:550,w:395,h:474,ax:165,ay:456},{x:875,y:550,w:410,h:474,ax:173,ay:456}],r=rects[i],scale=.51;
+   const r=DOOR_POSES[i],scale=DOOR_POSE_SCALE*2;
    const canvas=document.createElement('canvas');canvas.width=400;canvas.height=360;const ctx=canvas.getContext('2d')!;
-   ctx.drawImage(image,r.x,r.y,r.w,r.h,180-r.ax*scale,320-r.ay*scale,r.w*scale,r.h*scale);this.cache.set(key,canvas);return canvas;
+   const dx=this.gripTarget.x*2-(r.hx-r.ax)*scale,dy=this.gripTarget.y*2-(r.hy-r.ay)*scale;
+   ctx.translate(180-r.ax*scale,320-r.ay*scale);
+   // Register the existing pose at its actual fist. The lower-body affine section
+   // absorbs the small offset, keeping both foot anchors fixed during the bend.
+   ctx.save();ctx.translate(dx,dy);ctx.drawImage(image,r.x,r.y,r.w,r.hy,0,0,r.w*scale,r.hy*scale);ctx.restore();
+   const span=(r.ay-r.hy)*scale;ctx.save();ctx.transform(1,0,-dx/span,1-dy/span,dx,r.hy*scale+dy);ctx.drawImage(image,r.x,r.y+r.hy,r.w,r.ay-r.hy,0,0,r.w*scale,span);ctx.restore();
+   ctx.drawImage(image,r.x,r.y+r.ay,r.w,r.h-r.ay,0,r.ay*scale,r.w*scale,(r.h-r.ay)*scale);
+   this.cache.set(cacheKey,canvas);return canvas;
   }
   const [name,n]=key.split(':'),i=+n,sheet=name as 'walk'|'punch'|'idle',im=this.assets.images[sheet],cw=im.width/4,ch=im.height/2;
   const a={x:sheet==='walk'?walkX[i]:sheet==='punch'?punchX[i]:190,y:sheet==='walk'?(i<4?486:483):sheet==='punch'?(i<4?496:494):504};
@@ -27,7 +35,8 @@ export class BaseHero{
   if(sheet==='punch'&&(i===5||i===6)){ctx.beginPath();ctx.rect(-a.x*scale,-a.y*scale,width*scale,ch*scale);ctx.rect(-a.x*scale,(80-a.y)*scale,27*scale,90*scale);ctx.clip('evenodd');}
   ctx.drawImage(im,i%4*cw,Math.floor(i/4)*ch,width,ch,-a.x*scale,-a.y*scale,width*scale,ch*scale);this.cache.set(key,c);return c;
  }
- draw(c:CanvasRenderingContext2D,p:Player,dt:number,alpha:number,working:boolean,ladder=false,door:DoorInteraction|null=null){
+ draw(c:CanvasRenderingContext2D,p:Player,dt:number,alpha:number,working:boolean,ladder=false,door:DoorInteraction|null=null,hand?:Vec){
+  if(hand)this.gripTarget=hand;
   let layers:PoseLayer[];
   if(door&&door.phase!=='approach'){this.attacking=false;layers=this.animator.update('door',{frames:['door:0','door:1','door:2','door:3'],duration:3},dt,1,.18,door.reach<1?door.reach:1+2*door.lean);}
   else if(p.attack>0){if(!this.attacking){this.attackFrom=this.animator.current;this.attacking=true;}const t=.42-p.attack,target=sampleClip({frames:Array.from({length:8},(_,i)=>`punch:${i}`),duration:.42},t);layers=blendPoses(this.attackFrom,target,smoothstep(t/.055));this.animator.current=layers;this.animator.key='punch';}

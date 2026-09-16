@@ -21,6 +21,14 @@ export function doorLeaf(door:Pick<Door,'openness'|'open'>,depth:Vec){
  // The hinge is fixed at the BACK jamb. Only the free edge sweeps into the room.
  return {x:62*Math.sin(angle)*(Math.sign(depth.x)||1)-depth.x*Math.cos(angle),y:-depth.y*Math.cos(angle),nearScale:1-ROOM_DEPTH.contraction+ROOM_DEPTH.contraction*Math.cos(angle)};
 }
+/** One projection owns the leaf, hardware, jamb and interaction contact points. */
+export const DOOR_PANEL={width:62,height:147,jambHeight:151,handle:{x:53,y:71},keyhole:{x:53,y:78}} as const;
+export function doorGeometry(level:CompiledLevel,door:Door){
+ const floorY=level.groundY-door.floor*level.floorHeight,room=level.rooms.find(r=>r.floor===door.floor&&r.x===door.x)||level.rooms.find(r=>r.floor===door.floor&&r.end===door.x)!;
+ const hinge=backPoint(room,door.x,floorY,floorY),depth={x:hinge.x-door.x,y:hinge.y-floorY},leaf=doorLeaf(door,depth),farScale=1-ROOM_DEPTH.contraction;
+ const point=(x:number,y:number):Vec=>{const t=x/DOOR_PANEL.width,scale=farScale+(leaf.nearScale-farScale)*t;return {x:hinge.x+leaf.x*t,y:hinge.y+leaf.y*t+(y-DOOR_PANEL.height)*scale};};
+ return {floorY,hinge,depth,leaf,point,handle:point(DOOR_PANEL.handle.x,DOOR_PANEL.handle.y),keyhole:point(DOOR_PANEL.keyhole.x,DOOR_PANEL.keyhole.y)};
+}
 /** World-anchored variation: no random numbers per frame or at adjoining modules. */
 export const grain=(n:number)=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
 export function raggedEdge(a:Vec,b:Vec,amplitude=3,spacing=13):Vec[]{

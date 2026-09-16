@@ -62,10 +62,10 @@ test('Approaching stairs is smooth and pause freezes the transition',()=>{
 });
 test('Navigation uses stairs and the open breach to reach upper rooms',()=>{
  const w=new BaseWorld();w.setTarget(1300,1);step(w,12);assert.equal(w.player.floor,1);assert.ok(Math.abs(w.player.x-1300)<10);assert.equal(w.navigation,null);
- w.setTarget(1400,-1);step(w,12);assert.equal(w.player.floor,0);assert.equal(w.player.x,1050-DOOR_CLEARANCE);assert.equal(w.navigation,null);
+ w.setTarget(1400,-1);step(w,12);assert.equal(w.player.floor,0);assert.ok(w.player.x<=1050-DOOR_CLEARANCE&&w.player.x>=1050-65);assert.equal(w.navigation,null);
 });
 test('Closed doors stop walking and can still be operated in the furnished house',()=>{
- const w=new BaseWorld();at(w,1000);step(w,1,1);assert.equal(w.player.x,1050-DOOR_CLEARANCE);w.action({type:'interact',target:'home/kitchen-door'});step(w,1,1);assert.ok(w.player.x>1100);
+ const w=new BaseWorld();at(w,1000);step(w,1,1);assert.ok(w.player.x<=1050-DOOR_CLEARANCE&&w.player.x>=1050-65);w.action({type:'interact',target:'home/kitchen-door'});step(w,1,1);assert.ok(w.player.x>1100);
 });
 test('Outdoor searches still cancel, pause and yield resources only on completion',()=>{
  const w=new BaseWorld();at(w,1690);w.action({type:'interact',target:'yard-toolbox'});step(w,.4);assert.equal(w.inventory.scrap,0);w.update(1/60,1);assert.equal(w.task,null);

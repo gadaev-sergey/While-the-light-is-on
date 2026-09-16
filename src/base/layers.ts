@@ -14,7 +14,7 @@ export const RENDER_LAYERS=[
  {id:'foreground',target:'solid',contents:'Торцы, ближние перила, обломки и трава'},
  {id:'lighting',target:'composite',contents:'Дневное и ночное освещение; дымка позади solid; сборка сцены'},
  {id:'visibility',target:'post',contents:'Раздельное размытие rear и solid с сохранением силуэтов'},
- {id:'structure',target:'post',contents:'Чёткая архитектура и чёрные срезы'},
+ {id:'structure',target:'post',contents:'Чёткие вертикальные стены и чёрные срезы; покрытие пола остаётся под туманом'},
  {id:'markers',target:'overlay',contents:'Значки, прогресс действия, маршрут'},
 ] as const;
 export type RenderLayerId=typeof RENDER_LAYERS[number]['id'];

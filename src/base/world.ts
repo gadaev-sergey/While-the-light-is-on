@@ -3,7 +3,8 @@ import {wrapMinutes,flashlightReaches} from './lighting.ts';
 import {levelFloorY,levelRoomAt,walkBounds,type CompiledLevel,type Opening,type OpeningState} from './level.ts';
 import {canSee,occluders,rayDistance,visibleRoomSamples,type Sight} from './visibility.ts';
 import type {Action,BaseObject,BaseSave,Dog,Door,Floor,Navigation,Player,Resources,Task,Vec,DoorInteraction} from './types.ts';
-export const DOOR_CLEARANCE=40;
+import {doorContact} from './door-contact.ts';
+export {DOOR_CLEARANCE} from './door-contact.ts';
 export class BaseWorld{
  doorInteraction:DoorInteraction|null=null;
  player!:Player;dog!:Dog;doors:Door[]=[];objects:BaseObject[]=[];inventory!:Resources;explored=new Set<string>();
@@ -27,13 +28,14 @@ export class BaseWorld{
  notify(text:string,kind:'info'|'good'|'warn'='info'){this.toast=text;this.toastKind=kind;this.toastTime=4.5;}
  get currentRoom(){return levelRoomAt(this.level,this.player.x,this.player.floor);}
  get location(){return this.player.stair?'Лестница':this.currentRoom?.name||'Двор';}
+ get doorHand(){const i=this.doorInteraction,d=this.doors.find(d=>d.id===i?.id);return i&&d?doorContact(this.level,d,i.side).hand:undefined;}
  get lightOrigin(){const p=this.player,origin={x:p.x,y:p.y-69};const reach=rayDistance(origin,p.facing===1?0:Math.PI,this.sight.segments,19);return {x:p.x+p.facing*Math.max(0,Math.min(17,reach-2)),y:origin.y};}
  refreshSight(){this.sight={origin:{x:this.player.x,y:this.player.y-82},segments:occluders(this.doors,this.level,this.openings)};
   const interaction=this.doorInteraction,door=this.doors.find(d=>d.id===interaction?.id);
   if(interaction?.phase==='peek'&&interaction.lean>=.98&&door&&!door.open){
    // A second, narrow eye ray starts just beyond the keyhole. The main segments
    // remain sealed, so the hand-held lamp can never use this optical shortcut.
-   this.sight.peek={origin:{x:door.x-interaction.side*.5,y:this.floorY(door.floor)-76},angle:interaction.side===-1?0:Math.PI,half:.105,range:380,segments:this.sight.segments};
+   this.sight.peek={origin:{x:door.x-interaction.side*.5,y:doorContact(this.level,door,interaction.side).keyholeY},angle:interaction.side===-1?0:Math.PI,half:.105,range:380,segments:this.sight.segments};
   }
   for(const id of visibleRoomSamples(this.sight,this.level))this.explored.add(id);}
  visible(point:Vec){return canSee(this.sight,point);}
@@ -47,7 +49,7 @@ export class BaseWorld{
   targets.sort((a,b)=>Math.abs(a.x-p.x)-Math.abs(b.x-p.x));return targets[0]||null;
  }
  description(id:string){
-  const d=this.doors.find(d=>d.id===id);if(d)return {title:d.name,verb:d.open?'К двери':'Взяться за ручку',detail:d.open?'Закрытая дверь перекрывает обзор':'За дверью может быть ещё одна комната',seconds:0};
+  const d=this.doors.find(d=>d.id===id);if(d)return {title:d.name,verb:d.open?'Закрыть':'Взяться за ручку',detail:d.open?'Закрытая дверь перекрывает обзор':'За дверью может быть ещё одна комната',seconds:0};
   const o=this.objects.find(o=>o.id===id);if(!o)return null;
   const entries:Record<string,[string,string,number]>={
    chest:[o.searched?'Осмотрено':'Обыскать',o.searched?'Здесь больше ничего нет':'Проверить содержимое',1.5],
@@ -74,7 +76,7 @@ export class BaseWorld{
    const id=action.target||this.nearby()?.id;if(!id)return;
    const object=this.objects.find(o=>o.id===id),door=this.doors.find(o=>o.id===id),target=object||door;
    if(!target||target.floor!==p.floor||Math.abs(target.x-p.x)>76||!this.visible({x:target.x,y:this.floorY(target.floor)-55}))return;
-   if(door){this.beginDoor(door);return;}
+   if(door){if(door.open)this.closeDoor(door);else this.beginDoor(door);return;}
    if(!object)return;
    if(['chest','wardrobe','medicine','rubble'].includes(object.kind)&&object.searched){this.notify('Здесь больше ничего нет');return;}
    if(object.kind==='generator'&&(this.powered||this.inventory.scrap<2||this.inventory.fuse<1)){this.notify(this.powered?'Генератор уже работает':'Для генератора нужны 2 детали и предохранитель','warn');return;}
@@ -84,29 +86,36 @@ export class BaseWorld{
    const duration=this.description(id)!.seconds;this.task={id,duration,remaining:duration};this.navigation=null;p.moving=false;this.onSound('search');
   }
  }
+ closeDoor(door:Door){
+  // Closing is a direct command. Keep an actor standing in the threshold on
+  // their current side, without starting the closed-door handle animation.
+  const p=this.player;door.open=false;this.navigation=null;this.doorInteraction=null;
+  const side=p.x<door.x?-1:1,stop=doorContact(this.level,door,side).x;
+  if((p.x-stop)*side<0){p.x=stop;p.previousX=stop;}
+  p.moving=false;this.onSound('door');this.revision++;this.refreshSight();
+ }
  beginDoor(door:Door){
-  const p=this.player;if(this.doorInteraction||p.stair||p.attack||this.task)return;
+  const p=this.player;if(door.open||this.doorInteraction||p.stair||p.attack||this.task)return;
   this.navigation=null;this.mouseAim=false;p.facing=p.x<door.x?1:-1;this.aim=p.facing===1?0:Math.PI;
   this.doorInteraction={id:door.id,side:p.x<door.x?-1:1,phase:'approach',reach:0,lean:0};p.moving=false;
  }
  leaveDoor(){if(this.doorInteraction?.phase==='opening')return;this.doorInteraction=null;this.navigation=null;this.refreshSight();}
  doorAction(choice:'open'|'peek'){
-  const i=this.doorInteraction,d=this.doors.find(d=>d.id===i?.id);if(!i||!d||i.reach<1||i.phase==='opening')return;
+  const i=this.doorInteraction,d=this.doors.find(d=>d.id===i?.id);if(!i||!d||d.open||i.reach<1||i.phase==='opening')return;
   if(choice==='peek'){if(d.open)return;i.phase=i.phase==='peek'?'grip':'peek';this.refreshSight();return;}
   if(i.lean>0||i.phase==='peek')return;
   if(d.locked){this.notify(d.lockReason||'Дверь заперта. Можно заглянуть в скважину.','warn');return;}
-  if(d.open){d.open=false;this.doorInteraction=null;this.revision++;this.onSound('door');this.refreshSight();}
-  else{i.phase='opening';this.onSound('door');}
+  i.phase='opening';this.onSound('door');
  }
  updateDoor(dt:number,direction:number){
   const i=this.doorInteraction!,d=this.doors.find(d=>d.id===i.id),p=this.player;
-  if(!d||d.floor!==p.floor||p.hurt){this.leaveDoor();return;}
+  if(!d||d.open||d.floor!==p.floor||p.hurt){this.doorInteraction=null;this.refreshSight();return;}
   if(direction===i.side&&i.phase!=='opening'){this.leaveDoor();this.move(direction,dt,false);return;}
   p.facing=i.side===-1?1:-1;this.aim=p.facing===1?0:Math.PI;p.moving=false;
   if(i.phase==='approach'){
-   const target=d.x+i.side*DOOR_CLEARANCE,delta=target-p.x;
+   const target=doorContact(this.level,d,i.side).x,delta=target-p.x;
    if(Math.abs(delta)>.1)this.move(Math.sign(delta),Math.min(dt,Math.abs(delta)/BASE.speed),false);
-   else{i.phase='grip';p.moving=false;}
+   else{p.x=target;i.phase='grip';p.moving=false;}
    return;
   }
   i.reach=Math.min(1,i.reach+dt/.32);const target=Number(i.phase==='peek');i.lean+=Math.sign(target-i.lean)*Math.min(Math.abs(target-i.lean),dt/.55);
@@ -136,7 +145,7 @@ export class BaseWorld{
  }
  move(dx:number,dt:number,run:boolean){
   const p=this.player,from=p.x,[left,right]=walkBounds(this.level,from,p.floor);let next=clamp(from+dx*(run?BASE.runSpeed:BASE.speed)*dt,left,right);
-  for(const wall of occluders(this.doors,this.level,this.openings)){if(wall.a.x!==wall.b.x||Math.min(wall.a.y,wall.b.y)>p.y-65||Math.max(wall.a.y,wall.b.y)<p.y-65)continue;const x=wall.a.x,door=this.doors.find(d=>d.floor===p.floor&&d.x===x&&!d.open),gap=door?DOOR_CLEARANCE:12;
+  for(const wall of occluders(this.doors,this.level,this.openings)){if(wall.a.x!==wall.b.x||Math.min(wall.a.y,wall.b.y)>p.y-65||Math.max(wall.a.y,wall.b.y)<p.y-65)continue;const x=wall.a.x,door=this.doors.find(d=>d.floor===p.floor&&d.x===x&&!d.open),gap=door?Math.abs(doorContact(this.level,door,from<x?-1:1).x-x):12;
    if(from<x&&next>x-gap)next=Math.min(next,x-gap);if(from>=x&&next<x+gap)next=Math.max(next,x+gap);
    if(door&&Math.abs(next-x)<=gap+.1&&dx===Math.sign(x-from)&&!this.doorInteraction)this.beginDoor(door);
   }
@@ -193,7 +202,7 @@ export class BaseWorld{
   for(const d of this.doors){const entry=Array.isArray(s.doors)?s.doors.find(x=>sameId(x.id,d.id)):null;if(entry)d.open=!d.locked&&!!entry.open;d.openness=Number(d.open);}
   for(const o of this.objects){const entry=Array.isArray(s.objects)?s.objects.find(x=>sameId(x.id,o.id)):null;if(entry){o.searched=!!entry.searched;o.uses=clamp(Number(entry.uses)||0,0,999);}}
   for(const o of this.openings){const entry=Array.isArray(s.openings)?s.openings.find(x=>x.id===o.id):null;if(entry&&['open','boarded'].includes(entry.state))o.state=entry.state;}
-  for(const d of this.doors)if(!d.open&&d.floor===p.floor&&Math.abs(p.x-d.x)<DOOR_CLEARANCE)p.x=d.x+(p.x<d.x?-1:1)*DOOR_CLEARANCE;p.previousX=p.x;
+  for(const d of this.doors)if(!d.open&&d.floor===p.floor){const side=p.x<d.x?-1:1,stop=doorContact(this.level,d,side).x;if((p.x-stop)*side<0)p.x=stop;}p.previousX=p.x;
   this.explored=new Set(this.level.rooms.filter(r=>Array.isArray(s.explored)&&s.explored.some(id=>sameId(id,r.id))).map(r=>r.id));this.powered=s.version>=2&&!!s.powered;if(s.clock&&Number.isFinite(s.clock.minutes)){this.dayMinutes=wrapMinutes(s.clock.minutes);this.timeRunning=!!s.clock.running;}this.flashlight=!!s.flashlight;this.time=Math.max(0,Number(s.time)||0);this.dog.hp=clamp(Number(s.dogHp)||0,0,60);this.refreshSight();this.notify('Вы вернулись на базу');return true;
  }
  snapshot(){return {doorInteraction:this.doorInteraction?{...this.doorInteraction}:null,peeking:!!this.sight.peek,dayMinutes:this.dayMinutes,timeRunning:this.timeRunning,levelId:this.level.id,rooms:this.level.rooms.map(r=>({...r})),buildings:this.level.buildings.map(b=>({...b})),openings:this.openings.map(o=>({...o})),phase:this.phase,player:{...this.player,stair:this.player.stair?{...this.player.stair}:null},location:this.location,inventory:{...this.inventory},powered:this.powered,flashlight:this.flashlight,aim:this.aim,task:this.task?{...this.task}:null,navigation:this.navigation?{...this.navigation}:null,explored:[...this.explored],visibleObjects:this.visibleObjects().map(o=>o.id),visibleDoors:this.visibleDoors().map(d=>d.id),doors:this.doors.map(d=>({...d})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),dog:{...this.dog,visible:this.dogVisible},time:this.time,toast:this.toast};}

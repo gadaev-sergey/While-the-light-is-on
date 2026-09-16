@@ -6,7 +6,7 @@ import type {BaseAssets,ImageId} from './assets.ts';
 import {BaseHero} from './hero.ts';
 import type {BaseWorld} from './world.ts';
 import type {Vec,Room,Floor} from './types.ts';
-import {ROOM_DEPTH,backPoint,floorFace,doorLeaf,grain,raggedEdge,openingPlacement} from './architecture.ts';
+import {ROOM_DEPTH,backPoint,floorFace,doorGeometry,DOOR_PANEL,grain,raggedEdge,openingPlacement} from './architecture.ts';
 import {apertureBeam,drawApertureBeam,type ApertureBeam} from './aperture-light.ts';
 import type {RenderLayerId} from './layers.ts';
 import {NightSky} from './night-sky.ts';
@@ -19,7 +19,7 @@ const interiorRects:Rect[]=[{x:35,y:30,w:330,h:435},{x:405,y:125,w:440,h:330},{x
 export class BaseRenderer{
  solidLayer=document.createElement('canvas');
  rearLayer=document.createElement('canvas');nightSky=new NightSky();
- structure=document.createElement('canvas');beamTextures=new Map<string,HTMLCanvasElement>();floorTextures=new Map<string,HTMLCanvasElement>();doorTexture?:HTMLCanvasElement;
+ structure=document.createElement('canvas');beamTextures=new Map<string,HTMLCanvasElement>();floorTextures=new Map<string,HTMLCanvasElement>();
  environment=daylightStyle(720);illumination=document.createElement('canvas');sceneCopy=document.createElement('canvas');blurred=document.createElement('canvas');
  lightKey='';lightLevel?:CompiledLevel;lightFields:{source:DaylightSource;polygon:Vec[];shaft?:ApertureBeam}[]=[];
  level:CompiledLevel=LOCATION;wallLayer=document.createElement('canvas');layerTrace:string[]=[];
@@ -61,7 +61,7 @@ export class BaseRenderer{
   layer('actors');
   if(w.dogVisible){const dog=w.dog,frame=dog.mode==='warn'?3:dog.mode==='walk'||dog.mode==='retreat'?1+Math.floor(this.time*5)%2:0;solid.save();solid.translate(lerp(dog.previousX,dog.x,alpha),615);solid.scale(-dog.facing,1);if(dog.hit)solid.filter='brightness(2)';this.sprite(solid,'dog',frame,0,-2,144,96);solid.restore();}
   this.shadow(solid,lerp(w.player.previousX,w.player.x,alpha),lerp(w.player.previousY,w.player.y,alpha)+1,38);
-  this.hero.draw(solid,w.player,w.phase==='playing'?dt:0,alpha,!!w.task,this.level.stairs.find(s=>s.id===w.player.stair?.id)?.kind==='ladder',w.doorInteraction);
+  this.hero.draw(solid,w.player,w.phase==='playing'?dt:0,alpha,!!w.task,this.level.stairs.find(s=>s.id===w.player.stair?.id)?.kind==='ladder',w.doorInteraction,w.doorHand);
   if(w.flashlight)this.flashlight(solid,w);
   layer('foreground');this.stairRails(solid);this.architectureEdges(solid);this.foreground(solid,w);
   layer('lighting');this.lighting(w,this.solidLayer);
@@ -141,7 +141,7 @@ export class BaseRenderer{
     c.save();this.path(c,[{x,y:top},bt,bb,{x,y:end}]);c.clip();this.texture(c,room.material,left,top,width+1,y+3-top,room.floor<0?.65:.58);
     const shade=c.createLinearGradient(x,0,bt.x,0);shade.addColorStop(0,'#030608bd');shade.addColorStop(1,x===room.x?'#10171535':'#04091268');c.fillStyle=shade;c.fillRect(left,top,width+1,y+3-top);c.restore();
     c.strokeStyle='#ada28a38';c.lineWidth=1;c.beginPath();c.moveTo(bt.x,bt.y);c.lineTo(bb.x,bb.y);c.stroke();
-    if(door||hole&&hole.state==='open'){c.strokeStyle=door?'#8f826858':'#6c65504d';c.lineWidth=3;c.beginPath();c.moveTo(x,end);c.lineTo(bb.x,bb.y);c.stroke();}
+    if(!door&&hole&&hole.state==='open'){c.strokeStyle='#6c65504d';c.lineWidth=3;c.beginPath();c.moveTo(x,end);c.lineTo(bb.x,bb.y);c.stroke();}
    }
   }
  }
@@ -158,15 +158,23 @@ export class BaseRenderer{
   c.save();c.beginPath();c.rect(x-width/2,bottom-height,width,height);c.clip();this.texture(c,3,x-width/2,bottom-height,width,height,.35);
   for(let y=bottom-height;y<bottom;y+=22){c.fillStyle='#171d20aa';c.fillRect(x-width/2,y,width,2);c.fillStyle='#d1bea84a';c.fillRect(x-width/2,y+2,width,1);c.fillStyle='#242622';c.fillRect(x-width/2+7,y+8,2,2);c.fillRect(x+width/2-9,y+8,2,2);}c.restore();
  }
- doors(c:CanvasRenderingContext2D,w:BaseWorld){for(const d of w.doors){const y=this.floorY(d.floor),room=this.level.rooms.find(r=>r.floor===d.floor&&r.x===d.x)||this.level.rooms.find(r=>r.floor===d.floor&&r.end===d.x)!;
-  const back=backPoint(room,d.x,y,y),depth={x:back.x-d.x,y:back.y-y},leaf=doorLeaf(d,depth);c.save();c.translate(d.x,y);
-  // An open doorway has only its jambs and lintel, never a black rectangle down to the sill.
-  c.strokeStyle='#292924';c.lineWidth=7;c.beginPath();c.moveTo(0,1);c.lineTo(0,-151);c.lineTo(depth.x,-151*(1-ROOM_DEPTH.contraction)+depth.y);c.lineTo(depth.x,depth.y);c.stroke();
-  c.strokeStyle='#b1a18b';c.lineWidth=1.5;c.stroke();
-  c.save();c.translate(depth.x,depth.y);c.transform(leaf.x/62,leaf.y/62,0,1,0,0);const panel=this.doorPanel();for(let x=0;x<62;x+=2){const scale=1-ROOM_DEPTH.contraction+(leaf.nearScale-1+ROOM_DEPTH.contraction)*(x+1)/62;c.drawImage(panel,x,0,2,147,x,-147*scale,2.05,147*scale);}c.restore();
-  c.strokeStyle='#cec2a96b';c.lineWidth=1.4;c.beginPath();c.moveTo(depth.x+leaf.x,depth.y+leaf.y-147*leaf.nearScale);c.lineTo(depth.x+leaf.x,depth.y+leaf.y);c.stroke();
-  for(const yy of [-125,-28]){c.fillStyle='#868175';c.fillRect(depth.x-2,depth.y+yy*(1-ROOM_DEPTH.contraction),4,7);}c.restore();}}
- doorPanel(){if(this.doorTexture)return this.doorTexture;const panel=document.createElement('canvas');panel.width=62;panel.height=147;const c=panel.getContext('2d')!;this.texture(c,3,0,0,62,147,.33);c.fillStyle='#47443e55';c.fillRect(0,0,62,147);c.strokeStyle='#1a1b18';c.lineWidth=2;c.strokeRect(1,1,60,144);c.strokeRect(8,13,46,57);c.strokeRect(8,80,46,53);c.strokeStyle='#ae9f7b88';c.lineWidth=1;c.strokeRect(9,14,44,55);c.strokeRect(9,81,44,51);c.fillStyle='#b4a489';c.fillRect(48,70,10,3);c.fillStyle='#151716';c.fillRect(53,74,2,6);this.doorTexture=panel;return panel;}
+ doors(c:CanvasRenderingContext2D,w:BaseWorld){for(const d of [...w.doors].sort((a,b)=>a.floor-b.floor||a.x-b.x)){
+  const g=doorGeometry(this.level,d),{point,hinge,depth,leaf,floorY:y}=g,farScale=1-ROOM_DEPTH.contraction;
+  const quad=(x:number,yy:number,width:number,height:number)=>[point(x,yy),point(x+width,yy),point(x+width,yy+height),point(x,yy+height)];
+  c.save();
+  // One filled leaf, rather than overlapping two-pixel slices. Its silhouette
+  // clips one continuous wood texture; panel trim and hardware use the same map.
+  const polygon=quad(0,0,DOOR_PANEL.width,DOOR_PANEL.height);this.path(c,polygon);c.fillStyle='#39372f';c.fill();
+  if(Math.abs(leaf.x)>.2){c.save();this.path(c,polygon);c.clip();c.transform(leaf.x/DOOR_PANEL.width,leaf.y/DOOR_PANEL.width,0,1,hinge.x,hinge.y);this.texture(c,3,0,-DOOR_PANEL.height,DOOR_PANEL.width,DOOR_PANEL.height,.33);c.fillStyle='#47443e55';c.fillRect(0,-DOOR_PANEL.height,DOOR_PANEL.width,DOOR_PANEL.height);c.restore();}
+  c.strokeStyle='#191b18';c.lineWidth=1.8;this.path(c,polygon);c.stroke();
+  for(const panel of [{x:8,y:13,w:46,h:57},{x:8,y:80,w:46,h:53}]){this.path(c,quad(panel.x,panel.y,panel.w,panel.h));c.stroke();c.strokeStyle='#ae9f7b66';c.lineWidth=.8;this.path(c,quad(panel.x+1,panel.y+1,panel.w-2,panel.h-2));c.stroke();c.strokeStyle='#191b18';c.lineWidth=1.8;}
+  // The latch is close to the free edge, physically on the leaf, never at door.x.
+  this.path(c,quad(50,66,7,18));c.fillStyle='#302e27';c.fill();this.path(c,quad(48,70,10,3));c.fillStyle='#b4a489';c.fill();
+  this.path(c,quad(DOOR_PANEL.keyhole.x,DOOR_PANEL.keyhole.y-2,2,5));c.fillStyle='#0b0e0c';c.fill();
+  // Jambs own these edges; rear wall returns do not draw a second frame.
+  c.strokeStyle='#292924';c.lineWidth=7;c.beginPath();c.moveTo(d.x,y+1);c.lineTo(d.x,y-DOOR_PANEL.jambHeight);c.lineTo(hinge.x,hinge.y-DOOR_PANEL.jambHeight*farScale);c.lineTo(hinge.x,hinge.y);c.stroke();c.strokeStyle='#b1a18b';c.lineWidth=1.2;c.stroke();
+  for(const yy of [-125,-28]){c.fillStyle='#868175';c.fillRect(hinge.x-2,hinge.y+yy*farScale,4,7);}
+  c.restore();}}
  roomSlabs(room:Room){const b=this.level.buildings.find(b=>b.id===room.buildingId)!;return floorOccluderSpans(this.level,b,room.floor).map(([a,b])=>[Math.max(a,room.x),Math.min(b,room.end)] as [number,number]).filter(([a,b])=>b>a);}
  floorTexture(room:Room){const y=this.floorY(room.floor),key=[room.x,room.end,y,room.material].join(':'),cached=this.floorTextures.get(key);if(cached)return cached;
   const canvas=document.createElement('canvas');canvas.width=Math.ceil(room.end-room.x);canvas.height=30;const c=canvas.getContext('2d')!,center=(room.x+room.end)/2,back=backPoint(room,center,y+3,y);c.translate(-room.x,-(y-26));
@@ -177,7 +185,7 @@ export class BaseRenderer{
  floors(c:CanvasRenderingContext2D,landingOnly=false){for(const b of this.level.buildings)for(const floor of b.floors){if(landingOnly&&!this.level.stairs.some(s=>s.to===floor&&s.b>=b.x&&s.b<=b.end))continue;const y=this.floorY(floor);
   // Only the rear strip has a stairwell opening. The front surface and fascia span it.
   if(!landingOnly)for(const room of this.level.rooms.filter(r=>r.buildingId===b.id&&r.floor===floor))for(const [x,end] of this.roomSlabs(room)){c.save();this.path(c,floorFace(room,x,end,y));c.clip();c.drawImage(this.floorTexture(room),room.x,y-26,room.end-room.x,30);c.restore();}
-  for(const [x,end] of floorSpans(this.level,b,floor)){
+  if(landingOnly===this.level.stairs.some(s=>s.to===floor&&s.b>=b.x&&s.b<=b.end))for(const [x,end] of floorSpans(this.level,b,floor)){
    this.texture(c,floor<0?4:3,x,y-6,end-x,18,.43);const shade=c.createLinearGradient(0,y-6,0,y+12);shade.addColorStop(0,'#ced0b81e');shade.addColorStop(1,'#07101b55');c.fillStyle=shade;c.fillRect(x,y-6,end-x,18);c.fillStyle='#d2b98b55';c.fillRect(x,y-6,end-x,1);
   }
   if(!landingOnly)for(const [left,right] of stairApertures(this.level,b,floor))for(const room of this.level.rooms.filter(r=>r.buildingId===b.id&&r.floor===floor&&r.end>left&&r.x<right)){c.fillStyle='#080e1666';this.path(c,floorFace(room,Math.max(left,room.x),Math.min(right,room.end),y));c.fill();c.strokeStyle='#8c7d6055';c.lineWidth=1;c.stroke();}
@@ -319,19 +327,21 @@ export class BaseRenderer{
   this.earthCut(c,groundStart,right,this.level.groundY+24,deep);c.restore();
  }
  earthCut(c:CanvasRenderingContext2D,left:number,right:number,y:number,deep:number){if(right<=left)return;this.path(c,[...raggedEdge({x:left,y},{x:right,y},5,16),{x:right,y:deep},{x:left,y:deep}]);c.fill();}
- /** Restore already-lit structural pixels above fog; interiors remain blurred.
-  * Copying the original composite also preserves actors in front of floor surfaces. */
+ /** Restore only opaque wall structure. Floor coverings and door leaves keep
+  * their fog; the black cut fascia is drawn once afterwards. */
  structuralForeground(w:BaseWorld){
   const c=this.structure.getContext('2d')!;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,this.structure.width,this.structure.height);this.transform(c);c.fillStyle='#fff';
   for(const b of this.level.buildings){
    const top=this.floorY(Math.max(...b.floors))-this.level.floorHeight,bottom=this.floorY(Math.min(...b.floors));
    c.fillRect(b.x-17,top,17,bottom-top+20);c.fillRect(b.end,top,17,bottom-top+20);c.fillRect(b.x-40,top-7,b.end-b.x+80,12);
-   for(const f of b.floors){const y=this.floorY(f);c.fillRect(b.x,y-6,b.end-b.x,33);for(const room of this.level.rooms.filter(r=>r.buildingId===b.id&&r.floor===f))for(const [left,right] of this.roomSlabs(room)){this.path(c,floorFace(room,left,right,y));c.fill();}}
+
   }
   for(const room of this.level.rooms)for(const x of [room.x,room.end]){const y=this.floorY(room.floor),top=y-this.level.floorHeight+8,door=w.doors.find(d=>d.x===x&&d.floor===room.floor),hole=w.openings.find(o=>o.x===x&&o.floor===room.floor&&o.plane==='divider'),end=door?y-151:hole&&hole.state==='open'?y-hole.height:y+3;this.path(c,[{x,y:top},backPoint(room,x,top,y),backPoint(room,x,end,y),{x,y:end}]);c.fill();}
   // Solid vertical partitions and door lintels; the actual open doorway stays unmasked.
-  for(const s of w.sight.segments)if(s.a.x===s.b.x)c.fillRect(s.a.x-8,Math.min(s.a.y,s.b.y),16,Math.abs(s.b.y-s.a.y));
-  for(const d of w.doors){const y=this.floorY(d.floor);c.fillRect(d.x-11,y-152,22,6);c.fillRect(d.x-10,y-149,3,149);c.fillRect(d.x+7,y-149,3,149);}
+  const partitions=new Set(this.level.rooms.flatMap(r=>[`${r.floor}:${r.x}`,`${r.floor}:${r.end}`]));
+  for(const edge of partitions){const [floor,x]=edge.split(':').map(Number),y=this.floorY(floor),door=w.doors.find(d=>d.floor===floor&&d.x===x),hole=w.openings.find(o=>o.floor===floor&&o.x===x&&o.plane==='divider'),bottom=door?y-DOOR_PANEL.jambHeight:hole&&hole.state==='open'?y-hole.height:y;
+   c.fillRect(x-8,y-this.level.floorHeight+8,16,bottom-y+this.level.floorHeight-8);
+  }
   c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-in';c.drawImage(this.sceneCopy,0,0);c.globalCompositeOperation='source-over';
   this.c.save();this.c.setTransform(1,0,0,1,0,0);this.c.drawImage(this.structure,0,0);this.c.restore();this.transform(this.c);this.cutaway(this.c,w);
  }

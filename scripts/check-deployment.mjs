@@ -68,6 +68,10 @@ try {
   await expect(door.page.locator('#door-open')).toBeEnabled();
   await door.page.locator('#door-open').click();
   await expect(door.page.locator('#door-panel')).toBeHidden();
+  await expect(door.page.locator('#context-title')).toContainText('Закрыть');
+  await door.page.locator('#interact').click();
+  await expect(door.page.locator('#context-title')).toContainText('Взяться за ручку');
+  await expect(door.page.locator('#door-panel')).toBeHidden();
   await door.context.close();
 
   const mobile = await openGame({viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true});
