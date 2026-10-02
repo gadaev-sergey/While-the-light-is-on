@@ -1,0 +1,1304 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "pass",
+  "template": "zarevo-track-v1",
+  "name": "Перевал Ветров",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "pass-section-0",
+      "name": "Участок 1",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          17
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 30,
+            "hold": 110,
+            "leave": 30,
+            "curve": 0,
+            "hill": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-1",
+      "name": "Участок 2",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -5,
+          4,
+          17
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          22.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 132,
+            "leave": 45,
+            "curve": -5,
+            "hill": 40
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-2",
+      "name": "Участок 3",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5,
+          0,
+          39.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          20
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 110,
+            "leave": 45,
+            "curve": 5,
+            "hill": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-3",
+      "name": "Участок 4",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -6,
+          3,
+          59.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          16.4
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 38,
+            "hold": 88,
+            "leave": 38,
+            "curve": -6,
+            "hill": 30
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-4",
+      "name": "Участок 5",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          4,
+          -5,
+          75.6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          22.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 132,
+            "leave": 45,
+            "curve": 4,
+            "hill": -50
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-5",
+      "name": "Участок 6",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          6,
+          97.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          23.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 30,
+            "hold": 176,
+            "leave": 30,
+            "curve": 0,
+            "hill": 60
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-6",
+      "name": "Участок 7",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -6,
+          0,
+          121.4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          20
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 110,
+            "leave": 45,
+            "curve": -6,
+            "hill": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-7",
+      "name": "Участок 8",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6,
+          -4,
+          141.4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          20
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 110,
+            "leave": 45,
+            "curve": 6,
+            "hill": -40
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-8",
+      "name": "Участок 9",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          -3,
+          161.4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          19.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 30,
+            "hold": 132,
+            "leave": 30,
+            "curve": 0,
+            "hill": -30
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-9",
+      "name": "Участок 10",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5,
+          5,
+          180.6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          23
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 38,
+            "hold": 154,
+            "leave": 38,
+            "curve": 5,
+            "hill": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-10",
+      "name": "Участок 11",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -5,
+          0,
+          203.6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          20
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 110,
+            "leave": 45,
+            "curve": -5,
+            "hill": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-11",
+      "name": "Участок 12",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6,
+          4,
+          223.6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          14.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 30,
+            "hold": 88,
+            "leave": 30,
+            "curve": 6,
+            "hill": 40
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-12",
+      "name": "Участок 13",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -4,
+          -6,
+          238.4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          20.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 38,
+            "hold": 132,
+            "leave": 38,
+            "curve": -4,
+            "hill": -60
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-13",
+      "name": "Участок 14",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0,
+          259.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          28.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 198,
+            "leave": 45,
+            "curve": 0,
+            "hill": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-14",
+      "name": "Участок 15",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -6,
+          3,
+          288
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          22.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 132,
+            "leave": 45,
+            "curve": -6,
+            "hill": 30
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-15",
+      "name": "Участок 16",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5,
+          -3,
+          310.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          20.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 38,
+            "hold": 132,
+            "leave": 38,
+            "curve": 5,
+            "hill": -30
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-16",
+      "name": "Участок 17",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -3,
+          2,
+          331
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          20
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 45,
+            "hold": 110,
+            "leave": 45,
+            "curve": -3,
+            "hill": 20
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-17",
+      "name": "Участок 18",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          4,
+          -2,
+          351
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          21.4
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 30,
+            "hold": 154,
+            "leave": 30,
+            "curve": 4,
+            "hill": -20
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-section-18",
+      "name": "Участок 19",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0,
+          372.4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          1,
+          31.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#2d2b33",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.section",
+          "values": {
+            "enter": 38,
+            "hold": 242,
+            "leave": 38,
+            "curve": 0,
+            "hill": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-checkpoint-0",
+      "name": "Контрольная точка 1",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          81
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.2,
+          0.4,
+          0.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff6a3d",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.checkpoint",
+          "values": {
+            "segment": 810,
+            "bonus": 20
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-checkpoint-1",
+      "name": "Контрольная точка 2",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          162
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.2,
+          0.4,
+          0.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff6a3d",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.checkpoint",
+          "values": {
+            "segment": 1620,
+            "bonus": 19
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-checkpoint-2",
+      "name": "Контрольная точка 3",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          243
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.2,
+          0.4,
+          0.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff6a3d",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.checkpoint",
+          "values": {
+            "segment": 2430,
+            "bonus": 18
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-checkpoint-3",
+      "name": "Контрольная точка 4",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          323
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.2,
+          0.4,
+          0.2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff6a3d",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.checkpoint",
+          "values": {
+            "segment": 3230,
+            "bonus": 17
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-scenery-0",
+      "name": "Ели",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.4,
+          1,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          2,
+          100
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#556b4f",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.scenery",
+          "values": {
+            "kind": "pine",
+            "side": "both",
+            "from": 0,
+            "to": 4042,
+            "every": 14,
+            "offset": 1.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-scenery-1",
+      "name": "Скалы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.9,
+          1,
+          3.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          2,
+          100
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#556b4f",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.scenery",
+          "values": {
+            "kind": "rock",
+            "side": "both",
+            "from": 38,
+            "to": 4042,
+            "every": 33,
+            "offset": 1.9
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-scenery-2",
+      "name": "Знаки поворота",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.2,
+          1,
+          5.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          2,
+          100
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#556b4f",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.scenery",
+          "values": {
+            "kind": "sign",
+            "side": "right",
+            "from": 58,
+            "to": 4042,
+            "every": 85,
+            "offset": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-scenery-3",
+      "name": "Ели",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -2.5,
+          1,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          2,
+          100
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#556b4f",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.scenery",
+          "values": {
+            "kind": "pine",
+            "side": "left",
+            "from": 0,
+            "to": 4042,
+            "every": 7,
+            "offset": 2.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-scenery-4",
+      "name": "Фонари",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -1.15,
+          1,
+          115.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          2,
+          57.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#556b4f",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.scenery",
+          "values": {
+            "kind": "lamp",
+            "side": "left",
+            "from": 1155,
+            "to": 1732,
+            "every": 24,
+            "offset": 1.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "pass-scenery-5",
+      "name": "Отбойник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.1,
+          1,
+          182.9
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          2,
+          100
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#556b4f",
+        "roughness": 0.85,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "zarevo.scenery",
+          "values": {
+            "kind": "rail",
+            "side": "both",
+            "from": 1829,
+            "to": 2887,
+            "every": 6,
+            "offset": 1.1
+          }
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "perspective",
+    "fov": 80,
+    "height": 2,
+    "distance": 5,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0,
+    "haze": 0.04,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "zarevo": {
+      "theme": "pass",
+      "time": 30,
+      "rivals": 7,
+      "traffic": 8,
+      "pace": 0.82,
+      "next": "city"
+    }
+  }
+}

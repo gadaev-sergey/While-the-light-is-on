@@ -1,0 +1,17 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "zarevo-night-run",
+  "name": "Зарево · Ночная гонка",
+  "gameVersion": "1.0.1",
+  "startScene": "coast",
+  "scenes": [
+    {"id": "coast", "name": "Приморское шоссе", "path": "scenes/coast.scene.json"},
+    {"id": "pass", "name": "Перевал Ветров", "path": "scenes/pass.scene.json"},
+    {"id": "city", "name": "Неоновый город", "path": "scenes/city.scene.json"}
+  ],
+  "assets": [],
+  "modules": [{"id": "zarevo", "version": 1, "runtime": "scripts/runtime.ts"}],
+  "build": {"target": "web", "mode": "release", "base": "./", "output": "", "scenes": ["coast", "pass", "city"], "dynamicAssets": [], "appId": "game.zarevo-night-run"}
+}
