@@ -1,0 +1,7 @@
+{
+  "format": "shelter-project", "version": 1, "sdk": 1,
+  "projectId": "spire-arena-heights", "name": "Шпиль · Арена на высоте", "gameVersion": "0.1.1",
+  "startScene": "arena", "scenes": [{"id":"arena","name":"Шпиль","path":"scenes/arena.scene.json"}],
+  "assets": [], "modules": [{"id":"spire","version":1,"runtime":"scripts/runtime.ts"}],
+  "build": {"target":"web","mode":"release","base":"./","output":"","scenes":["arena"],"dynamicAssets":[],"appId":"game.spire-arena-heights"}
+}
