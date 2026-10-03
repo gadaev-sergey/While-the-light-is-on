@@ -2,7 +2,7 @@
   "format": "shelter-scene",
   "version": 2,
   "id": "arena",
-  "template": "spire-arena-v1",
+  "template": "spire-arena-v2",
   "name": "Шпиль",
   "units": "m",
   "nodes": [
@@ -2965,17 +2965,17 @@
       ]
     },
     {
-      "id": "crate-74",
-      "name": "Ящик",
+      "id": "concrete-74",
+      "name": "Бетон",
       "kind": "box",
       "layer": "architecture",
       "visible": true,
       "locked": false,
       "transform": {
         "position": [
-          0,
-          0.6,
-          -13.75
+          -25.8,
+          2.25,
+          -23.5
         ],
         "rotation": [
           0,
@@ -2983,9 +2983,5169 @@
           0
         ],
         "scale": [
+          0.3999999999999986,
+          4.5,
+          5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-75",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -25.8,
+          2.25,
+          -13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          9
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-76",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -25.8,
+          2.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          12
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-77",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -25.8,
+          2.25,
+          13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          9
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-78",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -25.8,
+          2.25,
+          23.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-79",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -20,
+          2.25,
+          -25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-80",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -6.5,
+          2.25,
+          -25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          9,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-81",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.5,
+          2.25,
+          -25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          9,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-82",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20,
+          2.25,
+          -25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "barrier-83",
+      "name": "Барьер",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          2.85,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          6,
+          3.3,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#d9a72a",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "barrier"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-84",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.8,
+          2.25,
+          -23.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-85",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.8,
+          2.25,
+          -13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          9
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-86",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.8,
+          2.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          12
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-87",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.8,
+          2.25,
+          13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          9
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-88",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.8,
+          2.25,
+          23.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          4.5,
+          5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-89",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -20,
+          2.25,
+          25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-90",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -6.5,
+          2.25,
+          25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          9,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-91",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.5,
+          2.25,
+          25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          9,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-92",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20,
+          2.25,
+          25.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12,
+          4.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "barrier-93",
+      "name": "Барьер",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          2.85,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          6,
+          3.3,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#d9a72a",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "barrier"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-94",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          -26.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-95",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          -28.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-96",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          -30.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-97",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          -31.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-98",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          5.55,
+          -27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-99",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          7.25,
+          -27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-100",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          5.55,
+          -31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-101",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          7.25,
+          -31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-102",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          7.4,
+          -29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.20000000000000018,
+          1.6000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-103",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.65,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-104",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -28.2,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-105",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -30.25,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-106",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -31.8,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-107",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -27.45,
+          5.55,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-108",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -27.45,
+          7.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-109",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -31.05,
+          5.55,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-110",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -31.05,
+          7.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-111",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29.2,
+          7.4,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.6000000000000014,
+          0.20000000000000018,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "metal-112",
+      "name": "Мостки",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29.2,
+          7.65,
+          -29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          5.600000000000001,
+          0.2999999999999998,
+          5.600000000000001
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5d6573",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "metal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-113",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          26.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-114",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          28.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-115",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          30.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-116",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          6.25,
+          31.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-117",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          5.55,
+          27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-118",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          7.25,
+          27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-119",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          5.55,
+          31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-120",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          7.25,
+          31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-121",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.549999999999997,
+          7.4,
+          29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.20000000000000018,
+          1.6000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-122",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -26.65,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-123",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -28.2,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-124",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -30.25,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-125",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -31.8,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-126",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -27.45,
+          5.55,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-127",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -27.45,
+          7.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-128",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -31.05,
+          5.55,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-129",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -31.05,
+          7.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-130",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29.2,
+          7.4,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.6000000000000014,
+          0.20000000000000018,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "metal-131",
+      "name": "Мостки",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29.2,
+          7.65,
+          29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          5.600000000000001,
+          0.2999999999999998,
+          5.600000000000001
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5d6573",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "metal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-132",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          -26.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-133",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          -28.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-134",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          -30.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-135",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          -31.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-136",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          5.55,
+          -27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-137",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          7.25,
+          -27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-138",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          5.55,
+          -31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-139",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          7.25,
+          -31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-140",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          7.4,
+          -29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.20000000000000018,
+          1.6000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-141",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.65,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-142",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.2,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-143",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          30.25,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-144",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          31.8,
+          6.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-145",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.45,
+          5.55,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-146",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.45,
+          7.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-147",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          31.05,
+          5.55,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-148",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          31.05,
+          7.25,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-149",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.2,
+          7.4,
+          -26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.6000000000000014,
+          0.20000000000000018,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "metal-150",
+      "name": "Мостки",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.2,
+          7.65,
+          -29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          5.600000000000001,
+          0.2999999999999998,
+          5.600000000000001
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5d6573",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "metal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-151",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          26.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-152",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          28.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-153",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          30.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-154",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          6.25,
+          31.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          2.5,
+          0.3999999999999986
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-155",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          5.55,
+          27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-156",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          7.25,
+          27.45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-157",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          5.55,
+          31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          1.0999999999999996,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-158",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          7.25,
+          31.05
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.5,
+          1.1000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-159",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.549999999999997,
+          7.4,
+          29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3000000000000007,
+          0.20000000000000018,
+          1.6000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-160",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.65,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-161",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.2,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-162",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          30.25,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-163",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          31.8,
+          6.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          2.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-164",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.45,
+          5.55,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-165",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.45,
+          7.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-166",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          31.05,
+          5.55,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-167",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          31.05,
+          7.25,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1000000000000014,
+          0.5,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall-168",
+      "name": "Стена",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.2,
+          7.4,
+          26.549999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.6000000000000014,
+          0.20000000000000018,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#30343d",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "metal-169",
+      "name": "Мостки",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.2,
+          7.65,
+          29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          5.600000000000001,
+          0.2999999999999998,
+          5.600000000000001
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5d6573",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "metal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-170",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -3.75,
+          10.5,
+          -5.85
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.5,
+          1,
+          0.2999999999999998
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-171",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -5.85,
+          10.5,
+          -3.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.2999999999999998,
+          1,
+          4.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-172",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3.75,
+          10.5,
+          -5.85
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.5,
+          1,
+          0.2999999999999998
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-173",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -5.85,
+          10.5,
+          3.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.2999999999999998,
+          1,
+          4.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-174",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -3.75,
+          10.5,
+          5.85
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.5,
+          1,
+          0.2999999999999998
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-175",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.85,
+          10.5,
+          -3.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.2999999999999998,
+          1,
+          4.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-176",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3.75,
+          10.5,
+          5.85
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.5,
+          1,
+          0.2999999999999998
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-177",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.85,
+          10.5,
+          3.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.2999999999999998,
+          1,
+          4.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "metal-178",
+      "name": "Мостки",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          13.8,
+          -28
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12,
+          0.40000000000000036,
+          8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5d6573",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "metal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-179",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          14.55,
+          -24.15
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12,
+          1.0999999999999996,
+          0.3000000000000007
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-180",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -5.85,
+          14.55,
+          -28.15
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.2999999999999998,
+          1.0999999999999996,
+          7.699999999999999
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rail-181",
+      "name": "Перила",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.85,
+          14.55,
+          -27.35
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.2999999999999998,
+          1.0999999999999996,
+          6.099999999999998
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#c98a3a",
+        "roughness": 0.85,
+        "metalness": 0.45,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "rail"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pillar-182",
+      "name": "Опора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -5.7,
+          9.3,
+          -26.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          8.6,
+          0.6000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#3a3f4a",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pillar-183",
+      "name": "Опора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.7,
+          9.3,
+          -26.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          8.6,
+          0.6000000000000014
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#3a3f4a",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-184",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.5,
+          5.25,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999979,
+          0.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-185",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15.899999999999999,
+          5.5,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          1,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-186",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15.3,
+          5.75,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          1.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-187",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          14.7,
+          6,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          2,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-188",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          14.100000000000001,
+          6.25,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          2.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-189",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.5,
+          6.5,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
           3,
-          1.2,
-          1.5
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-190",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.899999999999999,
+          6.75,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          3.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-191",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.3,
+          7,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          4,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-192",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.7,
+          7.25,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          4.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-193",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.1,
+          7.5,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999979,
+          5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-194",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.5,
+          7.75,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          5.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-195",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          9.899999999999999,
+          8,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          6,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-196",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          9.3,
+          8.25,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          6.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-197",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.7,
+          8.5,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          7,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-198",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.1,
+          8.75,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000005,
+          7.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-199",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.5,
+          9,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          8,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-200",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.9,
+          9.25,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000005,
+          8.5,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stair-201",
+      "name": "Ступень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.3,
+          9.5,
+          -31.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5999999999999996,
+          9,
+          1.4000000000000021
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#646a74",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "stair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-202",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -11,
+          1.25,
+          -6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          2.5,
+          4
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "crate-203",
+      "name": "Ящик",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -10,
+          0.7,
+          -20
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          1.4,
+          2
         ]
       },
       "surface": {
@@ -3005,7 +8165,7 @@
       ]
     },
     {
-      "id": "crate-75",
+      "id": "crate-204",
       "name": "Ящик",
       "kind": "box",
       "layer": "architecture",
@@ -3013,7 +8173,7 @@
       "locked": false,
       "transform": {
         "position": [
-          -26,
+          -30,
           0.7,
           -18
         ],
@@ -3045,17 +8205,17 @@
       ]
     },
     {
-      "id": "pillar-76",
-      "name": "Опора",
+      "id": "concrete-205",
+      "name": "Бетон",
       "kind": "box",
       "layer": "architecture",
       "visible": true,
       "locked": false,
       "transform": {
         "position": [
-          -25.6,
-          2.25,
-          -13
+          -11,
+          1.25,
+          6
         ],
         "rotation": [
           0,
@@ -3063,14 +8223,14 @@
           0
         ],
         "scale": [
-          1.1999999999999993,
-          4.5,
-          1.1999999999999993
+          2,
+          2.5,
+          4
         ]
       },
       "surface": {
         "texture": "none",
-        "color": "#3a3f4a",
+        "color": "#5a5e66",
         "roughness": 0.85,
         "metalness": 0.15,
         "repeat": 1
@@ -3079,53 +8239,13 @@
         {
           "type": "spire.solid",
           "values": {
-            "style": "pillar"
+            "style": "concrete"
           }
         }
       ]
     },
     {
-      "id": "pillar-77",
-      "name": "Опора",
-      "kind": "box",
-      "layer": "architecture",
-      "visible": true,
-      "locked": false,
-      "transform": {
-        "position": [
-          -25.6,
-          2.25,
-          13
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1.1999999999999993,
-          4.5,
-          1.1999999999999993
-        ]
-      },
-      "surface": {
-        "texture": "none",
-        "color": "#3a3f4a",
-        "roughness": 0.85,
-        "metalness": 0.15,
-        "repeat": 1
-      },
-      "components": [
-        {
-          "type": "spire.solid",
-          "values": {
-            "style": "pillar"
-          }
-        }
-      ]
-    },
-    {
-      "id": "crate-78",
+      "id": "crate-206",
       "name": "Ящик",
       "kind": "box",
       "layer": "architecture",
@@ -3133,9 +8253,9 @@
       "locked": false,
       "transform": {
         "position": [
-          0,
-          0.6,
-          13.75
+          -10,
+          0.7,
+          20
         ],
         "rotation": [
           0,
@@ -3143,9 +8263,9 @@
           0
         ],
         "scale": [
-          3,
-          1.2,
-          1.5
+          2,
+          1.4,
+          2
         ]
       },
       "surface": {
@@ -3165,7 +8285,7 @@
       ]
     },
     {
-      "id": "crate-79",
+      "id": "crate-207",
       "name": "Ящик",
       "kind": "box",
       "layer": "architecture",
@@ -3173,7 +8293,7 @@
       "locked": false,
       "transform": {
         "position": [
-          26,
+          -30,
           0.7,
           18
         ],
@@ -3205,17 +8325,17 @@
       ]
     },
     {
-      "id": "pillar-80",
-      "name": "Опора",
+      "id": "concrete-208",
+      "name": "Бетон",
       "kind": "box",
       "layer": "architecture",
       "visible": true,
       "locked": false,
       "transform": {
         "position": [
-          25.6,
-          2.25,
-          -13
+          11,
+          1.25,
+          -6
         ],
         "rotation": [
           0,
@@ -3223,14 +8343,14 @@
           0
         ],
         "scale": [
-          1.1999999999999993,
-          4.5,
-          1.1999999999999993
+          2,
+          2.5,
+          4
         ]
       },
       "surface": {
         "texture": "none",
-        "color": "#3a3f4a",
+        "color": "#5a5e66",
         "roughness": 0.85,
         "metalness": 0.15,
         "repeat": 1
@@ -3239,23 +8359,23 @@
         {
           "type": "spire.solid",
           "values": {
-            "style": "pillar"
+            "style": "concrete"
           }
         }
       ]
     },
     {
-      "id": "pillar-81",
-      "name": "Опора",
+      "id": "crate-209",
+      "name": "Ящик",
       "kind": "box",
       "layer": "architecture",
       "visible": true,
       "locked": false,
       "transform": {
         "position": [
-          25.6,
-          2.25,
-          13
+          10,
+          0.7,
+          -20
         ],
         "rotation": [
           0,
@@ -3263,14 +8383,14 @@
           0
         ],
         "scale": [
-          1.1999999999999993,
-          4.5,
-          1.1999999999999993
+          2,
+          1.4,
+          2
         ]
       },
       "surface": {
         "texture": "none",
-        "color": "#3a3f4a",
+        "color": "#6b5a44",
         "roughness": 0.85,
         "metalness": 0.15,
         "repeat": 1
@@ -3279,13 +8399,2157 @@
         {
           "type": "spire.solid",
           "values": {
-            "style": "pillar"
+            "style": "crate"
           }
         }
       ]
     },
     {
-      "id": "pad-82",
+      "id": "crate-210",
+      "name": "Ящик",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          30,
+          0.7,
+          -18
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          1.4,
+          2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b5a44",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "crate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "concrete-211",
+      "name": "Бетон",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11,
+          1.25,
+          6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          2.5,
+          4
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#5a5e66",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "concrete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "crate-212",
+      "name": "Ящик",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10,
+          0.7,
+          20
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          1.4,
+          2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b5a44",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "crate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "crate-213",
+      "name": "Ящик",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          30,
+          0.7,
+          18
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          1.4,
+          2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b5a44",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "crate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "barrier-214",
+      "name": "Барьер",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0.5,
+          -13.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          5,
+          1,
+          1.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#d9a72a",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "barrier"
+          }
+        }
+      ]
+    },
+    {
+      "id": "barrier-215",
+      "name": "Барьер",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0.5,
+          13.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          5,
+          1,
+          1.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#d9a72a",
+        "roughness": 0.85,
+        "metalness": 0.15,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "spire.solid",
+          "values": {
+            "style": "barrier"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-216",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -31.3,
+          4,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          0.40000000000000036,
+          52
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-217",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -30.73,
+          4.08,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.259999999999998,
+          0.2599999999999998,
+          52
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-218",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          4,
+          -31.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          52,
+          0.40000000000000036,
+          0.3999999999999986
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-219",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          4.08,
+          -30.73
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          52,
+          0.2599999999999998,
+          0.259999999999998
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-220",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          4.43,
+          -24
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-221",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -24,
+          4.43,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-222",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          4.43,
+          -16
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-223",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -16,
+          4.43,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-224",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          4.43,
+          -8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000005
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-225",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -8,
+          4.43,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000005,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-226",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          4.43,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-227",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          4.43,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-228",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          4.43,
+          8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000005
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-229",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8,
+          4.43,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000005,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-230",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          4.43,
+          16
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-231",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16,
+          4.43,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-232",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          4.43,
+          24
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-233",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24,
+          4.43,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-234",
+      "name": "Решётка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          0.015,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.2000000000000028,
+          0.03,
+          1.1999999999999993
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "vent",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-235",
+      "name": "Решётка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          0.015,
+          14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.2000000000000028,
+          0.03,
+          1.1999999999999993
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "vent",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-236",
+      "name": "Решётка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0.015,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.2,
+          0.03,
+          1.2000000000000028
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "vent",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-237",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          2.85,
+          -0.275
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.3999999999999986,
+          0.5,
+          0.04999999999999999
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "ЛАЗ"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-238",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          2.85,
+          0.275
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.3999999999999986,
+          0.5,
+          0.04999999999999999
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "ЛАЗ"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-239",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          31.3,
+          4,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.3999999999999986,
+          0.40000000000000036,
+          52
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-240",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          30.73,
+          4.08,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.259999999999998,
+          0.2599999999999998,
+          52
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-241",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          4,
+          31.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          52,
+          0.40000000000000036,
+          0.3999999999999986
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-242",
+      "name": "Труба",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          4.08,
+          30.73
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          52,
+          0.2599999999999998,
+          0.259999999999998
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "pipe",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-243",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          4.43,
+          -24
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-244",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -24,
+          4.43,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-245",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          4.43,
+          -16
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-246",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -16,
+          4.43,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-247",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          4.43,
+          -8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000005
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-248",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -8,
+          4.43,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000005,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-249",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          4.43,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-250",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          4.43,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-251",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          4.43,
+          8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000005
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-252",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8,
+          4.43,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000005,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-253",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          4.43,
+          16
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-254",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16,
+          4.43,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-255",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          4.43,
+          24
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-256",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24,
+          4.43,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.10000000000000053,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-257",
+      "name": "Решётка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          0.015,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.2000000000000028,
+          0.03,
+          1.1999999999999993
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "vent",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-258",
+      "name": "Решётка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          0.015,
+          14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.2000000000000028,
+          0.03,
+          1.1999999999999993
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "vent",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-259",
+      "name": "Решётка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0.015,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.2,
+          0.03,
+          1.2000000000000028
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "vent",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-260",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          2.85,
+          -0.275
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.3999999999999986,
+          0.5,
+          0.04999999999999999
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "ЛАЗ"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-261",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          2.85,
+          0.275
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.3999999999999986,
+          0.5,
+          0.04999999999999999
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "ЛАЗ"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-262",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -25.525,
+          3.5999999999999996,
+          -12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.05000000000000071,
+          0.6000000000000001,
+          2.3999999999999986
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "СЕКТОР А"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-263",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.525,
+          3.5999999999999996,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.05000000000000071,
+          0.6000000000000001,
+          2.3999999999999986
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "СЕКТОР В"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-264",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -6,
+          3.5999999999999996,
+          -25.525
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.4000000000000004,
+          0.6000000000000001,
+          0.05000000000000071
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "СЕКТОР Б"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-265",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6,
+          3.5999999999999996,
+          25.525
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.4000000000000004,
+          0.6000000000000001,
+          0.05000000000000071
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "СЕКТОР Г"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-266",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.299999999999997,
+          6.7,
+          -31.924999999999997
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.8000000000000007,
+          0.5999999999999996,
+          0.05000000000000071
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "ГНЕЗДО ↑"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-267",
+      "name": "Табличка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          14.6,
+          -23.975
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.4,
+          0.5,
+          0.05000000000000071
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "sign",
+            "text": "ГНЕЗДО"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-268",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29.2,
+          7.45,
+          -29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.09999999999999964,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-269",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29.2,
+          7.45,
+          29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.09999999999999964,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-270",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.2,
+          7.45,
+          -29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.09999999999999964,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "decor-271",
+      "name": "Лампа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.2,
+          7.45,
+          29.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6000000000000014,
+          0.09999999999999964,
+          0.6000000000000014
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.decor",
+          "values": {
+            "kind": "lamp",
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "pad-272",
       "name": "Прыжковая площадка",
       "kind": "box",
       "layer": "props",
@@ -3320,7 +10584,7 @@
       ]
     },
     {
-      "id": "pad-83",
+      "id": "pad-273",
       "name": "Прыжковая площадка",
       "kind": "box",
       "layer": "props",
@@ -3355,7 +10619,7 @@
       ]
     },
     {
-      "id": "pad-84",
+      "id": "pad-274",
       "name": "Прыжковая площадка",
       "kind": "box",
       "layer": "props",
@@ -3390,7 +10654,7 @@
       ]
     },
     {
-      "id": "pad-85",
+      "id": "pad-275",
       "name": "Прыжковая площадка",
       "kind": "box",
       "layer": "props",
@@ -3425,7 +10689,7 @@
       ]
     },
     {
-      "id": "spawn-86",
+      "id": "spawn-276",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3458,7 +10722,7 @@
       ]
     },
     {
-      "id": "spawn-87",
+      "id": "spawn-277",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3491,7 +10755,7 @@
       ]
     },
     {
-      "id": "spawn-88",
+      "id": "spawn-278",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3499,7 +10763,7 @@
       "locked": false,
       "transform": {
         "position": [
-          -26,
+          -29,
           0.05,
           22
         ],
@@ -3518,13 +10782,13 @@
         {
           "type": "spire.spawn",
           "values": {
-            "yaw": -49.8
+            "yaw": -52.8
           }
         }
       ]
     },
     {
-      "id": "spawn-89",
+      "id": "spawn-279",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3532,7 +10796,7 @@
       "locked": false,
       "transform": {
         "position": [
-          26,
+          29,
           0.05,
           -22
         ],
@@ -3551,13 +10815,13 @@
         {
           "type": "spire.spawn",
           "values": {
-            "yaw": 130.2
+            "yaw": 127.2
           }
         }
       ]
     },
     {
-      "id": "spawn-90",
+      "id": "spawn-280",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3590,7 +10854,7 @@
       ]
     },
     {
-      "id": "spawn-91",
+      "id": "spawn-281",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3623,7 +10887,7 @@
       ]
     },
     {
-      "id": "spawn-92",
+      "id": "spawn-282",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3656,7 +10920,7 @@
       ]
     },
     {
-      "id": "spawn-93",
+      "id": "spawn-283",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3689,7 +10953,7 @@
       ]
     },
     {
-      "id": "spawn-94",
+      "id": "spawn-284",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3722,7 +10986,7 @@
       ]
     },
     {
-      "id": "spawn-95",
+      "id": "spawn-285",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3755,7 +11019,7 @@
       ]
     },
     {
-      "id": "spawn-96",
+      "id": "spawn-286",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3788,7 +11052,7 @@
       ]
     },
     {
-      "id": "spawn-97",
+      "id": "spawn-287",
       "name": "Точка появления",
       "kind": "box",
       "layer": "props",
@@ -3821,7 +11085,7 @@
       ]
     },
     {
-      "id": "item-98",
+      "id": "item-288",
       "name": "Мега-бонус",
       "kind": "box",
       "layer": "props",
@@ -3854,7 +11118,7 @@
       ]
     },
     {
-      "id": "item-99",
+      "id": "item-289",
       "name": "Ракетница",
       "kind": "box",
       "layer": "props",
@@ -3887,7 +11151,7 @@
       ]
     },
     {
-      "id": "item-100",
+      "id": "item-290",
       "name": "Дробовик",
       "kind": "box",
       "layer": "props",
@@ -3920,7 +11184,7 @@
       ]
     },
     {
-      "id": "item-101",
+      "id": "item-291",
       "name": "Дробовик",
       "kind": "box",
       "layer": "props",
@@ -3953,7 +11217,7 @@
       ]
     },
     {
-      "id": "item-102",
+      "id": "item-292",
       "name": "Броня",
       "kind": "box",
       "layer": "props",
@@ -3986,7 +11250,7 @@
       ]
     },
     {
-      "id": "item-103",
+      "id": "item-293",
       "name": "Броня",
       "kind": "box",
       "layer": "props",
@@ -4019,7 +11283,7 @@
       ]
     },
     {
-      "id": "item-104",
+      "id": "item-294",
       "name": "Аптечка",
       "kind": "box",
       "layer": "props",
@@ -4052,7 +11316,7 @@
       ]
     },
     {
-      "id": "item-105",
+      "id": "item-295",
       "name": "Аптечка",
       "kind": "box",
       "layer": "props",
@@ -4085,7 +11349,7 @@
       ]
     },
     {
-      "id": "item-106",
+      "id": "item-296",
       "name": "Аптечка",
       "kind": "box",
       "layer": "props",
@@ -4118,7 +11382,7 @@
       ]
     },
     {
-      "id": "item-107",
+      "id": "item-297",
       "name": "Аптечка",
       "kind": "box",
       "layer": "props",
@@ -4151,7 +11415,7 @@
       ]
     },
     {
-      "id": "item-108",
+      "id": "item-298",
       "name": "Аптечка",
       "kind": "box",
       "layer": "props",
@@ -4184,7 +11448,7 @@
       ]
     },
     {
-      "id": "item-109",
+      "id": "item-299",
       "name": "Аптечка",
       "kind": "box",
       "layer": "props",
@@ -4217,7 +11481,40 @@
       ]
     },
     {
-      "id": "item-110",
+      "id": "item-300",
+      "name": "Аптечка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          5.4,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.pickup",
+          "values": {
+            "item": "health"
+          }
+        }
+      ]
+    },
+    {
+      "id": "item-301",
       "name": "Патроны дробовика",
       "kind": "box",
       "layer": "props",
@@ -4250,7 +11547,7 @@
       ]
     },
     {
-      "id": "item-111",
+      "id": "item-302",
       "name": "Патроны дробовика",
       "kind": "box",
       "layer": "props",
@@ -4283,7 +11580,7 @@
       ]
     },
     {
-      "id": "item-112",
+      "id": "item-303",
       "name": "Ракеты",
       "kind": "box",
       "layer": "props",
@@ -4316,7 +11613,7 @@
       ]
     },
     {
-      "id": "item-113",
+      "id": "item-304",
       "name": "Ракеты",
       "kind": "box",
       "layer": "props",
@@ -4344,6 +11641,204 @@
           "type": "spire.pickup",
           "values": {
             "item": "rockets"
+          }
+        }
+      ]
+    },
+    {
+      "id": "item-305",
+      "name": "Автомат",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -29,
+          0.4,
+          9
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.pickup",
+          "values": {
+            "item": "auto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "item-306",
+      "name": "Автомат",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          0.4,
+          -9
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.pickup",
+          "values": {
+            "item": "auto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "item-307",
+      "name": "Винтовка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          14.4,
+          -29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.pickup",
+          "values": {
+            "item": "rifle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "item-308",
+      "name": "Патроны автомата",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12,
+          0.4,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.pickup",
+          "values": {
+            "item": "bullets"
+          }
+        }
+      ]
+    },
+    {
+      "id": "item-309",
+      "name": "Патроны автомата",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -12,
+          0.4,
+          14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.pickup",
+          "values": {
+            "item": "bullets"
+          }
+        }
+      ]
+    },
+    {
+      "id": "item-310",
+      "name": "Патроны винтовки",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29,
+          5.4,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "components": [
+        {
+          "type": "spire.pickup",
+          "values": {
+            "item": "rounds"
           }
         }
       ]

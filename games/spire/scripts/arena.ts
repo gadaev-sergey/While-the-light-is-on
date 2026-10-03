@@ -3,17 +3,21 @@ import type {SceneDocument} from '@shelter/scene.ts';
 export type Vec3={x:number;y:number;z:number};
 /** Осевой прямоугольный блок: минимальные и максимальные координаты. */
 export type Box={min:Vec3;max:Vec3};
-export type SolidStyle='floor'|'wall'|'metal'|'stair'|'rail'|'crate'|'pillar';
+export type SolidStyle='floor'|'wall'|'metal'|'stair'|'rail'|'crate'|'pillar'|'concrete'|'barrier';
 export type Solid=Box&{style:SolidStyle};
-export type ItemKind='mega'|'rocket'|'shotgun'|'armor'|'health'|'shells'|'rockets';
+export type ItemKind='mega'|'rocket'|'shotgun'|'auto'|'rifle'|'armor'|'health'|'shells'|'bullets'|'rounds'|'rockets';
 export type JumpPad={box:Box;center:Vec3;target:Vec3;launch:Vec3};
 export type Spawn={pos:Vec3;yaw:number};
 export type ItemSpot={kind:ItemKind;pos:Vec3};
-export type Arena={size:number;lavaY:number;killY:number;solids:Solid[];lava:Box;pads:JumpPad[];spawns:Spawn[];items:ItemSpot[]};
+export type DecorKind='pipe'|'lamp'|'sign'|'vent';
+/** Декор: не участвует в столкновениях и попаданиях, только в картинке. text — надпись таблички. */
+export type Decor={kind:DecorKind;box:Box;text:string};
+export type Arena={size:number;lavaY:number;killY:number;solids:Solid[];lava:Box;pads:JumpPad[];spawns:Spawn[];items:ItemSpot[];decor:Decor[]};
 
 export const GRAVITY=20;
-export const ITEM_KINDS:ItemKind[]=['mega','rocket','shotgun','armor','health','shells','rockets'];
-export const SOLID_STYLES:SolidStyle[]=['floor','wall','metal','stair','rail','crate','pillar'];
+export const ITEM_KINDS:ItemKind[]=['mega','rocket','shotgun','auto','rifle','armor','health','shells','bullets','rounds','rockets'];
+export const SOLID_STYLES:SolidStyle[]=['floor','wall','metal','stair','rail','crate','pillar','concrete','barrier'];
+export const DECOR_KINDS:DecorKind[]=['pipe','lamp','sign','vent'];
 export const vec=(x=0,y=0,z=0):Vec3=>({x,y,z});
 
 function boxOf(node:SceneDocument['nodes'][number]):Box{
@@ -32,7 +36,7 @@ export function launchVelocity(from:Vec3,to:Vec3,extra=2.5):Vec3{
 export function readArena(scene:SceneDocument):Arena{
  const data=scene.moduleData?.spire as {size?:number;lavaY?:number;killY?:number}|undefined;
  if(!data||!Number.isFinite(data.size)||!Number.isFinite(data.lavaY)||!Number.isFinite(data.killY))throw new Error('Шпиль: в сцене нет параметров арены.');
- const solids:Solid[]=[],pads:JumpPad[]=[],spawns:Spawn[]=[],items:ItemSpot[]=[];let lava:Box|undefined;
+ const solids:Solid[]=[],pads:JumpPad[]=[],spawns:Spawn[]=[],items:ItemSpot[]=[],decor:Decor[]=[];let lava:Box|undefined;
  for(const node of scene.nodes){
   const solid=componentOf(node,'spire.solid'),pad=componentOf(node,'spire.jumppad'),spawn=componentOf(node,'spire.spawn'),item=componentOf(node,'spire.pickup');
   const box=boxOf(node),bottom=vec((box.min.x+box.max.x)/2,box.min.y,(box.min.z+box.max.z)/2);
@@ -41,11 +45,12 @@ export function readArena(scene:SceneDocument):Arena{
   if(pad){const target=vec(Number(pad.values.tx),Number(pad.values.ty),Number(pad.values.tz));pads.push({box:{min:vec(box.min.x,box.min.y,box.min.z),max:vec(box.max.x,box.max.y+.4,box.max.z)},center:bottom,target,launch:launchVelocity(bottom,target)});}
   if(spawn)spawns.push({pos:bottom,yaw:Number(spawn.values.yaw)*Math.PI/180});
   if(item)items.push({kind:String(item.values.item) as ItemKind,pos:bottom});
+  const d=componentOf(node,'spire.decor');if(d)decor.push({kind:String(d.values.kind) as DecorKind,box,text:String(d.values.text??'')});
  }
  if(!lava)throw new Error('Шпиль: на арене нет лавы.');
  if(spawns.length<8)throw new Error('Шпиль: нужно не меньше 8 точек появления.');
  if(!solids.length)throw new Error('Шпиль: на арене нет блоков.');
- return {size:data.size!,lavaY:data.lavaY!,killY:data.killY!,solids,lava,pads,spawns,items};
+ return {size:data.size!,lavaY:data.lavaY!,killY:data.killY!,solids,lava,pads,spawns,items,decor};
 }
 
 export const overlaps=(a:Box,b:Box)=>a.min.x<b.max.x&&a.max.x>b.min.x&&a.min.y<b.max.y&&a.max.y>b.min.y&&a.min.z<b.max.z&&a.max.z>b.min.z;

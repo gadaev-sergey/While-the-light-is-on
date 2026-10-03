@@ -32,7 +32,7 @@
 .s-hero p{color:#c2cbe0;font-size:17px;max-width:520px;margin:0 0 26px}
 .s-field{display:grid;gap:6px;margin:0 0 18px}
 .s-field>span,.s-range>span,.s-limit legend{font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
-.spire input:not([type]),.spire input[type=text],.s-copy input{width:100%;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:6px;background:rgba(5,8,16,.7);color:var(--ink);font:600 16px/1 system-ui,sans-serif;user-select:text}
+.spire input:not([type]),.spire input[type=text],.s-copy input,.spire select{width:100%;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:6px;background:rgba(5,8,16,.7);color:var(--ink);font:600 16px/1 system-ui,sans-serif;user-select:text}
 .spire input:focus{border-color:rgba(88,240,255,.6);outline:none}
 .s-hero .s-field{max-width:340px}
 .s-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
@@ -78,6 +78,9 @@
 .s-check b{display:block}.s-check small{font-size:12px}
 .s-copy{display:flex;gap:8px}
 .s-copy input{font:600 13px/1 ui-monospace,Menlo,monospace}
+.spire select{font-size:14px;cursor:pointer}
+.s-check{display:flex;align-items:center;gap:10px;margin:0 0 18px;font-size:14px;color:var(--ink);cursor:pointer}
+.s-check input{width:18px;height:18px;accent-color:var(--lava)}
 .s-range{display:grid;gap:8px}
 .s-range span{display:flex;justify-content:space-between}
 .s-range b{color:var(--ink)}
@@ -106,13 +109,25 @@
 .s-feed{justify-self:end;display:grid;gap:4px;font-size:13px;text-align:right}
 .s-feed div{padding:3px 10px;border-radius:4px;background:rgba(6,9,18,.6)}
 .s-feed i{color:var(--dim);font-style:normal;font-size:12px;margin:0 4px}
-.s-cross{position:absolute;left:50%;top:50%;width:22px;height:22px;transform:translate(-50%,-50%)}
+.s-cross{position:absolute;left:50%;top:50%;width:0;height:0;--gap:4px;transition:opacity .1s}
 .s-cross i{position:absolute;background:rgba(255,255,255,.92);box-shadow:0 0 2px #000}
-.s-cross i:nth-child(1){left:10px;top:0;width:2px;height:7px}.s-cross i:nth-child(2){left:10px;bottom:0;width:2px;height:7px}
-.s-cross i:nth-child(3){top:10px;left:0;width:7px;height:2px}.s-cross i:nth-child(4){top:10px;right:0;width:7px;height:2px}
+.s-cross i:nth-child(1){left:-1px;bottom:var(--gap);width:2px;height:7px}.s-cross i:nth-child(2){left:-1px;top:var(--gap);width:2px;height:7px}
+.s-cross i:nth-child(3){top:-1px;right:var(--gap);width:7px;height:2px}.s-cross i:nth-child(4){top:-1px;left:var(--gap);width:7px;height:2px}
+/* Оптика винтовки: круглое поле, тонкие нити и затемнённая рамка. */
+.s-scope{position:absolute;inset:0;pointer-events:none;opacity:0;--r:min(38vh,38vw);
+ background:radial-gradient(circle at center,transparent 0 var(--r),rgba(0,0,0,.94) calc(var(--r) + 1px)),
+  linear-gradient(#000,#000) center/1px 100% no-repeat,linear-gradient(#000,#000) center/100% 1px no-repeat}
+.s-scope::after{content:'';position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:#ff3030;box-shadow:0 0 6px #ff3030}
 .s-hitmark{position:absolute;left:50%;top:50%;width:34px;height:34px;transform:translate(-50%,-50%) rotate(45deg);opacity:0;transition:opacity .08s;
  background:linear-gradient(#fff,#fff) center/2px 10px no-repeat,linear-gradient(#fff,#fff) center/10px 2px no-repeat;-webkit-mask:radial-gradient(circle,transparent 6px,#000 7px);mask:radial-gradient(circle,transparent 6px,#000 7px)}
 .s-hitmark.on{opacity:1;filter:drop-shadow(0 0 4px #ff3a3a)}
+.s-hitmark.head{background:linear-gradient(#ffd23d,#ffd23d) center/2px 14px no-repeat,linear-gradient(#ffd23d,#ffd23d) center/14px 2px no-repeat;filter:drop-shadow(0 0 6px #ffb000)}
+.s-heat{width:120px;height:4px;margin:8px 0 0 auto;border-radius:2px;overflow:hidden;background:rgba(255,255,255,.1)}
+.s-heat i{display:block;height:100%;width:calc(var(--heat,0)*100%);background:linear-gradient(90deg,#3dc8ff,#ffb03d,#ff3a3a)}
+.s-heat.hot i{background:#ff3a3a;animation:s-blink .3s steps(2) infinite}
+@keyframes s-blink{50%{opacity:.35}}
+.s-ammo.low b{color:#ff6b3d}
+.s-ammo [data-reserve]{margin-top:4px;text-align:right}
 .s-dir{position:absolute;left:50%;top:50%;width:220px;height:220px;opacity:0;transform:translate(-50%,-50%)}
 .s-dir i{position:absolute;left:50%;top:0;width:60px;height:14px;transform:translateX(-50%);border-radius:50% 50% 0 0;background:linear-gradient(180deg,rgba(255,40,40,.95),transparent)}
 .s-notes{position:absolute;left:50%;top:60%;transform:translateX(-50%);display:grid;gap:4px;text-align:center;font:800 15px/1.2 system-ui;letter-spacing:.04em;text-shadow:0 2px 8px #000}

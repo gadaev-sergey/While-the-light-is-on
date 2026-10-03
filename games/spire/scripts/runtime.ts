@@ -1,24 +1,27 @@
 import type {EngineModule,SessionOptions as EngineSessionOptions,RuntimeSession,ComponentType} from '@shelter/sdk.ts';
 import {storageKey} from '@shelter/project.ts';
-import {readArena,ITEM_KINDS,SOLID_STYLES,type Arena,type ItemKind} from './arena.ts';
+import {readArena,ITEM_KINDS,SOLID_STYLES,DECOR_KINDS,type Arena,type ItemKind} from './arena.ts';
 import {GameClient,type Input,type FeedEntry} from './client.ts';
 import {HostSession,GuestSession,type GuestFailure} from './session.ts';
 import {Lobby,localNetwork,publicNetwork,newCode,normalizeCode,sessionRoom,type Network,type ListedSession} from './net.ts';
-import {WEAPONS,FRAG_LIMITS,TIME_LIMIT,MAX_PLAYERS,cleanName,type WeaponId} from './rules.ts';
+import {WEAPONS,BLASTER,AUTO,RIFLE,FRAG_LIMITS,TIME_LIMIT,MAX_PLAYERS,cleanName,usesMagazine,type WeaponId} from './rules.ts';
 import type {HostMessage,SessionOptions} from './protocol.ts';
 import {Renderer} from './renderer.ts';
 import {AudioEngine} from './audio.ts';
 
-const ITEM_LABELS:Record<ItemKind,string>={mega:'Мега-бонус',rocket:'Ракетница',shotgun:'Дробовик',armor:'Броня',health:'Аптечка',shells:'Патроны дробовика',rockets:'Ракеты'};
-const STYLE_LABELS:Record<string,string>={floor:'Настил',wall:'Стена',metal:'Мостки',stair:'Ступень',rail:'Перила',crate:'Ящик',pillar:'Опора'};
+const ITEM_LABELS:Record<ItemKind,string>={mega:'Мега-бонус',rocket:'Ракетница',shotgun:'Дробовик',auto:'Автомат',rifle:'Винтовка',armor:'Броня',health:'Аптечка',
+ shells:'Патроны дробовика',bullets:'Патроны автомата',rounds:'Патроны винтовки',rockets:'Ракеты'};
+const STYLE_LABELS:Record<string,string>={floor:'Настил',wall:'Стена',metal:'Мостки',stair:'Ступень',rail:'Перила',crate:'Ящик',pillar:'Опора',concrete:'Бетон',barrier:'Барьер'};
+const DECOR_LABELS:Record<string,string>={pipe:'Труба',lamp:'Лампа',sign:'Табличка',vent:'Решётка'};
 const components:ComponentType[]=[
  {id:'spire.solid',name:'Блок арены',fields:[{name:'style',label:'Вид',type:'select',default:'floor',options:SOLID_STYLES.map(value=>({value,label:STYLE_LABELS[value]}))}]},
  {id:'spire.lava',name:'Лава',fields:[]},
  {id:'spire.jumppad',name:'Прыжковая площадка',fields:[{name:'tx',label:'Цель X',type:'number',default:0,min:-64,max:64,unit:'м'},{name:'ty',label:'Цель Y',type:'number',default:5,min:-5,max:30,unit:'м'},{name:'tz',label:'Цель Z',type:'number',default:0,min:-64,max:64,unit:'м'}]},
  {id:'spire.spawn',name:'Точка появления',fields:[{name:'yaw',label:'Направление взгляда',type:'number',default:0,min:-180,max:180,unit:'°'}]},
+ {id:'spire.decor',name:'Декор',fields:[{name:'kind',label:'Вид',type:'select',default:'pipe',options:DECOR_KINDS.map(value=>({value,label:DECOR_LABELS[value]}))},{name:'text',label:'Надпись',type:'string',default:''}]},
  {id:'spire.pickup',name:'Бонус',fields:[{name:'item',label:'Предмет',type:'select',default:'health',options:ITEM_KINDS.map(value=>({value,label:ITEM_LABELS[value]}))}]},
 ];
-const WEAPON_SHORT=['БЛАСТЕР','ДРОБОВИК','РАКЕТНИЦА'];
+const WEAPON_SHORT=['БЛАСТЕР','ДРОБОВИК','АВТОМАТ','ВИНТОВКА','РАКЕТНИЦА'];
 const esc=(s:string)=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const clock=(s:number)=>`${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`;
 const ordinal=(n:number)=>`${n}-й`;
@@ -49,15 +52,15 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
   </div>
   <aside class="s-browser" aria-label="Открытые сессии"><div class="s-browser-head"><h2>Открытые сессии</h2><small data-count></small></div><ul class="s-list" data-list></ul>
    <form class="s-join" data-join><label><span>Код или ссылка-приглашение</span><input data-code placeholder="например, K7QX2M" autocomplete="off" spellcheck="false"></label><button class="s-secondary" type="submit">ВОЙТИ</button></form></aside>
-  <footer><span><kbd>WASD</kbd> движение</span><span><kbd>ПРОБЕЛ</kbd> прыжок</span><span><kbd>МЫШЬ</kbd> прицел и огонь</span><span><kbd>1 2 3</kbd> оружие</span><span><kbd>TAB</kbd> счёт</span><em>Только компьютер · клавиатура и мышь</em></footer>
+  <footer><span><kbd>WASD</kbd> движение</span><span><kbd>ПРОБЕЛ</kbd> прыжок</span><span><kbd>МЫШЬ</kbd> прицел и огонь</span><span><kbd>1–5</kbd> оружие</span><span><kbd>R</kbd> перезарядка</span><span><kbd>ПКМ</kbd> прицеливание</span><span><kbd>TAB</kbd> счёт</span><em>Только компьютер · клавиатура и мышь</em></footer>
  </section>
  <div class="s-hud" hidden>
   <div class="s-top"><div class="s-session"><b data-session></b><small data-invite></small></div><div class="s-clock"><b data-clock>10:00</b><small data-limit></small></div><div class="s-feed" data-feed></div></div>
-  <div class="s-cross"><i></i><i></i><i></i><i></i></div><div class="s-hitmark"></div><div class="s-dir" data-dir><i></i></div>
+  <div class="s-scope" data-scope></div><div class="s-cross"><i></i><i></i><i></i><i></i></div><div class="s-hitmark"></div><div class="s-dir" data-dir><i></i></div>
   <div class="s-notes" data-notes aria-live="polite"></div>
   <div class="s-bottom"><div class="s-vitals"><div class="s-hp"><small>ЗДОРОВЬЕ</small><b data-hp>100</b></div><div class="s-ar"><small>БРОНЯ</small><b data-ar>0</b></div></div>
    <div class="s-standing"><b data-place>1-й</b><small data-gap></small><span data-frags></span></div>
-   <div class="s-arms"><div class="s-ammo"><small data-wname>БЛАСТЕР</small><b data-ammo>∞</b></div><div class="s-slots">${WEAPON_SHORT.map((n,i)=>`<span data-slot="${i}">${i+1}<em>${n}</em></span>`).join('')}</div></div></div>
+   <div class="s-arms"><div class="s-ammo"><small data-wname>БЛАСТЕР</small><b data-ammo>∞</b><small data-reserve></small><div class="s-heat" data-heat><i></i></div></div><div class="s-slots">${WEAPON_SHORT.map((n,i)=>`<span data-slot="${i}">${i+1}<em>${n}</em></span>`).join('')}</div></div></div>
   <div class="s-death" data-death hidden></div>
   <div class="s-board" data-board hidden></div>
   <button class="s-click" data-action="lock" hidden>Нажми, чтобы играть</button>
@@ -66,9 +69,10 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
  const $=<E extends HTMLElement=HTMLElement>(q:string)=>root.querySelector<E>(q)!;
  const canvas=$<HTMLCanvasElement>('.s-canvas'),audio=new AudioEngine();let renderer:Renderer;
  try{renderer=new Renderer(canvas,arena);}catch(error){root.innerHTML='<div style="padding:40px;color:white;background:#0b0f1c">Для «Шпиля» нужен браузер с WebGL. Включите аппаратное ускорение и перезагрузите страницу.</div>';throw error;}
+ renderer.setQuality(load('quality')==='low'?'low':'high');renderer.blood=load('blood')==='1';
  const abort=new AbortController(),listen=(el:EventTarget,type:string,fn:EventListener)=>el.addEventListener(type,fn,{signal:abort.signal});
  let mode:Mode='menu',active:Active|null=null,net:Network|null=null,lobby:Lobby|null=null,modal='',disposed=false,frame=0,previous=performance.now(),uiTimer=0;
- let modalAt=0,fire=false,forced=false,showBoard=false,keys=new Set<string>(),sensitivity=Number(load('sensitivity'))||1;
+ let modalAt=0,fire=false,aim=false,forced=false,showBoard=false,keys=new Set<string>(),sensitivity=Number(load('sensitivity'))||1;
  audio.setVolume(load('volume')===null?.7:Number(load('volume')));
  const nick=$<HTMLInputElement>('[data-nick]');nick.value=load('nick')||'';
  const playerName=()=>cleanName(nick.value);
@@ -118,7 +122,7 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
  }
  function leaveSession(toMenu=true){
   if(active){active.host?.close();active.guest?.close();if(active.host)lobby?.announce(null);}
-  active=null;mode='menu';unlock();keys.clear();fire=false;history.replaceState(null,'',location.pathname+location.search);
+  active=null;mode='menu';unlock();keys.clear();fire=false;aim=false;history.replaceState(null,'',location.pathname+location.search);
   $('.s-menu').hidden=false;$('.s-hud').hidden=true;root.classList.remove('s-playing');renderList();if(toMenu)hideModal();
  }
 
@@ -141,11 +145,15 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
    <label class="s-field"><span>Приглашение (код ${a.code})</span><div class="s-copy"><input readonly value="${esc(inviteLink())}" data-link><button class="s-secondary" data-action="copy">КОПИРОВАТЬ</button></div></label>
    <label class="s-range"><span>Чувствительность мыши <b data-sens-v>${sensitivity.toFixed(2)}</b></span><input type="range" min="0.3" max="3" step="0.05" value="${sensitivity}" data-sens></label>
    <label class="s-range"><span>Громкость <b data-vol-v>${Math.round(audio.volume*100)}%</b></span><input type="range" min="0" max="1" step="0.05" value="${audio.volume}" data-vol></label>
+   <label class="s-field"><span>Качество графики</span><select data-quality><option value="high"${renderer.quality==='high'?' selected':''}>Высокое — тени, свечение, свет ламп</option><option value="low"${renderer.quality==='low'?' selected':''}>Низкое — для слабых компьютеров</option></select></label>
+   <label class="s-check"><input type="checkbox" data-blood${renderer.blood?' checked':''}> Кровь при попаданиях (иначе — вспышки щита)</label>
    ${button('resume','ПРОДОЛЖИТЬ',true)}${button('help','Управление и правила')}${button('leave',a.host?'Завершить сессию и выйти':'Покинуть сессию')}`;}
   if(kind==='help')panel.innerHTML=`<div class="s-eyebrow">ПРАВИЛА АРЕНЫ</div><h2 id="s-modal-title">Каждый сам за себя</h2>
-   <div class="s-controls"><span><kbd>W A S D</kbd> Движение</span><span><kbd>ПРОБЕЛ</kbd> Прыжок (можно держать)</span><span><kbd>МЫШЬ</kbd> Прицел</span><span><kbd>ЛКМ</kbd> Огонь</span><span><kbd>1 2 3 / КОЛЕСО</kbd> Оружие</span><span><kbd>TAB</kbd> Таблица счёта</span><span><kbd>ESC</kbd> Меню</span></div>
+   <div class="s-controls"><span><kbd>W A S D</kbd> Движение</span><span><kbd>ПРОБЕЛ</kbd> Прыжок (можно держать)</span><span><kbd>C</kbd> Присед, на бегу — подкат</span><span><kbd>Q E</kbd> Наклон влево / вправо</span><span><kbd>МЫШЬ</kbd> Прицел</span><span><kbd>ЛКМ</kbd> Огонь</span><span><kbd>1 2 3 / КОЛЕСО</kbd> Оружие</span><span><kbd>TAB</kbd> Таблица счёта</span><span><kbd>ESC</kbd> Меню</span></div>
    <p>За убийство соперника — фраг. Смерть от своей ракеты или в лаве — минус фраг. Первый, кто набрал лимит, побеждает. Через 10 минут побеждает лидер; при ничьей — внезапная смерть до единоличного лидера.</p>
-   <p>Бластер бесконечный. Дробовик и ракетница лежат на мостках и мосту над лавой. Выстрел ракетой себе под ноги в прыжке — рокет-джамп. Голубые площадки подбрасывают на ярус выше, на вершине ждёт мега-бонус +100 здоровья.</p>
+   <p>Бластер бесконечный, но от долгой очереди перегревается. Дробовик, автомат, винтовка и ракетница лежат на арене. Автомат и винтовка перезаряжаются (R) и прицеливаются (ПКМ): у винтовки оптика ×4, без неё и в прыжке она мажет. Очередь автомата уводит вверх и в сторону всегда одинаково — отдачу можно выучить и гасить мышью. Попадание в голову — двойной урон.</p>
+   <p> Выстрел ракетой себе под ноги в прыжке — рокет-джамп. Голубые площадки подбрасывают на ярус выше, на вершине ждёт мега-бонус +100 здоровья.</p>
+   <p>Подкат даёт рывок и низкий силуэт; прыжок из подката сохраняет скорость, а приземление с зажатым C снова переходит в подкат (рывок — не чаще раза в секунду). Присед в прыжке поджимает ноги — так запрыгивают на высокие ящики. Наклон выглядывает из-за угла, открывая только голову.</p>
    <small>Стрейф-прыжки: держите прыжок, «вбок» и плавно ведите мышь в ту же сторону — скорость растёт.</small>${button('back','ПОНЯТНО',true)}`;
   requestAnimationFrame(()=>{if(!disposed)panel.querySelector<HTMLElement>('input:not([readonly]),button')?.focus();});
  }
@@ -184,16 +192,19 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
  listen(root,'input',((e:Event)=>{
   const t=e.target as HTMLInputElement;
   if(t.matches('[data-code]'))t.setCustomValidity('');
+  if(t.matches('[data-quality]')){const q=t.value==='low'?'low':'high';renderer.setQuality(q);save('quality',q);}
+  if(t.matches('[data-blood]')){renderer.blood=t.checked;save('blood',t.checked?'1':'0');}
   if(t.matches('[data-sens]')){sensitivity=Number(t.value);save('sensitivity',String(sensitivity));$('[data-sens-v]').textContent=sensitivity.toFixed(2);}
   if(t.matches('[data-vol]')){audio.setVolume(Number(t.value));save('volume',String(audio.volume));$('[data-vol-v]').textContent=Math.round(audio.volume*100)+'%';void audio.unlock();audio.play('pickup');}
  }) as EventListener);
- listen(document,'pointerlockchange',()=>{if(!locked()){fire=false;keys.clear();if(mode==='game'&&!modal)showModal('pause');}else if(modal==='pause')hideModal();});
- listen(document,'mousemove',((e:MouseEvent)=>{if(locked()&&active)active.client.look(e.movementX*.0022*sensitivity,e.movementY*.0022*sensitivity);}) as EventListener);
- listen(canvas,'mousedown',((e:MouseEvent)=>{if(locked()&&e.button===0)fire=true;}) as EventListener);
- listen(window,'mouseup',((e:MouseEvent)=>{if(e.button===0)fire=false;}) as EventListener);
+ listen(document,'pointerlockchange',()=>{if(!locked()){fire=false;aim=false;keys.clear();if(mode==='game'&&!modal)showModal('pause');}else if(modal==='pause')hideModal();});
+ // В прицеле мышь замедляется вместе с приближением, чтобы цель не «уплывала».
+ listen(document,'mousemove',((e:MouseEvent)=>{if(locked()&&active){const k=.0022*sensitivity/active.client.zoom();active.client.look(e.movementX*k,e.movementY*k);}}) as EventListener);
+ listen(canvas,'mousedown',((e:MouseEvent)=>{if(!locked())return;if(e.button===0)fire=true;if(e.button===2)aim=true;}) as EventListener);
+ listen(window,'mouseup',((e:MouseEvent)=>{if(e.button===0)fire=false;if(e.button===2)aim=false;}) as EventListener);
  listen(canvas,'wheel',((e:WheelEvent)=>{if(locked()&&active){e.preventDefault();active.client.cycleWeapon(e.deltaY>0?1:-1);}}) as EventListener);
  listen(canvas,'contextmenu',e=>e.preventDefault());
- const GAME_KEYS=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Digit1','Digit2','Digit3','Tab'];
+ const GAME_KEYS=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','KeyC','KeyQ','KeyE','KeyR','Digit1','Digit2','Digit3','Digit4','Digit5','Tab'];
  listen(window,'keydown',((e:KeyboardEvent)=>{
   if(mode!=='game'||e.metaKey||e.ctrlKey||e.altKey)return;
   if(e.code==='Tab'){e.preventDefault();showBoard=true;return;}
@@ -201,19 +212,21 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
   if(e.code==='Escape'&&document.pointerLockElement!==canvas){if(modal==='pause'&&performance.now()-modalAt>300){hideModal();lock();}else if(!modal)showModal('pause');return;}
   if(!locked()||!GAME_KEYS.includes(e.code))return;e.preventDefault();keys.add(e.code);
   if(e.code.startsWith('Digit')&&active)active.client.selectWeapon(Number(e.code.slice(-1))-1 as WeaponId);
+  if(e.code==='KeyR'&&!e.repeat)active?.client.reload();
  }) as EventListener);
  listen(window,'keyup',((e:KeyboardEvent)=>{keys.delete(e.code);if(e.code==='Tab')showBoard=false;}) as EventListener);
- listen(window,'blur',()=>{keys.clear();fire=false;showBoard=false;});
+ listen(window,'blur',()=>{keys.clear();fire=false;aim=false;showBoard=false;});
  // Ссылка-приглашение, открытая во вкладке с уже запущенной игрой, меняет только #код.
  listen(window,'hashchange',()=>{const code=normalizeCode(location.hash.slice(1));if(code&&net&&mode==='menu'&&code!==active?.code)showModal('invite',code);});
  const input=():Input=>{const has=(...k:string[])=>k.some(x=>keys.has(x));
-  return {forward:Number(has('KeyW','ArrowUp'))-Number(has('KeyS','ArrowDown')),strafe:Number(has('KeyD','ArrowRight'))-Number(has('KeyA','ArrowLeft')),jump:has('Space'),fire};};
+  return {forward:Number(has('KeyW','ArrowUp'))-Number(has('KeyS','ArrowDown')),strafe:Number(has('KeyD','ArrowRight'))-Number(has('KeyA','ArrowLeft')),jump:has('Space'),fire,
+   crouch:has('KeyC'),lean:Number(has('KeyE'))-Number(has('KeyQ')),aim};};
 
  // --- Интерфейс боя ---
  function feedLine(f:FeedEntry,c:GameClient){
   const name=(id:string)=>`<b style="color:${c.colorOf(id)}">${esc(c.nameOf(id))}</b>`;
   if(f.killer===f.victim)return `<div>${name(f.victim)} <i>${f.w==='lava'?'сгорел в лаве':f.w==='fall'?'разбился':'подорвал себя'}</i></div>`;
-  return `<div>${name(f.killer)} <i>[${typeof f.w==='number'?WEAPONS[f.w].name.toLowerCase():'?'}]</i> ${name(f.victim)}</div>`;
+  return `<div>${name(f.killer)} <i>[${typeof f.w==='number'?WEAPONS[f.w].name.toLowerCase():'?'}${f.head?' · в голову':''}]</i> ${name(f.victim)}</div>`;
  }
  function update(){
   const c=active?.client;if(!c||mode==='menu')return;
@@ -224,7 +237,11 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
   $('.s-clock').classList.toggle('alert',c.phase==='sudden'||c.phase==='playing'&&c.left<60);
   $('[data-hp]').textContent=String(Math.max(0,c.health));$('[data-ar]').textContent=String(c.armor);$('.s-hp').classList.toggle('low',c.health<=30);$('.s-hp').classList.toggle('mega',c.health>100);
   const st=c.standing();$('[data-place]').textContent=ordinal(st.place);$('[data-gap]').textContent=`из ${st.total}${st.total>1?` · ${st.gap>0?'+':''}${st.gap}`:''}`;$('[data-frags]').textContent=`${c.frags} фраг.`;
-  $('[data-wname]').textContent=WEAPON_SHORT[c.weapon];$('[data-ammo]').textContent=c.weapon===0?'∞':String(Math.max(0,c.ammo[c.weapon]));
+  const w=c.weapon,magazine=usesMagazine(w);
+  $('[data-wname]').textContent=c.reloading?'ПЕРЕЗАРЯДКА':c.overheated?'ПЕРЕГРЕВ':WEAPON_SHORT[w];
+  $('[data-ammo]').textContent=w===BLASTER?'∞':String(Math.max(0,magazine?c.mag[w]:c.ammo[w]));
+  $('[data-reserve]').textContent=magazine?`/ ${Math.max(0,c.ammo[w])}`:'';
+  $('.s-ammo').classList.toggle('low',magazine&&c.mag[w]<=Math.ceil(WEAPONS[w].mag/5)||!magazine&&w!==BLASTER&&c.ammo[w]<=2);
   root.querySelectorAll<HTMLElement>('[data-slot]').forEach(s=>{const w=Number(s.dataset.slot) as WeaponId;s.classList.toggle('owned',c.owned[w]);s.classList.toggle('selected',c.weapon===w);});
   $('[data-feed]').innerHTML=c.feed.map(f=>feedLine(f,c)).join('');
   $('[data-notes]').innerHTML=c.notes.map(n=>`<div style="opacity:${Math.min(1,(2.5-n.age)*2)}">${esc(n.text)}</div>`).join('');
@@ -238,7 +255,13 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
  }
  function frameHud(){
   const c=active?.client;if(!c)return;
-  $('.s-hitmark').classList.toggle('on',c.hitFlash>0);$('.s-damage').style.opacity=String(c.damageFlash);
+  const hitmark=$('.s-hitmark');hitmark.classList.toggle('on',c.hitFlash>0);hitmark.classList.toggle('head',c.headFlash>0);
+  // Прицел расходится на текущий разброс; в оптике винтовки и в коллиматоре автомата его заменяет прицел оружия.
+  const scoped=c.weapon===RIFLE?c.aim:0,cross=$('.s-cross');
+  const gap=3+Math.tan(c.spread())/Math.tan(renderer.camera.fov*Math.PI/360)*renderer.height/2;
+  cross.style.setProperty('--gap',`${Math.min(60,gap).toFixed(1)}px`);cross.style.opacity=String(c.weapon===AUTO?1-c.aim:1-scoped);
+  $('[data-scope]').style.opacity=String(scoped>.85?1:0);
+  const heat=$('[data-heat]');heat.hidden=c.weapon!==BLASTER;heat.style.setProperty('--heat',String(Math.min(1,c.heat)));heat.classList.toggle('hot',c.overheated);$('.s-damage').style.opacity=String(c.damageFlash);
   const dir=$('[data-dir]');
   if(c.damageFlash>.05&&c.damageFrom){const dx=c.damageFrom.x-c.body.pos.x,dz=c.damageFrom.z-c.body.pos.z,a=Math.atan2(dx,-dz)+c.yaw;dir.style.opacity=String(c.damageFlash);dir.style.transform=`translate(-50%,-50%) rotate(${a}rad)`;}
   else dir.style.opacity='0';

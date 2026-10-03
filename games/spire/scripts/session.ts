@@ -46,6 +46,7 @@ export class HostSession{
    }
    case 'pose':this.game.pose(from,msg);return;
    case 'fire':this.game.fire(from,msg);return;
+   case 'reload':this.game.reload(from,msg);return;
    case 'ping':this.deliver({k:'pong',t:msg.t},from);return;
   }
  }

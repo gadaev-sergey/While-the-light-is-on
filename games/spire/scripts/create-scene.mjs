@@ -4,8 +4,8 @@
 import {writeFile} from 'node:fs/promises';
 
 const nodes=[];
-const COLORS={floor:'#4b4f58',wall:'#30343d',metal:'#5d6573',stair:'#646a74',rail:'#c98a3a',crate:'#6b5a44',pillar:'#3a3f4a'};
-const NAMES={floor:'Настил',wall:'Стена',metal:'Мостки',stair:'Ступень',rail:'Перила',crate:'Ящик',pillar:'Опора'};
+const COLORS={floor:'#4b4f58',wall:'#30343d',metal:'#5d6573',stair:'#646a74',rail:'#c98a3a',crate:'#6b5a44',pillar:'#3a3f4a',concrete:'#5a5e66',barrier:'#d9a72a'};
+const NAMES={floor:'Настил',wall:'Стена',metal:'Мостки',stair:'Ступень',rail:'Перила',crate:'Ящик',pillar:'Опора',concrete:'Бетон',barrier:'Барьер'};
 let counter=0;
 const id=prefix=>`${prefix}-${++counter}`;
 /** Блок задаётся границами: x0..x1, y0..y1, z0..z1 (метры). */
@@ -50,24 +50,77 @@ for(const sx of [-1,1])for(const sz of [-1,1])for(let i=0;i<10;i++){
 // Верхняя площадка на опорах над ямой.
 solid('metal',[-6,6],[9.4,10],[-6,6]);
 for(const x of [-5,5])for(const z of [-5,5])solid('pillar',[x-.5,x+.5],[-3,9.4],[z-.5,z+.5]);
-// Укрытия и опоры нижнего зала.
-for(const s of [-1,1]){solid('crate',[-1.5,1.5],[0,1.2],s>0?[13,14.5]:[-14.5,-13]);solid('crate',s>0?[25,27]:[-27,-25],[0,1.4],s>0?[17,19]:[-19,-17]);
- for(const z of [-13,13])solid('pillar',s>0?[25,26.2]:[-26.2,-25],[0,4.5],[z-.6,z+.6]);}
+// Галерея под кольцевыми мостками: стена от пола до мостков (4,5 м) с проёмами шириной 3 м.
+const span=(from,to,gaps)=>{const out=[];let at=from;for(const [a,b] of gaps){out.push([at,a]);at=b;}out.push([at,to]);return out;};
+for(const s of [-1,1]){
+ const inner=s>0?[25.6,26]:[-26,-25.6];
+ for(const z of span(-26,26,[[-21,-18],[-9,-6],[6,9],[18,21]]))solid('concrete',inner,[0,4.5],z);
+ for(const x of span(-26,26,[[-14,-11],[-2,2],[11,14]]))solid('concrete',x,[0,4.5],inner);
+ // Лаз: перегородка поперёк боковой галереи со щелью 1,2 м снизу — только в приседе или подкатом.
+ solid('barrier',s>0?[26,32]:[-32,-26],[1.2,4.5],[-.25,.25]);
+}
+// Будки в углах мостков: стены 2,5 м, по двери и два окна с каждой стороны к мосткам, крыша.
+for(const sx of [-1,1])for(const sz of [-1,1]){
+ const r=([a,b],k)=>k>0?[a,b]:[-b,-a],wall=(t,y,along)=>along==='x'?solid('wall',r([26.4,26.7],sx),y,r(t,sz)):solid('wall',r(t,sx),y,r([26.4,26.7],sz));
+ for(const along of ['x','z']){
+  for(const t of [[26.4,26.9],[28,28.4],[30,30.5],[31.6,32]])wall(t,[5,7.5],along);
+  for(const t of [[26.9,28],[30.5,31.6]]){wall(t,[5,6.1],along);wall(t,[7,7.5],along);}
+  wall([28.4,30],[7.3,7.5],along);
+ }
+ solid('metal',r([26.4,32],sx),[7.5,7.8],r([26.4,32],sz));
+}
+// Парапет вершины высотой 1 м с разрывами 3 м посередине каждой стороны.
+for(const s of [-1,1])for(const [a,b] of [[-6,-1.5],[1.5,6]]){
+ solid('rail',[a,b],[10,11],s>0?[5.7,6]:[-6,-5.7]);solid('rail',s>0?[5.7,6]:[-6,-5.7],[10,11],[a,b]);
+}
+// Снайперское гнездо на 14 м над северными мостками: парапет 1,1 м, опоры на мостки, один подъём — узкая лестница вдоль стены.
+solid('metal',[-6,6],[13.6,14],[-32,-24]);
+solid('rail',[-6,6],[14,15.1],[-24.3,-24]);solid('rail',[-6,-5.7],[14,15.1],[-32,-24.3]);solid('rail',[5.7,6],[14,15.1],[-30.4,-24.3]);
+for(const x of [-1,1])solid('pillar',x>0?[5.4,6]:[-6,-5.4],[5,13.6],[-26.6,-26]);
+for(let i=0;i<18;i++)solid('stair',[6+(17-i)*.6,6+(18-i)*.6],[5,5+.5*(i+1)],[-31.8,-30.4]);
+// Укрытия нижнего зала трёх высот: бетон 2,5 м (полное), ящики 1,4 м (запрыгнуть с приседом), барьеры 1,0 м (только в приседе).
+for(const sx of [-1,1])for(const sz of [-1,1]){
+ solid('concrete',sx>0?[10,12]:[-12,-10],[0,2.5],sz>0?[4,8]:[-8,-4]);
+ solid('crate',sx>0?[9,11]:[-11,-9],[0,1.4],sz>0?[19,21]:[-21,-19]);
+ solid('crate',sx>0?[29,31]:[-31,-29],[0,1.4],sz>0?[17,19]:[-19,-17]);
+}
+for(const s of [-1,1])solid('barrier',[-2.5,2.5],[0,1],s>0?[13,14.5]:[-14.5,-13]);
+
+// Декор: трубы и лампы галереи, решётки в полу, таблички секторов и подсказки. В столкновениях не участвует.
+function decor(kind,name,[x0,x1],[y0,y1],[z0,z1],text=''){
+ nodes.push({id:id('decor'),name,kind:'box',layer:'props',visible:true,locked:false,
+  transform:{position:[(x0+x1)/2,(y0+y1)/2,(z0+z1)/2],rotation:[0,0,0],scale:[x1-x0,y1-y0,z1-z0]},components:[{type:'spire.decor',values:{kind,text}}]});
+}
+for(const s of [-1,1]){
+ decor('pipe','Труба',s>0?[31.1,31.5]:[-31.5,-31.1],[3.8,4.2],[-26,26]);decor('pipe','Труба',s>0?[30.6,30.86]:[-30.86,-30.6],[3.95,4.21],[-26,26]);
+ decor('pipe','Труба',[-26,26],[3.8,4.2],s>0?[31.1,31.5]:[-31.5,-31.1]);decor('pipe','Труба',[-26,26],[3.95,4.21],s>0?[30.6,30.86]:[-30.86,-30.6]);
+ for(let t=-24;t<=24;t+=8){decor('lamp','Лампа',s>0?[28.7,29.3]:[-29.3,-28.7],[4.38,4.48],[t-.3,t+.3]);decor('lamp','Лампа',[t-.3,t+.3],[4.38,4.48],s>0?[28.7,29.3]:[-29.3,-28.7]);}
+ for(const t of [-14,14]){decor('vent','Решётка',s>0?[28.4,29.6]:[-29.6,-28.4],[0,.03],[t-.6,t+.6]);}
+ decor('vent','Решётка',[-.6,.6],[0,.03],s>0?[28.4,29.6]:[-29.6,-28.4]);
+ // Таблички «ЛАЗ» на обеих сторонах перегородок.
+ for(const z of [-1,1])decor('sign','Табличка',s>0?[28.3,29.7]:[-29.7,-28.3],[2.6,3.1],z>0?[.25,.3]:[-.3,-.25],'ЛАЗ');
+}
+for(const [text,x,z] of [['СЕКТОР А',-25.55,-12],['СЕКТОР В',25.55,12]])decor('sign','Табличка',x>0?[25.5,25.55]:[-25.55,-25.5],[3.3,3.9],[z-1.2,z+1.2],text);
+for(const [text,x,z] of [['СЕКТОР Б',-6,-25.55],['СЕКТОР Г',6,25.55]])decor('sign','Табличка',[x-1.2,x+1.2],[3.3,3.9],z>0?[25.5,25.55]:[-25.55,-25.5],text);
+decor('sign','Табличка',[16.4,18.2],[6.4,7],[-31.95,-31.9],'ГНЕЗДО ↑');
+decor('sign','Табличка',[-1.2,1.2],[14.35,14.85],[-24,-23.95],'ГНЕЗДО');
+for(const sx of [-1,1])for(const sz of [-1,1])decor('lamp','Лампа',sx>0?[28.9,29.5]:[-29.5,-28.9],[7.4,7.5],sz>0?[28.9,29.5]:[-29.5,-28.9]);
 
 // Прыжковые площадки: снизу на боковые мостки и с балконов на вершину.
 for(const [x,y,z,tx,ty,tz] of [[-18,0,0,-29,5,0],[18,0,0,29,5,0],[0,5,21,0,10,4.5],[0,5,-21,0,10,-4.5]])
  marker('pad','Прыжковая площадка',[x,y,z],[2,.2,2],{type:'spire.jumppad',values:{tx,ty,tz}});
 // Точки появления смотрят к центру арены.
-for(const [x,y,z] of [[-24,0,-24],[24,0,24],[-26,0,22],[26,0,-22],[-14,0,-5],[14,0,5],[0,0,20],[0,0,-20],[-29,5,-22],[29,5,22],[-22,5,29],[22,5,-29]])
+for(const [x,y,z] of [[-24,0,-24],[24,0,24],[-29,0,22],[29,0,-22],[-14,0,-5],[14,0,5],[0,0,20],[0,0,-20],[-29,5,-22],[29,5,22],[-22,5,29],[22,5,-29]])
  marker('spawn','Точка появления',[x,y,z],[.6,.1,.6],{type:'spire.spawn',values:{yaw:yawTo(x,z)}});
-// Бонусы.
+// Бонусы. Броня и патроны винтовки — в будках, винтовка — в гнезде, автоматы — в боковых галереях.
 const items=[['mega',0,10,0],['rocket',0,0,0],['shotgun',-29,5,-10],['shotgun',29,5,10],['armor',-29,5,29],['armor',29,5,-29],
- ['health',-14,0,20],['health',14,0,-20],['health',-28,0,-6],['health',28,0,6],['health',0,5,29],['health',0,5,-29],
- ['shells',-12,0,-14],['shells',12,0,14],['rockets',-29,5,20],['rockets',29,5,-20]];
-const ITEM_NAMES={mega:'Мега-бонус',rocket:'Ракетница',shotgun:'Дробовик',armor:'Броня',health:'Аптечка',shells:'Патроны дробовика',rockets:'Ракеты'};
+ ['health',-14,0,20],['health',14,0,-20],['health',-28,0,-6],['health',28,0,6],['health',0,5,29],['health',0,5,-29],['health',-29,5,-29],
+ ['shells',-12,0,-14],['shells',12,0,14],['rockets',-29,5,20],['rockets',29,5,-20],
+ ['auto',-29,0,9],['auto',29,0,-9],['rifle',0,14,-29],['bullets',12,0,-14],['bullets',-12,0,14],['rounds',29,5,29]];
+const ITEM_NAMES={mega:'Мега-бонус',rocket:'Ракетница',shotgun:'Дробовик',auto:'Автомат',rifle:'Винтовка',armor:'Броня',health:'Аптечка',shells:'Патроны дробовика',bullets:'Патроны автомата',rounds:'Патроны винтовки',rockets:'Ракеты'};
 for(const [item,x,y,z] of items)marker('item',ITEM_NAMES[item],[x,y,z],[.8,.8,.8],{type:'spire.pickup',values:{item}});
 
-const scene={format:'shelter-scene',version:2,id:'arena',template:'spire-arena-v1',name:'Шпиль',units:'m',nodes,textures:[],
+const scene={format:'shelter-scene',version:2,id:'arena',template:'spire-arena-v2',name:'Шпиль',units:'m',nodes,textures:[],
  camera:{projection:'perspective',fov:90,height:2,distance:3,follow:'fixed'},environment:{time:0,haze:.02,exposure:1,flashlight:false},
  moduleData:{spire:{size:64,lavaY:-2,killY:-12}}};
 await writeFile(new URL('../scenes/arena.scene.json',import.meta.url),JSON.stringify(scene,null,2)+'\n');

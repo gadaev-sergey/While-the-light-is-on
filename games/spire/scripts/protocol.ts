@@ -1,8 +1,9 @@
 // Сетевые сообщения «Шпиля». Все сообщения — JSON с полем k.
-// Гость → хост: hello, pose, fire, ping. Хост → гости: welcome, reject, roster, snap, ev, pong.
+// Гость → хост: hello, pose, fire, reload, ping. Хост → гости: welcome, reject, roster, snap, ev, pong.
 import type {WeaponId} from './rules.ts';
+import type {Stance} from './physics.ts';
 
-export const PROTOCOL=1;
+export const PROTOCOL=4;
 export type V3=[number,number,number];
 
 export type SessionInfo={code:string;name:string;host:string;players:number;max:number;fragLimit:number;protocol:number};
@@ -11,15 +12,17 @@ export type RosterEntry={id:string;name:string;color:string};
 export type MatchPhase='playing'|'sudden'|'over';
 
 export type Hello={k:'hello';name:string;protocol:number};
-/** life — номер жизни: позы из прошлой жизни (до респауна) хост отбрасывает. */
-export type Pose={k:'pose';life:number;p:V3;v:V3;yaw:number;pitch:number;w:WeaponId};
+/** life — номер жизни: позы из прошлой жизни (до респауна) хост отбрасывает. s — стойка, l — наклон от −1 до 1 (без них — стоя, без наклона), a — 1, если смотрит в оптику винтовки. */
+export type Pose={k:'pose';life:number;p:V3;v:V3;yaw:number;pitch:number;w:WeaponId;s?:Stance;l?:number;a?:0|1};
 /** lag — сколько секунд назад стрелок видел соперников (полпинга + задержка интерполяции). */
 export type Fire={k:'fire';w:WeaponId;o:V3;d:V3;seed:number;lag:number;seq:number};
+/** Перезарядка оружия w: хост добирает магазин из запаса, когда она закончится. */
+export type Reload={k:'reload';w:WeaponId};
 export type Ping={k:'ping';t:number};
-export type GuestMessage=Hello|Pose|Fire|Ping;
+export type GuestMessage=Hello|Pose|Fire|Reload|Ping;
 
-/** Состояние игрока в снимке: id, x, y, z, yaw, pitch, оружие, здоровье, броня, жив, фраги, смерти, патроны дроби, ракеты, владение (битовая маска), подтверждённый выстрел, жизнь. */
-export type PlayerSnap=[string,number,number,number,number,number,WeaponId,number,number,0|1,number,number,number,number,number,number,number];
+/** Состояние игрока в снимке: id, x, y, z, yaw, pitch, оружие, здоровье, броня, жив, фраги, смерти, запас патронов оружия 1–4, магазины автомата и винтовки, владение (битовая маска), подтверждённый выстрел, жизнь, стойка, наклон, в оптике. */
+export type PlayerSnap=[string,number,number,number,number,number,WeaponId,number,number,0|1,number,number,[number,number,number,number],[number,number],number,number,number,Stance,number,0|1];
 export type Snapshot={k:'snap';t:number;phase:MatchPhase;left:number;winner:string|null;restart:number;items:string;players:PlayerSnap[]};
 
 export type GameEvent=
@@ -27,8 +30,9 @@ export type GameEvent=
  |{e:'rocket';id:number;by:string;o:V3;d:V3}
  |{e:'boom';id:number;p:V3;by:string}
  |{e:'hurt';to:string;by:string;amount:number;knock:V3;from:V3}
- |{e:'hit';by:string;to:string;amount:number}
- |{e:'kill';killer:string;victim:string;w:WeaponId|'lava'|'fall'}
+ |{e:'hit';by:string;to:string;amount:number;head?:1}
+ |{e:'kill';killer:string;victim:string;w:WeaponId|'lava'|'fall';head?:1}
+ |{e:'reload';id:string;w:WeaponId}
  |{e:'spawn';id:string;p:V3;yaw:number;life:number}
  |{e:'pick';id:string;item:number}
  |{e:'match';phase:MatchPhase;winner:string|null};
