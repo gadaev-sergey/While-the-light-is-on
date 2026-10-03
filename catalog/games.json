@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "repository": "gadaev-sergey/shelter-arcade",
+  "url": "https://gadaev-sergey.github.io/shelter-arcade/",
+  "games": [
+    {
+      "id": "bastion",
+      "project": "games/bastion",
+      "projectId": "bastion-endless-oath",
+      "repository": "gadaev-sergey/bastion",
+      "url": "https://gadaev-sergey.github.io/bastion/",
+      "title": "Последний бастион",
+      "subtitle": "Ночь без рассвета",
+      "genre": "Средневековое выживание с видом сверху",
+      "description": "Один страж против бесконечной орды. Сражайся мечом, луком и магией в крепости Серого Ордена. Меняй маршруты, пополняй припасы у кузницы и алтаря, отвлекай врагов колоколом и продержись как можно дольше.",
+      "details": [
+        "Одна крепость, 7 связанных мест",
+        "Меч, лук, огонь и кольцо льда",
+        "Бесконечный натиск и полководцы"
+      ],
+      "controls": "Клавиатура и мышь или сенсорный экран",
+      "preview": "assets/bastion.jpg",
+      "previewAlt": "Страж с мечом отбивается от скелетов в каменном дворе средневековой крепости у колодца клятвы",
+      "theme": "teal",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.0",
+        "date": "2026-10-03",
+        "commit": "dcee6c9715808dffc1a3d5941b0dd7ae67333cc6"
+      }
+    },
+    {
+      "id": "spire",
+      "project": "games/spire",
+      "projectId": "spire-arena-heights",
+      "repository": "gadaev-sergey/spire",
+      "url": "https://gadaev-sergey.github.io/spire/",
+      "title": "Шпиль",
+      "subtitle": "Арена на высоте",
+      "genre": "Сетевой шутер от первого лица",
+      "description": "Deathmatch для 2–8 игроков прямо в браузере. Арена над лавой: галерея с лазами под мостками, будки на углах, снайперское гнездо на 14 м. Подкат, наклон и пять стволов — от бластера до винтовки с оптикой.",
+      "details": [
+        "Мультиплеер до 8 игроков",
+        "Подкат, наклон, 5 стволов, гнездо снайпера",
+        "Тени, свечение, следы и взрывы"
+      ],
+      "controls": "Только компьютер: клавиатура и мышь",
+      "preview": "assets/spire.jpg",
+      "previewAlt": "Вид с балкона с автоматом: у бетонного укрытия взрывается ракета с ударной волной, над лавой летят угли, луч прожектора скользит по стене",
+      "theme": "amber",
+      "status": "prototype",
+      "published": true,
+      "release": {
+        "version": "0.6.1",
+        "date": "2026-10-03",
+        "commit": "11a1e73a011b11d7d87d405f8209566687bf673e"
+      }
+    },
+    {
+      "id": "merzlota",
+      "project": "games/merzlota",
+      "projectId": "merzlota-polus-9",
+      "repository": "gadaev-sergey/merzlota",
+      "url": "https://gadaev-sergey.github.io/merzlota/",
+      "title": "Мерзлота",
+      "subtitle": "Станция «Полюс-9»",
+      "genre": "Ретро-шутер от первого лица",
+      "description": "Полярная станция замолчала. Пройди три сектора с ключ-картами и лифтами, разберись со снежниками, дронами-стражами и ледяными громилами и спустись к Хранителю льда.",
+      "details": [
+        "3 сектора и босс",
+        "3 вида оружия",
+        "Ключ-карты и карта станции"
+      ],
+      "controls": "Клавиатура и мышь или сенсорный экран",
+      "preview": "assets/merzlota.jpg",
+      "previewAlt": "Вид от первого лица: импульсная винтовка стреляет в кристаллического Хранителя льда посреди ледяного зала",
+      "theme": "teal",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.0",
+        "date": "2026-10-02",
+        "commit": "e4fad23d776cd3cda74fbddff2eb946d006068d3"
+      }
+    },
+    {
+      "id": "caravan",
+      "project": "games/caravan",
+      "projectId": "caravan-sands-of-dawn",
+      "repository": "gadaev-sergey/caravan",
+      "url": "https://gadaev-sergey.github.io/caravan/",
+      "title": "Караван",
+      "subtitle": "Пески рассвета",
+      "genre": "Защита караванного пути",
+      "description": "Среди песков просыпаются древние стражи. Стройте башни на поворотах, замедляйте врагов кристаллами и пробивайте броню солнечными лучами. Удержите путь через оазис, красные скалы и врата рассвета.",
+      "details": [
+        "3 карты и 30 волн",
+        "4 башни с улучшениями",
+        "Солнечный импульс"
+      ],
+      "controls": "Мышь, клавиатура или сенсорный экран",
+      "preview": "assets/caravan.jpg",
+      "previewAlt": "Башни, мортиры и ледяной кристалл защищают песчаную дорогу к воротам оазиса от скарабеев",
+      "theme": "amber",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.1",
+        "date": "2026-10-02",
+        "commit": "4f755132649093b3817ba7bc97aa26bbaed81339"
+      }
+    },
+    {
+      "id": "prisma",
+      "project": "games/prisma",
+      "projectId": "prisma-garden-of-light",
+      "repository": "gadaev-sergey/prisma",
+      "url": "https://gadaev-sergey.github.io/prisma/",
+      "title": "Призма",
+      "subtitle": "Сад света",
+      "genre": "Оптическая головоломка",
+      "description": "Всё начинается с одного луча. Поворачивайте зеркала, разделяйте свет и зажигайте приёмники нужного цвета. Двенадцать оптических композиций — без таймера, в вашем ритме.",
+      "details": [
+        "12 уровней в 3 главах",
+        "Два цвета и разделители",
+        "Подсказки и 36 звёзд"
+      ],
+      "controls": "Мышь, клавиатура или сенсорный экран",
+      "preview": "assets/prisma.jpg",
+      "previewAlt": "Оптическое поле Призмы: янтарные и бирюзовые лучи проходят через зеркала и разделители к пяти светящимся приёмникам",
+      "theme": "teal",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.0",
+        "date": "2026-10-02",
+        "commit": "184a3bd2481aed0003113d9624e4a53f6d67bd00"
+      }
+    },
+    {
+      "id": "zarevo",
+      "project": "games/zarevo",
+      "projectId": "zarevo-night-run",
+      "repository": "gadaev-sergey/zarevo",
+      "url": "https://gadaev-sergey.github.io/zarevo/",
+      "title": "Зарево",
+      "subtitle": "Ночная гонка",
+      "genre": "Аркадные гонки",
+      "description": "Восемь машин на старте и один таймер. Проходи виражи, обгоняй соперников впритык, копи нитро и успевай к контрольным точкам на трёх трассах — от закатного побережья до неонового города.",
+      "details": [
+        "3 трассы",
+        "8 машин на старте",
+        "Нитро за обгоны впритык"
+      ],
+      "controls": "Клавиатура или сенсорный экран",
+      "preview": "assets/zarevo.jpg",
+      "previewAlt": "Красная спортивная машина обгоняет соперников на приморском шоссе на фоне заката и пальм",
+      "theme": "amber",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.1",
+        "date": "2026-10-02",
+        "commit": "9ae87cf8c2118de8845bbc66807e54d49e1028dc"
+      }
+    },
+    {
+      "id": "hellrift",
+      "project": "games/hellrift",
+      "projectId": "hellrift-last-stand",
+      "repository": "gadaev-sergey/hellrift",
+      "url": "https://gadaev-sergey.github.io/hellrift/",
+      "title": "Разлом",
+      "subtitle": "Последний рубеж",
+      "genre": "Бесконечный шутер от первого лица",
+      "description": "Врата открыты. Подкрепления не будет. Отбивайся от демонов в Соборе пепла, собирай припасы и усиливай арсенал. Орда становится всё больше и сильнее. Твой результат — время выживания.",
+      "details": [
+        "3 вида оружия",
+        "5 типов демонов",
+        "Бесконечные орды"
+      ],
+      "controls": "Клавиатура и мышь или сенсорный экран",
+      "preview": "assets/hellrift.jpg",
+      "previewAlt": "Вид от первого лица: дробовик, рогатые демоны и огненный портал в Соборе пепла",
+      "theme": "amber",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.0",
+        "date": "2026-10-02",
+        "commit": "4f506e9ac990a9f6263d8e0b10c7ce3ebbaeea80"
+      }
+    },
+    {
+      "id": "tidehaven",
+      "project": "games/tidehaven",
+      "projectId": "tidehaven-quiet-bay",
+      "repository": "gadaev-sergey/tidehaven",
+      "url": "https://gadaev-sergey.github.io/tidehaven/",
+      "title": "Тихая бухта",
+      "subtitle": "Город у моря",
+      "genre": "Градостроительная стратегия",
+      "description": "Пара домов и целый остров возможностей. Прокладывайте дороги, выращивайте еду, заботьтесь о жителях и постройте маяк, который откроет вашу бухту миру.",
+      "details": [
+        "10 типов построек",
+        "4 сезона",
+        "Кампания и свободная игра"
+      ],
+      "controls": "Мышь и клавиатура или сенсорный экран",
+      "preview": "assets/tidehaven.jpg",
+      "previewAlt": "Изометрический островной город с домами, фермами, мельницей и зажжённым маяком на берегу",
+      "theme": "teal",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.0",
+        "date": "2026-10-02",
+        "commit": "b936dcfce697142bb27aea857c7c4601e07c730d"
+      }
+    },
+    {
+      "id": "lumen",
+      "project": "games/lumen",
+      "projectId": "lumen-last-beacon",
+      "repository": "gadaev-sergey/lumen",
+      "url": "https://gadaev-sergey.github.io/lumen/",
+      "title": "Люмен",
+      "subtitle": "Последний маяк",
+      "genre": "Атмосферный платформер",
+      "description": "Ночной город ждёт рассвета. Собери потерянные линзы, перепрыгни через тени и зажги три маяка своим маленьким огнём.",
+      "details": [
+        "3 района",
+        "Двойной прыжок",
+        "Свой саундтрек"
+      ],
+      "controls": "Клавиатура или сенсорный экран",
+      "preview": "assets/lumen.jpg",
+      "previewAlt": "Герой с фонарём перепрыгивает между крышами ночного города под светом луны",
+      "theme": "teal",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.0",
+        "date": "2026-10-01",
+        "commit": "5755f15657951d56730a5614639ee79a883511b8"
+      }
+    },
+    {
+      "id": "perimeter",
+      "project": "games/perimeter",
+      "projectId": "perimeter-zero-signal",
+      "repository": "gadaev-sergey/perimeter",
+      "url": "https://gadaev-sergey.github.io/perimeter/",
+      "title": "Периметр",
+      "subtitle": "Нулевой сигнал",
+      "genre": "Аркадный шутер",
+      "description": "Комплекс замолчал. Его машины — нет. Пройди три сектора, меняй оружие и улучшай арсенал, чтобы добраться до источника сигнала.",
+      "details": [
+        "3 сектора",
+        "9 волн",
+        "3 системы оружия"
+      ],
+      "controls": "Клавиатура и мышь или сенсорный экран",
+      "preview": "assets/perimeter.jpg",
+      "previewAlt": "Оператор выпускает ЭМИ-импульс среди контейнеров промышленного комплекса",
+      "theme": "lime",
+      "status": "release",
+      "published": true,
+      "release": {
+        "version": "1.0.0",
+        "date": "2026-10-01",
+        "commit": "132322dfba00bc961bcb79fb79838eade8be626c"
+      }
+    },
+    {
+      "id": "while-the-light-is-on",
+      "project": "games/while-the-light-is-on",
+      "projectId": "42a83d8e-70eb-4e59-8552-79bfe800b1c6",
+      "repository": "gadaev-sergey/While-the-light-is-on",
+      "url": "https://gadaev-sergey.github.io/While-the-light-is-on/",
+      "title": "While the light is on",
+      "subtitle": "Дом на окраине",
+      "genre": "Исследование и выживание",
+      "description": "Снаружи — чужой мир. Внутри — дом, который ещё может стать убежищем. Исследуй комнаты, собирай припасы и смотри, что скрывается за закрытой дверью.",
+      "details": [
+        "Дом в разрезе",
+        "Свет и туман",
+        "Поиск припасов"
+      ],
+      "controls": "Клавиатура и мышь или сенсорный экран",
+      "preview": "assets/while-the-light-is-on.jpg",
+      "previewAlt": "Герой исследует первый этаж заброшенного дома, показанного в разрезе",
+      "theme": "amber",
+      "status": "prototype",
+      "published": true,
+      "release": {
+        "version": "0.2.0",
+        "date": "2026-09-16",
+        "commit": "dee620c2acbc98d2d41276f4380771ea18bdb80e"
+      }
+    }
+  ]
+}

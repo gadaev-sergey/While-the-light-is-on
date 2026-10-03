@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111311">
+  <meta name="description" content="Авторские игры и прототипы на Shelter Engine. Выберите свой мир и играйте прямо в браузере — без установки.">
+  <title>Shelter Arcade — игры, в которые можно войти</title>
+  <link rel="canonical" href="{{url}}">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d8f36a'/%3E%3Cpath d='M7 25V7h18v18h-6V13h-6v12Z' fill='%23111311'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css?v={{revision}}">
+</head>
+<body>
+  <a class="skip-link" href="#games">Перейти к играм</a>
+  <header class="site-header wrap">
+    <a class="brand" href="./" aria-label="Shelter Arcade — главная">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34V6h28v28H24V16h-8v18Z" fill="currentColor"/></svg>
+      <span>SHELTER<span class="brand-second">ARCADE</span></span>
+    </a>
+    <nav aria-label="Основная навигация">
+      <a class="nav-current" href="#games">Коллекция <span>{{count}}</span></a>
+      <a class="github-link" href="https://github.com/gadaev-sergey/shelter-arcade" target="_blank" rel="noopener noreferrer">GitHub <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.09c-3.12.68-3.78-1.32-3.78-1.32-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .1 1.57 2.28 3.25 1.36.1-.73.39-1.23.71-1.51-2.49-.28-5.1-1.25-5.1-5.54 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.08 1.15A10.7 10.7 0 0 1 12 6.62c.95 0 1.9.13 2.8.38 2.14-1.45 3.07-1.15 3.07-1.15.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3 0 4.3-2.62 5.25-5.12 5.53.4.35.76 1.03.76 2.08v2.67c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg></a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow"><span class="tiny-square"></span> НЕЗАВИСИМЫЕ ИГРЫ / SHELTER ENGINE</p>
+        <h1 id="page-title">Твой следующий<br><span>маленький мир.</span></h1>
+      </div>
+      <div class="intro-note">
+        <p>Свет в тёмном городе.<br>Тишина после последнего выстрела.<br>Истории, в которые можно войти.</p>
+        <span class="browser-note"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M9 21h6m-3-3v3"/></svg>Прямо в браузере. Без установки.</span>
+      </div>
+    </section>
+    <section id="games" class="collection" aria-labelledby="collection-title">
+      <div class="section-heading"><h2 id="collection-title">Выбери приключение <span>{{count}}</span></h2><span>ИГРЫ И ПРОТОТИПЫ</span></div>
+      <div class="game-grid">{{cards}}</div>
+    </section>
+    <section class="engine-note" aria-label="О коллекции">
+      <span class="engine-icon" aria-hidden="true">S/</span>
+      <div><h2>Разные миры. Один движок.</h2><p>Все игры в коллекции созданы на Shelter Engine — от первых игровых прототипов до законченных историй.</p></div>
+      <span class="engine-signature">BUILT WITH<br><strong>SHELTER ENGINE</strong></span>
+    </section>
+  </main>
+  <footer class="site-footer wrap"><span>SHELTER ARCADE <span class="footer-slash">/</span> Коллекция авторских игр</span><a href="https://github.com/gadaev-sergey" target="_blank" rel="noopener noreferrer">gadaev-sergey</a></footer>
+</body>
+</html>
