@@ -1,0 +1,6 @@
+interface:
+  display_name: "Shelter — выпуск игр"
+  short_description: "Игры и патчи: GitHub Pages и каталог Shelter Arcade"
+  default_prompt: "Используй $shelter-game-release: заверши изменения игры, проверь их и опубликуй игру и актуальную карточку в каталоге."
+policy:
+  allow_implicit_invocation: true

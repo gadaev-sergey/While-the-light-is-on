@@ -13,7 +13,40 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  publication-mode:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      use-workflow: ${{ steps.pages.outputs.use-workflow }}
+    steps:
+      - name: Respect publications from Shelter Engine
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          status=$(curl --silent --show-error --output pages.json --write-out '%{http_code}' \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/$REPOSITORY/pages")
+          if [ "$status" = 404 ]; then
+            echo 'use-workflow=true' >> "$GITHUB_OUTPUT"
+          elif [ "$status" = 200 ]; then
+            if [ "$(jq -r '.build_type' pages.json)" = legacy ]; then
+              echo 'use-workflow=false' >> "$GITHUB_OUTPUT"
+              echo 'Pages uses a publishing branch. Publish updates from Shelter Engine.'
+            else
+              echo 'use-workflow=true' >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "Cannot determine Pages configuration (HTTP $status)."
+            exit 1
+          fi
   build:
+    needs: publication-mode
+    if: needs.publication-mode.outputs.use-workflow == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out the game

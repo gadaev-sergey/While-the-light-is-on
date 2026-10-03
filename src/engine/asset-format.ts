@@ -1,0 +1,11 @@
+export const GLTF_EXTENSIONS=['KHR_materials_unlit','KHR_texture_transform','KHR_materials_emissive_strength','EXT_texture_webp'];
+export const MODEL_BUDGET={fileBytes:64*1024*1024,packageBytes:128*1024*1024,triangles:500000,textureSide:4096};
+export function inspectGLTF(bytes:Uint8Array,name:string,files:Set<string>){
+ let json:any;if(name.toLowerCase().endsWith('.glb')){const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);if(bytes.length<20||v.getUint32(0,true)!==0x46546c67||v.getUint32(4,true)!==2||v.getUint32(8,true)!==bytes.length||v.getUint32(16,true)!==0x4e4f534a)throw new Error('Повреждённый GLB.');const size=v.getUint32(12,true);if(20+size>bytes.length)throw new Error('Неполный GLB.');json=JSON.parse(new TextDecoder().decode(bytes.subarray(20,20+size)).trim());}else json=JSON.parse(new TextDecoder().decode(bytes));
+ if(json.asset?.version!=='2.0')throw new Error('Поддерживается glTF 2.0.');
+ const unsupported=(json.extensionsUsed||[]).filter((e:string)=>!GLTF_EXTENSIONS.includes(e));if(unsupported.length)throw new Error('Неподдерживаемые расширения: '+unsupported.join(', '));
+ if(json.skins?.length||json.animations?.length||json.meshes?.some((m:any)=>m.primitives?.some((p:any)=>p.targets?.length)))throw new Error('Импорт поддерживает только статические модели без скелета, анимаций и morph targets.');
+ const dependencies:string[]=[];for(const x of [...json.buffers||[],...json.images||[]])if(x.uri&&!x.uri.startsWith('data:')){const uri=decodeURIComponent(x.uri);if(uri.includes('..')||uri.startsWith('/')||uri.includes(':')||uri.includes('\\'))throw new Error('Ссылка модели должна вести на локальный файл рядом с моделью.');const path=(name.includes('/')?name.slice(0,name.lastIndexOf('/')+1):'')+uri;if(!files.has(path))throw new Error('Не найден связанный файл: '+path);dependencies.push(path);}
+ let triangles=0;for(const m of json.meshes||[])for(const p of m.primitives||[]){if(p.mode!==undefined&&p.mode!==4)throw new Error('Модель должна содержать треугольники.');triangles+=(json.accessors?.[p.indices??p.attributes?.POSITION]?.count||0)/3;}
+ if(triangles>MODEL_BUDGET.triangles)throw new Error('В модели больше 500 000 треугольников.');return {dependencies,triangles:Math.round(triangles)};
+}

@@ -4,11 +4,21 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "build:pages": "tsc --noEmit && vite build --mode pages",
+    "build:pages": "tsc --noEmit && node --experimental-transform-types scripts/engine/build-project.ts games/while-the-light-is-on --pages",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --experimental-strip-types --test tests/base/*.test.ts",
     "test:e2e": "playwright test",
-    "test:deployment": "node scripts/check-deployment.mjs"
+    "test:deployment": "node scripts/check-deployment.mjs",
+    "test:engine:e2e": "playwright test --config playwright.engine.config.ts",
+    "test:engine": "node --experimental-transform-types --test tests/engine/*.test.ts",
+    "build:game": "node --experimental-transform-types scripts/engine/build-project.ts",
+    "test:perimeter": "node --experimental-strip-types --test tests/perimeter/*.test.ts",
+    "play:perimeter": "node games/perimeter/launch.mjs",
+    "build:catalog": "node --experimental-transform-types scripts/catalog/build.ts",
+    "publish:catalog": "node --experimental-transform-types scripts/catalog/publish.ts",
+    "release:game": "node --experimental-transform-types scripts/engine/release-project.ts",
+    "usage:begin": "node --experimental-transform-types scripts/engine/usage-project.ts begin",
+    "usage:sync": "node --experimental-transform-types scripts/engine/usage-project.ts sync"
   },
   "keywords": [],
   "author": "",
@@ -17,9 +27,14 @@
   "devDependencies": {
     "@playwright/test": "^1.63.0",
     "@types/node": "^22.20.2",
+    "@types/three": "^0.186.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.6"
   },
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "three": "^0.186.0",
+    "trystero": "^0.25.4"
+  }
 }

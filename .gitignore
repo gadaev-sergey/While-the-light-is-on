@@ -10,3 +10,8 @@ artifacts/
 *.log
 .codex/
 .agents/
+
+.shelter-cache/
+projects/
+artifacts/builds/
+**/settings/backups/

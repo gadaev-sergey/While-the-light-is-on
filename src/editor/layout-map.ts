@@ -1,0 +1,14 @@
+import type {Layout} from '../modules/layout.ts';
+
+/** Metric elevation: selection and room drag/resize commit one semantic edit. */
+export function layoutMap(container:HTMLElement,layout:Layout,select:(id:string)=>void,commit:(id:string,x:number,width:number,floor:number)=>void){
+ const minX=Math.min(-5,...layout.rooms.map(r=>r.x))-1,maxX=Math.max(5,...layout.rooms.map(r=>r.x+r.width))+1,minFloor=Math.min(0,...layout.rooms.map(r=>r.floor)),maxFloor=Math.max(1,...layout.rooms.map(r=>r.floor))+1,w=maxX-minX,h=(maxFloor-minFloor)*layout.floorHeight+1;
+ const y=(floor:number)=>h-(floor-minFloor+1)*layout.floorHeight;
+ const namespace='http://www.w3.org/2000/svg',svg=document.createElementNS(namespace,'svg');svg.setAttribute('viewBox',`${minX} 0 ${w} ${h}`);svg.setAttribute('aria-label','Схема планировки: перетаскивайте комнаты и правую границу');svg.classList.add('layout-map');
+ const element=(tag:string,attrs:Record<string,string|number>)=>{const el=document.createElementNS(namespace,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));svg.append(el);return el;};
+ for(const room of layout.rooms){const rect=element('rect',{x:room.x,y:y(room.floor),width:room.width,height:layout.floorHeight-.12,fill:room.color,stroke:'#96b5bb','stroke-width':.045,'data-room':room.id,rx:.08});rect.setAttribute('aria-label',room.name);const text=element('text',{x:room.x+.15,y:y(room.floor)+.45,'font-size':.24,fill:'#ecf4ed','pointer-events':'none'});text.textContent=room.name;const handle=element('rect',{x:room.x+room.width-.14,y:y(room.floor),width:.14,height:layout.floorHeight-.12,fill:'#83c8cd','data-room':room.id,'data-resize':'true'});handle.classList.add('layout-edge');}
+ for(const door of layout.doors)element('line',{x1:door.x,x2:door.x,y1:y(door.floor)+layout.floorHeight,y2:y(door.floor)+layout.floorHeight-2.1,stroke:door.open?'#84d7a9':'#ffcb79','stroke-width':.17});
+ for(const stair of layout.stairs)element('line',{x1:stair.a,y1:y(stair.from)+layout.floorHeight,x2:stair.b,y2:y(stair.to)+layout.floorHeight,stroke:'#ddc7a1','stroke-width':.15});
+ element('circle',{cx:layout.spawn.x,cy:y(layout.spawn.floor)+layout.floorHeight-.25,r:.15,fill:'#77eeaa'});
+ svg.onpointerdown=event=>{const target=event.target as SVGElement,id=target.getAttribute('data-room'),room=layout.rooms.find(r=>r.id===id);if(!room)return;select(room.id);const bounds=svg.getBoundingClientRect(),startX=event.clientX,startY=event.clientY,resize=target.hasAttribute('data-resize');svg.setPointerCapture(event.pointerId);svg.onpointerup=end=>{svg.onpointerup=null;const dx=(end.clientX-startX)/bounds.width*w,dy=(end.clientY-startY)/bounds.height*h;if(Math.hypot(end.clientX-startX,end.clientY-startY)<5)return;commit(room.id,resize?room.x:Math.round((room.x+dx)*10)/10,resize?Math.max(1,Math.round((room.width+dx)*10)/10):room.width,resize?room.floor:room.floor-Math.round(dy/layout.floorHeight));};};container.replaceChildren(svg);
+}

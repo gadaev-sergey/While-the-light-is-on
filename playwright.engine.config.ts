@@ -1,0 +1,2 @@
+import {defineConfig} from '@playwright/test';
+export default defineConfig({testDir:'./tests/engine',testMatch:'**/*.spec.ts',workers:1,fullyParallel:false,timeout:180000,expect:{timeout:15000},use:{baseURL:'http://127.0.0.1:5174',channel:'chrome',headless:true,viewport:{width:1440,height:900},screenshot:'only-on-failure',trace:'retain-on-failure'},webServer:{command:'npm run dev -- --port 5174 --strictPort',url:'http://127.0.0.1:5174',reuseExistingServer:true},outputDir:'artifacts/engine/test-results'});

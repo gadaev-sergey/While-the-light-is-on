@@ -1,8 +1,33 @@
 {
   "compilerOptions": {
-    "target": "ES2022", "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext", "moduleResolution": "Bundler", "allowImportingTsExtensions": true,
-    "noEmit": true, "strict": true, "skipLibCheck": true, "types": ["vite/client", "node"]
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "strict": true,
+    "paths": {
+      "@shelter/*": [
+        "./src/engine/*"
+      ]
+    },
+    "skipLibCheck": true,
+    "types": [
+      "vite/client",
+      "node"
+    ]
   },
-  "include": ["src", "tests", "vite.config.ts"]
+  "include": [
+    "src",
+    "tests",
+    "vite.config.ts",
+    "games",
+    "scripts/engine",
+    "scripts/catalog"
+  ]
 }
