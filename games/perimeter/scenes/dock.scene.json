@@ -1,0 +1,698 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "dock",
+  "template": "perimeter-shooter-v1",
+  "name": "Грузовой терминал",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "dock-cover-0",
+      "name": "Укрытие · container",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          9.609375,
+          -6.2109375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.59375,
+          1.796875,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "container"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-cover-1",
+      "name": "Укрытие · container",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.234375,
+          -6.2109375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.59375,
+          1.796875,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "container"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-cover-2",
+      "name": "Укрытие · container",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          9.765625,
+          -14.1796875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.59375,
+          1.796875,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "container"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-cover-3",
+      "name": "Укрытие · container",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.390625,
+          -14.1796875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.59375,
+          1.796875,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "container"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-cover-4",
+      "name": "Укрытие · reactor",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15,
+          -10,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.875,
+          2.5,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "reactor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-cover-5",
+      "name": "Укрытие · crate",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5,
+          -10.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5625,
+          1.5625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "crate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-cover-6",
+      "name": "Укрытие · crate",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.6875,
+          -10.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5625,
+          1.5625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "crate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-decoration-7",
+      "name": "Разметка / техническая зона",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.59375,
+          -3.59375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.6875,
+          0.625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.decoration",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-decoration-8",
+      "name": "Разметка / техническая зона",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.859375,
+          -16.875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.84375,
+          0.625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.decoration",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-decoration-9",
+      "name": "Разметка / техническая зона",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.703125,
+          -7.265625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.40625,
+          3.28125,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.decoration",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-spawn-10",
+      "name": "Точка входа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          14.84375,
+          -16.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.625,
+          0.625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#b9f3df",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.spawn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-gate-11",
+      "name": "Секторный шлюз",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15,
+          -2.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c77c",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.gate",
+          "values": {
+            "next": "foundry"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dock-port-12",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.8125,
+          -3.125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-port-13",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.03125,
+          -3.125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-port-14",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.8125,
+          -16.875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-port-15",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.1875,
+          -16.875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "dock-port-16",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15,
+          -2.8125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 22,
+    "distance": 30,
+    "centerX": 15,
+    "centerY": -10,
+    "follow": "player"
+  },
+  "environment": {
+    "time": 1320,
+    "haze": 0.04,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "perimeter": {
+      "version": 1,
+      "width": 1920,
+      "height": 1280,
+      "theme": 0,
+      "subtitle": "Верни питание внешнему контуру",
+      "boss": "ПРИВРАТНИК"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "format": "shelter-project", "version": 1, "sdk": 1,
+  "projectId": "tidehaven-quiet-bay", "name": "Тихая бухта", "gameVersion": "1.0.0",
+  "startScene": "bay",
+  "scenes": [{"id":"bay","name":"Тихая бухта","path":"scenes/bay.scene.json"}],
+  "assets": [], "modules": [{"id":"tidehaven","version":1,"runtime":"scripts/runtime.ts"}],
+  "build": {"target":"web","mode":"release","base":"./","output":"","scenes":["bay"],"dynamicAssets":[],"appId":"game.tidehaven-quiet-bay"}
+}

@@ -1,0 +1,47 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "caravan-sands-of-dawn",
+  "name": "Караван · Пески рассвета",
+  "gameVersion": "1.0.1",
+  "startScene": "oasis",
+  "scenes": [
+    {
+      "id": "oasis",
+      "name": "Лазурный оазис",
+      "path": "scenes/oasis.scene.json"
+    },
+    {
+      "id": "canyon",
+      "name": "Красные скалы",
+      "path": "scenes/canyon.scene.json"
+    },
+    {
+      "id": "citadel",
+      "name": "Врата рассвета",
+      "path": "scenes/citadel.scene.json"
+    }
+  ],
+  "assets": [],
+  "modules": [
+    {
+      "id": "caravan",
+      "version": 1,
+      "runtime": "scripts/runtime.ts"
+    }
+  ],
+  "build": {
+    "target": "web",
+    "mode": "release",
+    "base": "./",
+    "output": "",
+    "scenes": [
+      "oasis",
+      "canyon",
+      "citadel"
+    ],
+    "dynamicAssets": [],
+    "appId": "game.caravan-sands-of-dawn"
+  }
+}

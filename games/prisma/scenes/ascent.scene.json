@@ -1,0 +1,505 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "ascent",
+  "template": "prisma-optics-v1",
+  "name": "Восхождение",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "optic-0",
+      "name": "Источник",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3,
+          0,
+          6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "source",
+            "color": "amber",
+            "direction": 3,
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-1",
+      "name": "Зеркало",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3,
+          0,
+          4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "mirror",
+            "color": "amber",
+            "direction": 0,
+            "angle": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-2",
+      "name": "Зеркало",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1,
+          0,
+          4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "mirror",
+            "color": "amber",
+            "direction": 0,
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-3",
+      "name": "Зеркало",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1,
+          0,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "mirror",
+            "color": "amber",
+            "direction": 0,
+            "angle": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-4",
+      "name": "Зеркало",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5,
+          0,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "mirror",
+            "color": "amber",
+            "direction": 0,
+            "angle": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-5",
+      "name": "Зеркало",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5,
+          0,
+          5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "mirror",
+            "color": "amber",
+            "direction": 0,
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-6",
+      "name": "Приёмник",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6,
+          0,
+          5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "target",
+            "color": "amber",
+            "direction": 0,
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-7",
+      "name": "Камень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2,
+          0,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "wall",
+            "color": "amber",
+            "direction": 0,
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-8",
+      "name": "Камень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3,
+          0,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "wall",
+            "color": "amber",
+            "direction": 0,
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-9",
+      "name": "Камень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          4,
+          0,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "wall",
+            "color": "amber",
+            "direction": 0,
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "optic-10",
+      "name": "Камень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          4,
+          0,
+          4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.2,
+          0.7
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffca83",
+        "roughness": 0.4,
+        "metalness": 0.4,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "prisma.optic",
+          "values": {
+            "kind": "wall",
+            "color": "amber",
+            "direction": 0,
+            "angle": 0
+          }
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 12,
+    "distance": 20,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0,
+    "haze": 0,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "prisma": {
+      "size": 7,
+      "chapter": 0,
+      "caption": "Свет помнит дорогу к небу.",
+      "lesson": "Проследите маршрут от источника. Три звезды — за решение без подсказок и лишних поворотов."
+    }
+  }
+}

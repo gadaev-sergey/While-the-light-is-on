@@ -1,0 +1,2464 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "quiet-harbor",
+  "template": "lumen-platformer-v1",
+  "name": "Тихая гавань",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "quiet-harbor-solid-0",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.484375,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12.96875,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-solid-1",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21.875,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12.1875,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-solid-2",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          37.578125,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          12.34375,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-solid-3",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          58.59375,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          23.4375,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-4",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.828125,
+          1.53125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.96875,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-5",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.625,
+          2.9375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-6",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          22.421875,
+          1.609375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-7",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.25,
+          3.40625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.4375,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-8",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.296875,
+          1.921875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.03125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-9",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          37.5,
+          1.765625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.8125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-10",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          41.328125,
+          3.015625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.34375,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-11",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          51.640625,
+          1.53125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-12",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          55.234375,
+          3.328125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.28125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-platform-13",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          59.140625,
+          1.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spawn-14",
+      "name": "Начало пути",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.75,
+          0.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e4c99a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spawn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-lens-15",
+      "name": "Линза маяка",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.796875,
+          3.609375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.625,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#8ff5e5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.lens",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-lens-16",
+      "name": "Линза маяка",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.65625,
+          4.078125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.625,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#8ff5e5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.lens",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-lens-17",
+      "name": "Линза маяка",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          55.40625,
+          4,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.625,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#8ff5e5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.lens",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-checkpoint-18",
+      "name": "Сохранение — огонёк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.09375,
+          0.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5625,
+          1.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c98b",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.checkpoint",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-checkpoint-19",
+      "name": "Сохранение — огонёк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          34.5,
+          0.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5625,
+          1.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c98b",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.checkpoint",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-checkpoint-20",
+      "name": "Сохранение — огонёк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          61.375,
+          0.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5625,
+          1.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c98b",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.checkpoint",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-thorn-21",
+      "name": "Тёмные кристаллы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.0625,
+          0.296875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.59375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#bd6785",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.thorn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-thorn-22",
+      "name": "Тёмные кристаллы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          39.7265625,
+          0.296875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          0.59375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#bd6785",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.thorn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-thorn-23",
+      "name": "Тёмные кристаллы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          53.3203125,
+          0.296875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          0.59375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#bd6785",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.thorn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-enemy-24",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          19.890625,
+          0.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 65,
+            "speed": 0.8,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-enemy-25",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          42.078125,
+          0.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 75,
+            "speed": 1.1,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-enemy-26",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          57.859375,
+          0.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 85,
+            "speed": 1,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-sign-27",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.203125,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "A / D или ← / →  ·  Иди к свету",
+            "radius": 220
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-sign-28",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.359375,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Пробел — прыжок. Нажми ещё раз в воздухе.",
+            "radius": 190
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-sign-29",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.828125,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Двойной прыжок поможет перелететь провал.",
+            "radius": 160
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-sign-30",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.984375,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Огоньки сохраняют путь и восстанавливают здоровье.",
+            "radius": 170
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-sign-31",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          22.828125,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Shift / K — рывок. Пробейся сквозь тень.",
+            "radius": 180
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-sign-32",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          63.453125,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Собери три линзы и нажми E у маяка.",
+            "radius": 190
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-33",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.234375,
+          2.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-34",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          9.421875,
+          2.515625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-35",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.125,
+          3.71875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-36",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.125,
+          3.921875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-37",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21.890625,
+          2.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-38",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          22.953125,
+          2.59375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-39",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.5625,
+          4.1875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-40",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.9375,
+          4.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-41",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.890625,
+          2.703125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-42",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.703125,
+          2.90625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-43",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          36.9375,
+          2.546875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-44",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          38.0625,
+          2.75,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-45",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          40.859375,
+          3.796875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-46",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          41.796875,
+          4,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-47",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          51.109375,
+          2.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-48",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          52.171875,
+          2.515625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-49",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          54.578125,
+          4.109375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-50",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          55.890625,
+          4.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-51",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          58.609375,
+          2.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-52",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          59.671875,
+          2.671875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-53",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.671875,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-54",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          14.375,
+          2.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-55",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15.078125,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-56",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.828125,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-57",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.6875,
+          2.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-58",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          30.546875,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-59",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          44.53125,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-60",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          45.3125,
+          2.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-spark-61",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          46.09375,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "quiet-harbor-beacon-62",
+      "name": "Маяк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          67.234375,
+          1.4375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.34375,
+          2.875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e6cfa5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.beacon",
+          "values": {
+            "next": "hanging-gardens"
+          }
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 13.5,
+    "distance": 25,
+    "centerX": 9,
+    "centerY": 2.5,
+    "follow": "horizontal"
+  },
+  "environment": {
+    "time": 1320,
+    "haze": 0.035,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "lumen": {
+      "version": 1,
+      "width": 4500,
+      "theme": 0,
+      "subtitle": "Там, где начинается свет",
+      "next": "hanging-gardens"
+    }
+  }
+}

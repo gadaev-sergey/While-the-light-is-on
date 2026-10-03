@@ -1,0 +1,1378 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "lab",
+  "template": "merzlota-grid-v1",
+  "name": "Лаборатория",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "lab-spawn",
+      "name": "Начало пути",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          4.5,
+          0.5,
+          15.5
+        ],
+        "rotation": [
+          0,
+          270,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffd36b",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.spawn",
+          "values": {
+            "angle": 270
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-0",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.5,
+          0.5,
+          2.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-1",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3.5,
+          0.5,
+          7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-2",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.5,
+          0.5,
+          5.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-3",
+      "name": "Мерзлый",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.5,
+          0.5,
+          7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6fb6ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "brute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-4",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.5,
+          0.5,
+          2.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-5",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-6",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.5,
+          0.5,
+          3.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-7",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.5,
+          0.5,
+          12.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-8",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15.5,
+          0.5,
+          16.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-9",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.5,
+          0.5,
+          12.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-10",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.5,
+          0.5,
+          17.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-11",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          22.5,
+          0.5,
+          2.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-12",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.5,
+          0.5,
+          3.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-13",
+      "name": "Мерзлый",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.5,
+          0.5,
+          2.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6fb6ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "brute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-14",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21.5,
+          0.5,
+          7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-15",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.5,
+          0.5,
+          8.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-16",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.5,
+          0.5,
+          8.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-17",
+      "name": "Мерзлый",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.5,
+          0.5,
+          16.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6fb6ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "brute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-18",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21.5,
+          0.5,
+          12.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-enemy-19",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.5,
+          0.5,
+          12.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-0",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.5,
+          0.5,
+          17.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-1",
+      "name": "Ампула",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.5,
+          0.5,
+          11.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "health"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-2",
+      "name": "Синяя карта",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "blue"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-3",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.5,
+          0.5,
+          8.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-4",
+      "name": "Бронежилет",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.5,
+          0.5,
+          5.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "armor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-5",
+      "name": "Аптечка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.5,
+          0.5,
+          6.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "medkit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-6",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.5,
+          0.5,
+          17.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-7",
+      "name": "Ампула",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          9.5,
+          0.5,
+          17.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "health"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-8",
+      "name": "Красная карта",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "red"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-9",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.5,
+          0.5,
+          4.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-10",
+      "name": "Аптечка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.5,
+          0.5,
+          6.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "medkit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-item-11",
+      "name": "Бронежилет",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.5,
+          0.5,
+          17.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "armor"
+          }
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "perspective",
+    "fov": 80,
+    "height": 2,
+    "distance": 5,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0,
+    "haze": 0.06,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "merzlota": {
+      "theme": "lab",
+      "next": "core",
+      "map": [
+        "##############################",
+        "#.......#..........#.........#",
+        "#.......#..........#.........#",
+        "#.......D..........B.........#",
+        "#.......#..IIII....#.........#",
+        "#.......#..I..I....#####D#####",
+        "#.......#..I..I....#.........#",
+        "#.......#..I..I....#.........#",
+        "#.......#..I.II....#.........#",
+        "#.......#..........#.........#",
+        "####D#######D###########R#####",
+        "#.......#..........#.........#",
+        "#.......#..........#.........W",
+        "#.......D..........#.........W",
+        "#.......#..........#....X....W",
+        "#.......#..........#.........W",
+        "#.......#..........#.........W",
+        "#.......#..........#.........#",
+        "#.......#..........#.........#",
+        "##############################"
+      ],
+      "loadout": {
+        "shotgun": true,
+        "rifle": false,
+        "shells": 12,
+        "cells": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "prisma-garden-of-light",
+  "name": "Призма · Сад света",
+  "gameVersion": "1.0.0",
+  "startScene": "first-light",
+  "scenes": [
+    {
+      "id": "first-light",
+      "name": "Первый свет",
+      "path": "scenes/first-light.scene.json"
+    },
+    {
+      "id": "detour",
+      "name": "Обходной путь",
+      "path": "scenes/detour.scene.json"
+    },
+    {
+      "id": "ribbon",
+      "name": "Световая лента",
+      "path": "scenes/ribbon.scene.json"
+    },
+    {
+      "id": "ascent",
+      "name": "Восхождение",
+      "path": "scenes/ascent.scene.json"
+    },
+    {
+      "id": "branch",
+      "name": "Разветвление",
+      "path": "scenes/branch.scene.json"
+    },
+    {
+      "id": "echo",
+      "name": "Эхо",
+      "path": "scenes/echo.scene.json"
+    },
+    {
+      "id": "constellation",
+      "name": "Созвездие",
+      "path": "scenes/constellation.scene.json"
+    },
+    {
+      "id": "cascade",
+      "name": "Каскад",
+      "path": "scenes/cascade.scene.json"
+    },
+    {
+      "id": "duet",
+      "name": "Дуэт",
+      "path": "scenes/duet.scene.json"
+    },
+    {
+      "id": "weave",
+      "name": "Переплетение",
+      "path": "scenes/weave.scene.json"
+    },
+    {
+      "id": "spectrum",
+      "name": "Спектр",
+      "path": "scenes/spectrum.scene.json"
+    },
+    {
+      "id": "garden",
+      "name": "Сад света",
+      "path": "scenes/garden.scene.json"
+    }
+  ],
+  "assets": [],
+  "modules": [
+    {
+      "id": "prisma",
+      "version": 1,
+      "runtime": "scripts/runtime.ts"
+    }
+  ],
+  "build": {
+    "target": "web",
+    "mode": "release",
+    "base": "./",
+    "output": "",
+    "scenes": [
+      "first-light",
+      "detour",
+      "ribbon",
+      "ascent",
+      "branch",
+      "echo",
+      "constellation",
+      "cascade",
+      "duet",
+      "weave",
+      "spectrum",
+      "garden"
+    ],
+    "dynamicAssets": [],
+    "appId": "game.prisma-garden-of-light"
+  }
+}

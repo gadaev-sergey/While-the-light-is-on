@@ -1,0 +1,894 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "airlock",
+  "template": "merzlota-grid-v1",
+  "name": "Внешний шлюз",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "airlock-spawn",
+      "name": "Начало пути",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.5,
+          0.5,
+          2.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffd36b",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.spawn",
+          "values": {
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-0",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.5,
+          0.5,
+          2.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-1",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.5,
+          0.5,
+          6.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-2",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.5,
+          0.5,
+          4.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-3",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.5,
+          0.5,
+          10.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-4",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.5,
+          0.5,
+          10.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-5",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.5,
+          0.5,
+          10.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-6",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.5,
+          0.5,
+          13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-7",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-8",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.5,
+          0.5,
+          5.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-9",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.5,
+          0.5,
+          4.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-10",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.5,
+          0.5,
+          12.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-enemy-11",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          23.5,
+          0.5,
+          9.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-0",
+      "name": "Ампула",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3.5,
+          0.5,
+          13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "health"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-1",
+      "name": "Дробовик «Тайга»",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.5,
+          0.5,
+          13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shotgun"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-2",
+      "name": "Синяя карта",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.5,
+          0.5,
+          12.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "blue"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-3",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.5,
+          0.5,
+          13.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-4",
+      "name": "Аптечка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "medkit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-5",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.5,
+          0.5,
+          4.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-6",
+      "name": "Бронежилет",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.5,
+          0.5,
+          9.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "armor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "airlock-item-7",
+      "name": "Ампула",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.5,
+          0.5,
+          7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "health"
+          }
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "perspective",
+    "fov": 80,
+    "height": 2,
+    "distance": 5,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0,
+    "haze": 0.06,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "merzlota": {
+      "theme": "airlock",
+      "next": "lab",
+      "map": [
+        "##########################",
+        "#....#.........#.........#",
+        "#....D.........D.........#",
+        "#....#..II..II.#..##..##.#",
+        "#....#.........#.........#",
+        "##D###..II..II.#..##..##.#",
+        "#....#.........#.........#",
+        "#....D.........#####B#####",
+        "#....#WWWWWWWWW#.........#",
+        "#....#.........#.........#",
+        "#....#.........#....X....#",
+        "#....D.........#.........#",
+        "#....#.........#.........W",
+        "#....#.........#.........W",
+        "#....#.........#.........#",
+        "##########################"
+      ],
+      "loadout": {
+        "shotgun": false,
+        "rifle": false,
+        "shells": 0,
+        "cells": 0
+      }
+    }
+  }
+}

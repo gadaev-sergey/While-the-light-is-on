@@ -1,0 +1,175 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "63ab0ee2-9384-411c-830a-494c0d3e20d7",
+  "name": "Neutral Workshop — до переноса игры",
+  "gameVersion": "1.0.0",
+  "scenes": [
+    {
+      "id": "6f0bb15e-539d-4780-b6e3-494db1c68a11",
+      "name": "Главная сцена",
+      "path": "scenes/6f0bb15e-539d-4780-b6e3-494db1c68a11-5b4dd23067de.scene.json"
+    },
+    {
+      "id": "8c23300e-2219-471e-ba16-9775a7085c0e",
+      "name": "Галерея",
+      "path": "scenes/8c23300e-2219-471e-ba16-9775a7085c0e-f6eb9db2836b.scene.json"
+    }
+  ],
+  "startScene": "6f0bb15e-539d-4780-b6e3-494db1c68a11",
+  "assets": [
+    {
+      "id": "starter-table",
+      "name": "Обеденный стол",
+      "type": "model",
+      "path": "assets/starter-table/starter/table.glb",
+      "dependencies": [],
+      "bytes": 20068,
+      "version": "1.0.0",
+      "author": "Shelter Engine",
+      "license": "CC0-1.0",
+      "category": "Мебель и реквизит",
+      "tags": [
+        "нейтральный",
+        "реалистичный",
+        "glb",
+        "table"
+      ],
+      "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+      "dimensions": [
+        1.5,
+        0.7925000131130219,
+        0.8920000058412552
+      ],
+      "triangles": 132,
+      "source": {
+        "id": "starter-table",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "starter-wood",
+      "name": "Дерево",
+      "type": "texture",
+      "path": "assets/starter-wood/starter/wood.png",
+      "dependencies": [],
+      "bytes": 74301,
+      "version": "1.0.0",
+      "author": "Shelter Engine",
+      "license": "CC0-1.0",
+      "category": "Материалы",
+      "tags": [
+        "wood",
+        "base-color",
+        "256 × 256"
+      ],
+      "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+      "surface": {
+        "texture": "asset:starter-wood",
+        "color": "#ffffff",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 2
+      },
+      "source": {
+        "id": "starter-wood",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "asset-d28778c0c0bc1c46087a",
+      "name": "chair.glb",
+      "type": "model",
+      "path": "assets/asset-d28778c0c0bc1c46087a/chair.glb",
+      "dependencies": [],
+      "bytes": 14708,
+      "version": "1.0.0",
+      "author": "Пользователь",
+      "license": "Указана автором ресурса",
+      "category": "Модели",
+      "tags": [],
+      "description": "Импортированный локальный ресурс",
+      "unitScale": 1,
+      "triangles": 96,
+      "dimensions": [
+        0.47999998927116394,
+        0.972499999254942,
+        0.47999998927116394
+      ]
+    },
+    {
+      "id": "asset-1357e9c0bd1b600659d5",
+      "name": "crate.gltf",
+      "type": "model",
+      "path": "assets/asset-1357e9c0bd1b600659d5/crate.gltf",
+      "dependencies": [
+        "assets/asset-1357e9c0bd1b600659d5/crate.bin",
+        "assets/asset-1357e9c0bd1b600659d5/textures/wood.png"
+      ],
+      "bytes": 76919,
+      "version": "1.0.0",
+      "author": "Пользователь",
+      "license": "Указана автором ресурса",
+      "category": "Модели",
+      "tags": [],
+      "description": "Импортированный локальный ресурс",
+      "unitScale": 1,
+      "triangles": 12,
+      "dimensions": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "id": "material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+      "type": "material",
+      "name": "Приёмка PBR 1790683627038",
+      "path": "assets/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material.json",
+      "dependencies": [
+        "assets/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material-72a260f1-0fdd-401d-b0a1-47933b022f93/baseColor.png"
+      ],
+      "maps": {
+        "baseColor": "assets/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material-72a260f1-0fdd-401d-b0a1-47933b022f93/baseColor.png"
+      },
+      "bytes": 63774,
+      "version": "1.0.0",
+      "author": "Пользователь",
+      "license": "CC0 — Shelter starter",
+      "category": "Материалы",
+      "tags": [],
+      "description": "PBR-материал; отсутствующие каналы используют числовые значения.",
+      "surface": {
+        "texture": "asset:material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+        "color": "#ffffff",
+        "roughness": 0.8,
+        "metalness": 0.7,
+        "repeat": 1
+      },
+      "source": {
+        "id": "material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+        "version": "1.0.0"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "shelter.basic",
+      "version": 1,
+      "runtime": "builtin:basic"
+    }
+  ],
+  "build": {
+    "target": "web",
+    "mode": "release",
+    "base": "./",
+    "output": "",
+    "scenes": [
+      "6f0bb15e-539d-4780-b6e3-494db1c68a11",
+      "8c23300e-2219-471e-ba16-9775a7085c0e"
+    ],
+    "dynamicAssets": [],
+    "appId": "game.63ab0ee2-9384-411c-830a-494c0d3e20d7"
+  }
+}

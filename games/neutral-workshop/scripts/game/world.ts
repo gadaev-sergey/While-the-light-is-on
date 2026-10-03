@@ -1,0 +1,210 @@
+import {DIMENSIONS,layoutUnits} from './dimensions.ts';
+import {BASE,LOCATION,clamp} from './config.ts';
+import {wrapMinutes,flashlightReaches} from './lighting.ts';
+import {levelFloorY,levelRoomAt,walkBounds,type CompiledLevel,type Opening,type OpeningState} from './level.ts';
+import {canSee,occluders,rayDistance,visibleRoomSamples,type Sight} from './visibility.ts';
+import type {Action,BaseObject,BaseSave,Dog,Door,Floor,Navigation,Player,Resources,Task,Vec,DoorInteraction} from './types.ts';
+import {doorContact} from './door-contact.ts';
+export {DOOR_CLEARANCE} from './door-contact.ts';
+export class BaseWorld{
+ doorInteraction:DoorInteraction|null=null;
+ player!:Player;dog!:Dog;doors:Door[]=[];objects:BaseObject[]=[];inventory!:Resources;explored=new Set<string>();
+ phase:'playing'|'paused'='playing';flashlight=true;powered=false;time=0;aim=0;mouseAim=false;task:Task|null=null;navigation:Navigation|null=null;
+ toast='';toastTime=0;toastKind:'info'|'good'|'warn'='info';sight!:Sight;onSound=(name:string)=>{};revision=0;
+ dayMinutes=720;timeRunning=false;
+ setTime(minutes:number){if(!Number.isFinite(minutes))return;this.dayMinutes=wrapMinutes(minutes);this.timeRunning=false;this.revision++;}
+ setTimeRunning(running:boolean){this.timeRunning=running;this.revision++;}
+ openings:Opening[]=[];
+ level:CompiledLevel;
+ constructor(level:CompiledLevel=LOCATION){this.level=level;this.reset();}
+ floorY(floor:Floor){return levelFloorY(this.level,floor);}
+ setOpeningState(id:string,state:OpeningState){const o=this.openings.find(o=>o.id===id);if(!o)return false;o.state=state;this.revision++;this.refreshSight();return true;}
+ reset(){
+  this.player={x:this.level.spawn.x,y:this.floorY(this.level.spawn.floor),previousX:this.level.spawn.x,previousY:this.floorY(this.level.spawn.floor),floor:this.level.spawn.floor,facing:1,moving:false,distance:0,previousDistance:0,hp:100,attack:0,attackHit:false,hurt:0,stair:null};
+  this.dog={x:2010,previousX:2010,facing:-1,mode:'idle',timer:3,hp:60,hit:0};
+  this.inventory={wood:0,scrap:0,cloth:0,water:0,fuse:0,bandage:0};this.doors=this.level.doors.map(d=>({...d,open:d.open&&!d.locked,openness:Number(d.open&&!d.locked)}));this.objects=this.level.objects.map(o=>({...o}));this.openings=this.level.openings.map(o=>({...o}));this.explored=new Set<string>();
+  this.flashlight=true;this.powered=false;this.time=0;this.dayMinutes=720;this.timeRunning=false;this.aim=0;this.mouseAim=false;this.task=null;this.navigation=null;this.doorInteraction=null;this.phase='playing';this.refreshSight();this.revision++;
+  this.notify('Осмотрите дом. В комнатах могли остаться полезные вещи.');
+ }
+ notify(text:string,kind:'info'|'good'|'warn'='info'){this.toast=text;this.toastKind=kind;this.toastTime=4.5;}
+ get currentRoom(){return levelRoomAt(this.level,this.player.x,this.player.floor);}
+ get location(){return this.player.stair?'Лестница':this.currentRoom?.name||'Двор';}
+ get doorHand(){const i=this.doorInteraction,d=this.doors.find(d=>d.id===i?.id);return i&&d?doorContact(this.level,d,i.side).hand:undefined;}
+ get lightOrigin(){const p=this.player,origin={x:p.x,y:p.y-layoutUnits(DIMENSIONS.hero.flashlightHeight)};const reach=rayDistance(origin,p.facing===1?0:Math.PI,this.sight.segments,19);return {x:p.x+p.facing*Math.max(0,Math.min(17,reach-2)),y:origin.y};}
+ refreshSight(){this.sight={origin:{x:this.player.x,y:this.player.y-82},segments:occluders(this.doors,this.level,this.openings)};
+  const interaction=this.doorInteraction,door=this.doors.find(d=>d.id===interaction?.id);
+  if(interaction?.phase==='peek'&&interaction.lean>=.98&&door&&!door.open){
+   // A second, narrow eye ray starts just beyond the keyhole. The main segments
+   // remain sealed, so the hand-held lamp can never use this optical shortcut.
+   this.sight.peek={origin:{x:door.x-interaction.side*.5,y:doorContact(this.level,door,interaction.side).keyholeY},angle:interaction.side===-1?0:Math.PI,half:.105,range:380,segments:this.sight.segments};
+  }
+  for(const id of visibleRoomSamples(this.sight,this.level))this.explored.add(id);}
+ visible(point:Vec){return canSee(this.sight,point);}
+ objectPoint(o:BaseObject){return {x:o.x,y:this.floorY(o.floor)-Math.min(o.height*.5,58)};}
+ visibleObjects(){return this.objects.filter(o=>!(o.kind==='rubble'&&o.searched)&&this.visible(this.objectPoint(o)));}
+ visibleDoors(){return this.doors.filter(d=>this.visible({x:d.x,y:this.floorY(d.floor)-65}));}
+ get dogVisible(){return this.dog.hp>0&&this.visible({x:this.dog.x,y:this.floorY(0)-35});}
+ nearby(){
+  const p=this.player;if(p.stair||p.attack||p.hurt)return null;
+  const targets=[...this.visibleObjects(),...this.visibleDoors()].filter(o=>o.floor===p.floor&&Math.abs(o.x-p.x)<76);
+  targets.sort((a,b)=>Math.abs(a.x-p.x)-Math.abs(b.x-p.x));return targets[0]||null;
+ }
+ description(id:string){
+  const d=this.doors.find(d=>d.id===id);if(d)return {title:d.name,verb:d.open?'Закрыть':'Взяться за ручку',detail:d.open?'Закрытая дверь перекрывает обзор':'За дверью может быть ещё одна комната',seconds:0};
+  const o=this.objects.find(o=>o.id===id);if(!o)return null;
+  const entries:Record<string,[string,string,number]>={
+   chest:[o.searched?'Осмотрено':'Обыскать',o.searched?'Здесь больше ничего нет':'Проверить содержимое',1.5],
+   wardrobe:[o.searched?'Осмотрено':'Обыскать',o.searched?'Шкаф пуст':'Поискать полезные вещи',1.8],
+   rubble:[o.searched?'Расчищено':'Разобрать','Можно получить древесину и детали',2.8],
+   workbench:['Сделать бинт','Нужно: 2 ткани',2.4],bed:['Отдохнуть','Восстанавливает здоровье',3.2],sink:['Набрать воды',o.uses?'Запас воды исчерпан':'Осталась одна порция чистой воды',1.6],
+   medicine:[o.searched?'Осмотрено':'Забрать','Медикаменты для первой помощи',1],barrel:['Набрать воды',o.uses>=2?'Бочка пуста':'Дождевая вода · 2 порции',1.7],
+   generator:[this.powered?'Работает':'Запустить',this.powered?'Электричество подано в дом':'Нужно: 2 детали + предохранитель',2.5],
+   fusebox:[this.powered?'Питание включено':'Проверить','Питание поступает от генератора в подвале',.8],
+  };const [verb,detail,seconds]=entries[o.kind];return {title:o.name,verb,detail,seconds};
+ }
+ action(action:Action){
+  if(this.phase!=='playing')return;
+  const p=this.player;
+  if(action.type==='door-leave'){this.leaveDoor();return;}
+  if(action.type==='door-open'||action.type==='door-peek'||action.type==='interact'&&this.doorInteraction){this.doorAction(action.type==='door-peek'?'peek':'open');return;}
+  if(this.doorInteraction&&action.type!=='flashlight')return;
+  if(action.type==='flashlight'){this.flashlight=!this.flashlight;this.onSound('click');this.refreshSight();return;}
+  if(action.type==='bandage'){if(!this.task&&!p.stair&&this.inventory.bandage>0&&p.hp<100){this.inventory.bandage--;p.hp=Math.min(100,p.hp+35);this.notify('Перевязка: +35 здоровья','good');this.onSound('done');}else this.notify(p.hp>=100?'Вы здоровы':'В рюкзаке нет бинтов');return;}
+  if(action.type==='shove'){if(!p.stair&&!p.attack&&!this.task){p.attack=.42;p.attackHit=false;this.navigation=null;this.onSound('swing');}return;}
+  if(action.type==='up'||action.type==='down'){this.navigation=null;this.tryStair(action.type==='up'?1:-1);return;}
+  if(action.type==='interact'){
+   if(p.stair||p.attack||p.hurt)return;if(this.task){this.cancelTask();return;}
+   const id=action.target||this.nearby()?.id;if(!id)return;
+   const object=this.objects.find(o=>o.id===id),door=this.doors.find(o=>o.id===id),target=object||door;
+   if(!target||target.floor!==p.floor||Math.abs(target.x-p.x)>76||!this.visible({x:target.x,y:this.floorY(target.floor)-55}))return;
+   if(door){if(door.open)this.closeDoor(door);else this.beginDoor(door);return;}
+   if(!object)return;
+   if(['chest','wardrobe','medicine','rubble'].includes(object.kind)&&object.searched){this.notify('Здесь больше ничего нет');return;}
+   if(object.kind==='generator'&&(this.powered||this.inventory.scrap<2||this.inventory.fuse<1)){this.notify(this.powered?'Генератор уже работает':'Для генератора нужны 2 детали и предохранитель','warn');return;}
+   if(object.kind==='workbench'&&this.inventory.cloth<2){this.notify('Нужно 2 ткани для бинта','warn');return;}
+   if(object.kind==='bed'&&p.hp>=100){this.notify('Вы здоровы. Отдых пока не нужен');return;}
+   if(object.kind==='sink'&&object.uses||object.kind==='barrel'&&object.uses>=2){this.notify('Вода закончилась');return;}
+   const duration=this.description(id)!.seconds;this.task={id,duration,remaining:duration};this.navigation=null;p.moving=false;this.onSound('search');
+  }
+ }
+ closeDoor(door:Door){
+  // Closing is a direct command. Keep an actor standing in the threshold on
+  // their current side, without starting the closed-door handle animation.
+  const p=this.player;door.open=false;this.navigation=null;this.doorInteraction=null;
+  const side=p.x<door.x?-1:1,stop=doorContact(this.level,door,side).x;
+  if((p.x-stop)*side<0){p.x=stop;p.previousX=stop;}
+  p.moving=false;this.onSound('door');this.revision++;this.refreshSight();
+ }
+ beginDoor(door:Door){
+  const p=this.player;if(door.open||this.doorInteraction||p.stair||p.attack||this.task)return;
+  this.navigation=null;this.mouseAim=false;p.facing=p.x<door.x?1:-1;this.aim=p.facing===1?0:Math.PI;
+  this.doorInteraction={id:door.id,side:p.x<door.x?-1:1,phase:'approach',reach:0,lean:0};p.moving=false;
+ }
+ leaveDoor(){if(this.doorInteraction?.phase==='opening')return;this.doorInteraction=null;this.navigation=null;this.refreshSight();}
+ doorAction(choice:'open'|'peek'){
+  const i=this.doorInteraction,d=this.doors.find(d=>d.id===i?.id);if(!i||!d||d.open||i.reach<1||i.phase==='opening')return;
+  if(choice==='peek'){if(d.open)return;i.phase=i.phase==='peek'?'grip':'peek';this.refreshSight();return;}
+  if(i.lean>0||i.phase==='peek')return;
+  if(d.locked){this.notify(d.lockReason||'Дверь заперта. Можно заглянуть в скважину.','warn');return;}
+  i.phase='opening';this.onSound('door');
+ }
+ updateDoor(dt:number,direction:number){
+  const i=this.doorInteraction!,d=this.doors.find(d=>d.id===i.id),p=this.player;
+  if(!d||d.open||d.floor!==p.floor||p.hurt){this.doorInteraction=null;this.refreshSight();return;}
+  if(direction===i.side&&i.phase!=='opening'){this.leaveDoor();this.move(direction,dt,false);return;}
+  p.facing=i.side===-1?1:-1;this.aim=p.facing===1?0:Math.PI;p.moving=false;
+  if(i.phase==='approach'){
+   const target=doorContact(this.level,d,i.side).x,delta=target-p.x;
+   if(Math.abs(delta)>.1)this.move(Math.sign(delta),Math.min(dt,Math.abs(delta)/BASE.speed),false);
+   else{p.x=target;i.phase='grip';p.moving=false;}
+   return;
+  }
+  i.reach=Math.min(1,i.reach+dt/.32);const target=Number(i.phase==='peek');i.lean+=Math.sign(target-i.lean)*Math.min(Math.abs(target-i.lean),dt/.55);
+  if(i.phase==='opening'&&(d.openness??0)>=1){d.open=true;this.doorInteraction=null;this.revision++;}
+ }
+ cancelTask(){this.task=null;this.notify('Действие прервано');}
+ finishTask(){
+  if(!this.task)return;const o=this.objects.find(o=>o.id===this.task!.id)!;this.task=null;o.uses++;const inv=this.inventory;let message='';
+  switch(o.kind){
+   case 'chest':o.searched=true;inv.wood+=3;inv.scrap+=2;message='Найдено: древесина ×3, детали ×2';break;
+   case 'wardrobe':o.searched=true;inv.cloth+=3;inv.fuse++;message='Найдено: ткань ×3, предохранитель';break;
+   case 'rubble':o.searched=true;inv.wood+=2;inv.scrap++;message='Расчищено: древесина ×2, деталь';break;
+   case 'medicine':o.searched=true;inv.bandage++;message='В рюкзаке появился бинт. H — использовать';break;
+   case 'workbench':inv.cloth-=2;inv.bandage++;message='Бинт готов. H — перевязать рану';break;
+   case 'bed':this.player.hp=Math.min(100,this.player.hp+40);message='Вы отдохнули: +40 здоровья';break;
+   case 'sink':case 'barrel':inv.water++;message='Получена чистая вода';break;
+   case 'generator':inv.scrap-=2;inv.fuse--;this.powered=true;message='Генератор запущен. В доме появился свет';break;
+   case 'fusebox':message=this.powered?'Напряжение в норме':'Электрощит исправен. Запустите генератор';break;
+  }
+  this.notify(message,'good');this.onSound('done');this.revision++;this.refreshSight();
+ }
+ setTarget(x:number,floor:Floor,object?:string){if(this.phase!=='playing'||this.doorInteraction?.phase==='opening')return;this.leaveDoor();if(this.task)this.cancelTask();if(floor!==0&&!levelRoomAt(this.level,x,floor))return;const [left,right]=walkBounds(this.level,x,floor);this.navigation={x:clamp(x,left,right),floor,object};}
+ tryStair(direction:number){
+  const p=this.player;if(p.stair||p.attack||this.task||this.doorInteraction)return false;
+  const link=this.level.stairs.find(s=>direction>0?s.from===p.floor&&Math.abs(p.x-s.a)<70:s.to===p.floor&&Math.abs(p.x-s.b)<70);
+  if(!link)return false;const reverse=direction<0;p.stair={id:link.id,t:0,reverse,approach:Math.abs(p.x-(reverse?link.b:link.a))/BASE.speed};return true;
+ }
+ move(dx:number,dt:number,run:boolean){
+  const p=this.player,from=p.x,[left,right]=walkBounds(this.level,from,p.floor);let next=clamp(from+dx*(run?BASE.runSpeed:BASE.speed)*dt,left,right);
+  for(const wall of occluders(this.doors,this.level,this.openings)){if(wall.a.x!==wall.b.x||Math.min(wall.a.y,wall.b.y)>p.y-65||Math.max(wall.a.y,wall.b.y)<p.y-65)continue;const x=wall.a.x,door=this.doors.find(d=>d.floor===p.floor&&d.x===x&&!d.open),gap=door?Math.abs(doorContact(this.level,door,from<x?-1:1).x-x):12;
+   if(from<x&&next>x-gap)next=Math.min(next,x-gap);if(from>=x&&next<x+gap)next=Math.max(next,x+gap);
+   if(door&&Math.abs(next-x)<=gap+.1&&dx===Math.sign(x-from)&&!this.doorInteraction)this.beginDoor(door);
+  }
+  p.x=next;if(dx){p.facing=dx>0?1:-1;if(!this.mouseAim)this.aim=p.facing===1?0:Math.PI;}
+  p.moving=Math.abs(next-from)>.001;p.distance+=Math.abs(next-from);
+ }
+ update(dt:number,direction=0,run=false){
+  if(this.phase!=='playing')return;dt=Math.min(dt,.05);const p=this.player;p.previousX=p.x;p.previousY=p.y;p.previousDistance=p.distance;this.dog.previousX=this.dog.x;
+  this.time+=dt;if(this.timeRunning)this.dayMinutes=wrapMinutes(this.dayMinutes+dt*2);this.toastTime=Math.max(0,this.toastTime-dt);p.hurt=Math.max(0,p.hurt-dt);
+  for(const d of this.doors){const target=Number(d.open||this.doorInteraction?.id===d.id&&this.doorInteraction.phase==='opening'),value=d.openness??target;d.openness=value+Math.sign(target-value)*Math.min(Math.abs(target-value),dt*2.5);}
+  if(this.doorInteraction)this.updateDoor(dt,direction);
+  else if(p.attack){p.attack=Math.max(0,p.attack-dt);p.moving=false;if(p.attack<.25&&!p.attackHit){p.attackHit=true;if(this.dog.hp>0&&p.floor===0&&Math.abs(p.x-this.dog.x)<110&&(this.dog.x-p.x)*p.facing>-10){this.dog.hp-=20;this.dog.x=clamp(this.dog.x+p.facing*85,1730,2150);this.dog.hit=.25;this.dog.mode='retreat';this.dog.timer=3;this.onSound('hit');}}}
+  else if(p.stair){
+   const s=this.level.stairs.find(s=>s.id===p.stair!.id)!,reverse=p.stair.reverse;
+   if(p.stair.approach>0){const entry=reverse?s.b:s.a,dx=entry-p.x;p.x+=Math.sign(dx)*Math.min(Math.abs(dx),BASE.speed*dt);p.stair.approach=Math.max(0,p.stair.approach-dt);if(!p.stair.approach)p.x=entry;}
+   else{p.stair.t=Math.min(1,p.stair.t+dt/1.85);const t=reverse?1-p.stair.t:p.stair.t;p.x=s.a+(s.b-s.a)*t;p.y=this.floorY(s.from)+(this.floorY(s.to)-this.floorY(s.from))*t;}
+   if(Math.abs(p.x-p.previousX)>.001)p.facing=p.x>p.previousX?1:-1;p.moving=true;p.distance+=Math.hypot(p.x-p.previousX,(p.y-p.previousY)*.45);if(!this.mouseAim)this.aim=s.kind==='ladder'?(reverse?Math.PI/2:-Math.PI/2):p.facing===1?-.22:Math.PI-.22;
+   if(p.stair.t>=1){p.floor=reverse?s.from:s.to;p.y=this.floorY(p.floor);p.stair=null;p.moving=false;this.revision++;}
+  }else if(this.task){p.moving=false;if(direction){this.cancelTask();this.navigation=null;this.move(direction,dt,run);}else{this.task.remaining=Math.max(0,this.task.remaining-dt);if(!this.task.remaining)this.finishTask();}}
+  else if(direction){this.navigation=null;this.move(direction,dt,run);}
+  else if(this.navigation){
+   const dest=this.navigation;let x=dest.x;
+   const current=levelRoomAt(this.level,p.x,p.floor),target=levelRoomAt(this.level,dest.x,dest.floor);
+   const wanted=current?.buildingId!==target?.buildingId&&p.floor!==0?0:dest.floor;
+   if(p.floor!==wanted){const up=wanted>p.floor,building=p.floor===0?target?.buildingId:current?.buildingId,stair=this.level.stairs.filter(s=>levelRoomAt(this.level,s.a,s.from)?.buildingId===building).find(s=>up?s.from===p.floor:s.to===p.floor);if(!stair){this.navigation=null;return;}x=up?stair.a:stair.b;if(Math.abs(x-p.x)<15){this.tryStair(up?1:-1);this.refreshSight();return;}}
+   if(dest.object&&p.floor===dest.floor&&Math.abs(dest.x-p.x)<68){this.navigation=null;this.action({type:'interact',target:dest.object});this.refreshSight();return;}
+   const distance=x-p.x;if(Math.abs(distance)>8){const before=p.x;this.move(Math.sign(distance),Math.min(dt,Math.abs(distance)/(run?BASE.runSpeed:BASE.speed)),run);if(before===p.x&&!this.doorInteraction){this.navigation=null;this.notify('Проход закрыт. Подойдите к двери, чтобы открыть её');}}
+   else{p.moving=false;this.navigation=null;if(dest.object)this.action({type:'interact',target:dest.object});}
+  }else p.moving=false;
+  this.refreshSight();this.updateDog(dt);if(this.currentRoom)this.explored.add(this.currentRoom.id);
+ }
+ updateDog(dt:number){
+  const d=this.dog,p=this.player;d.hit=Math.max(0,d.hit-dt);if(d.hp<=0){d.mode='rest';return;}d.timer-=dt;
+  const near=p.floor===0&&!p.stair&&Math.abs(p.x-d.x)<135;
+  const dogPoint={x:d.x,y:this.floorY(0)-35};
+  const lit=this.flashlight&&flashlightReaches(this.lightOrigin,this.aim,dogPoint,this.sight.segments)&&Math.abs(p.x-d.x)<330;
+  if(lit&&p.x>1630){d.mode='retreat';d.timer=2.5;}
+  if(d.mode==='retreat'){d.x+=Math.sign(2100-d.x)*48*dt;d.facing=1;if(Math.abs(d.x-2100)<5||d.timer<=0){d.mode='idle';d.timer=3;}}
+  else if(near&&d.mode!=='warn'){d.mode='warn';d.timer=1.15;this.notify('Не подходите близко. Фонарик заставит пса отступить','warn');}
+  else if(d.mode==='warn'){
+   d.facing=p.x<d.x?-1:1;if(!near){d.mode='idle';d.timer=2;}
+   else if(d.timer<=0){if(Math.abs(p.x-d.x)<90&&!p.hurt){p.hp=Math.max(0,p.hp-6);p.hurt=.8;this.onSound('hit');}d.mode='retreat';d.timer=2;if(p.hp<=0){p.hp=70;p.x=595;p.floor=0;p.y=this.floorY(0);p.previousX=p.x;p.previousY=p.y;this.notify('Вы отступили к дому','warn');}}
+  }else if(d.timer<=0){d.mode=d.mode==='idle'?'walk':'idle';d.timer=d.mode==='walk'?3:4;d.facing=d.x>2000?-1:1;}
+  if(d.mode==='walk')d.x=clamp(d.x+d.facing*23*dt,1870,2110);
+ }
+ aimAt(point:Vec){if(this.doorInteraction)return;const origin=this.lightOrigin;this.aim=Math.atan2(point.y-origin.y,point.x-origin.x);this.mouseAim=true;if(!this.player.stair&&!this.player.attack)this.player.facing=point.x>=this.player.x?1:-1;this.refreshSight();}
+ save():BaseSave{return {version:3,clock:{minutes:this.dayMinutes,running:this.timeRunning},levelId:this.level.id,openings:this.openings.map(o=>({id:o.id,state:o.state})),player:{x:this.player.x,floor:this.player.floor,hp:this.player.hp},inventory:{...this.inventory},doors:this.doors.map(d=>({id:d.id,open:d.open})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),explored:[...this.explored],powered:this.powered,flashlight:this.flashlight,time:this.time,dogHp:this.dog.hp};}
+ restore(data:unknown){
+  const s=data as BaseSave;if(!s||![1,2,3].includes(s.version)||s.version>=2&&s.levelId!==this.level.id||!s.player||!Number.isInteger(s.player.floor)||!Number.isFinite(s.player.x)||!s.inventory)return false;
+  if(s.player.floor!==0&&!levelRoomAt(this.level,s.player.x,s.player.floor))return false;
+  this.reset();const p=this.player,[left,right]=walkBounds(this.level,s.player.x,s.player.floor);p.floor=s.player.floor;p.x=clamp(s.player.x,left,right);p.y=this.floorY(p.floor);p.previousX=p.x;p.previousY=p.y;p.hp=clamp(Number(s.player.hp)||100,1,100);
+  const sameId=(old:string,current:string)=>old===current||(s.version===1&&`home/${old}`===current);
+  for(const k of Object.keys(this.inventory) as (keyof Resources)[])this.inventory[k]=clamp(Number(s.inventory[k])||0,0,999);
+  for(const d of this.doors){const entry=Array.isArray(s.doors)?s.doors.find(x=>sameId(x.id,d.id)):null;if(entry)d.open=!d.locked&&!!entry.open;d.openness=Number(d.open);}
+  for(const o of this.objects){const entry=Array.isArray(s.objects)?s.objects.find(x=>sameId(x.id,o.id)):null;if(entry){o.searched=!!entry.searched;o.uses=clamp(Number(entry.uses)||0,0,999);}}
+  for(const o of this.openings){const entry=Array.isArray(s.openings)?s.openings.find(x=>x.id===o.id):null;if(entry&&['open','boarded'].includes(entry.state))o.state=entry.state;}
+  for(const d of this.doors)if(!d.open&&d.floor===p.floor){const side=p.x<d.x?-1:1,stop=doorContact(this.level,d,side).x;if((p.x-stop)*side<0)p.x=stop;}p.previousX=p.x;
+  this.explored=new Set(this.level.rooms.filter(r=>Array.isArray(s.explored)&&s.explored.some(id=>sameId(id,r.id))).map(r=>r.id));this.powered=s.version>=2&&!!s.powered;if(s.clock&&Number.isFinite(s.clock.minutes)){this.dayMinutes=wrapMinutes(s.clock.minutes);this.timeRunning=!!s.clock.running;}this.flashlight=!!s.flashlight;this.time=Math.max(0,Number(s.time)||0);this.dog.hp=clamp(Number(s.dogHp)||0,0,60);this.refreshSight();this.notify('Вы вернулись на базу');return true;
+ }
+ snapshot(){return {doorInteraction:this.doorInteraction?{...this.doorInteraction}:null,peeking:!!this.sight.peek,dayMinutes:this.dayMinutes,timeRunning:this.timeRunning,levelId:this.level.id,rooms:this.level.rooms.map(r=>({...r})),buildings:this.level.buildings.map(b=>({...b})),openings:this.openings.map(o=>({...o})),phase:this.phase,player:{...this.player,stair:this.player.stair?{...this.player.stair}:null},location:this.location,inventory:{...this.inventory},powered:this.powered,flashlight:this.flashlight,aim:this.aim,task:this.task?{...this.task}:null,navigation:this.navigation?{...this.navigation}:null,explored:[...this.explored],visibleObjects:this.visibleObjects().map(o=>o.id),visibleDoors:this.visibleDoors().map(d=>d.id),doors:this.doors.map(d=>({...d})),objects:this.objects.map(o=>({id:o.id,searched:o.searched,uses:o.uses})),dog:{...this.dog,visible:this.dogVisible},time:this.time,toast:this.toast};}
+}

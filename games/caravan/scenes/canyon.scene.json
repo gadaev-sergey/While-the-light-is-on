@@ -1,0 +1,107 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "canyon",
+  "template": "caravan-route-v1",
+  "name": "Красные скалы",
+  "units": "m",
+  "nodes": [],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 12,
+    "distance": 20,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0.4,
+    "haze": 0.1,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "caravan": {
+      "id": "canyon",
+      "name": "Красные скалы",
+      "subtitle": "Каменный коридор",
+      "description": "Враги идут быстрее. Используйте ледяные башни на длинных прямых.",
+      "waves": 10,
+      "multiplier": 1.2,
+      "coins": 290,
+      "route": [
+        [
+          -40,
+          190
+        ],
+        [
+          275,
+          190
+        ],
+        [
+          355,
+          420
+        ],
+        [
+          595,
+          420
+        ],
+        [
+          660,
+          205
+        ],
+        [
+          880,
+          205
+        ],
+        [
+          960,
+          440
+        ],
+        [
+          1140,
+          440
+        ]
+      ],
+      "slots": [
+        [
+          130,
+          280
+        ],
+        [
+          270,
+          105
+        ],
+        [
+          280,
+          425
+        ],
+        [
+          440,
+          320
+        ],
+        [
+          555,
+          510
+        ],
+        [
+          605,
+          305
+        ],
+        [
+          760,
+          120
+        ],
+        [
+          835,
+          315
+        ],
+        [
+          1020,
+          310
+        ]
+      ],
+      "seed": 41
+    }
+  }
+}

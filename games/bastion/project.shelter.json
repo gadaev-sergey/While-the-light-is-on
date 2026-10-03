@@ -1,0 +1,8 @@
+{
+  "format": "shelter-project", "version": 1, "sdk": 1,
+  "projectId": "bastion-endless-oath", "name": "Последний бастион · Ночь без рассвета", "gameVersion": "1.0.0",
+  "startScene": "castle",
+  "scenes": [{"id": "castle", "name": "Крепость Серого Ордена", "path": "scenes/castle.scene.json"}],
+  "assets": [], "modules": [{"id": "bastion", "version": 1, "runtime": "scripts/runtime.ts"}],
+  "build": {"target": "web", "mode": "release", "base": "./", "output": "", "scenes": ["castle"], "dynamicAssets": [], "appId": "game.bastion-endless-oath"}
+}

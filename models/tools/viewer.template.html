@@ -1,0 +1,473 @@
+<meta charset="utf-8">
+<title>Мебель убежища</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Oswald:wght@500;600&display=swap">
+<style>
+  :root {
+    --ground: #e4e5e1;
+    --stage: #f0f1ed;
+    --stage-edge: #c8cbc3;
+    --panel: rgb(246 246 243 / 0.94);
+    --ink: #1d1e1b;
+    --muted: #5f625b;
+    --line: #cdd0c9;
+    --btn: #ebebe7;
+    --btn-hover: #e0e1dc;
+    --accent: #a86d14;
+    --accent-soft: #f0e0c2;
+    --accent-ink: #5c3b06;
+    --grid-major: #aeb1a9;
+    --grid-minor: #c3c6be;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #121311;
+      --stage: #1e1f1c;
+      --stage-edge: #282a26;
+      --panel: rgb(30 31 28 / 0.93);
+      --ink: #e7e5df;
+      --muted: #9d9c94;
+      --line: #33352f;
+      --btn: #262824;
+      --btn-hover: #2f312c;
+      --accent: #e0a447;
+      --accent-soft: #3b2f1c;
+      --accent-ink: #f5dcb2;
+      --grid-major: #3f423b;
+      --grid-minor: #2b2d29;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #121311;
+    --stage: #1e1f1c;
+    --stage-edge: #282a26;
+    --panel: rgb(30 31 28 / 0.93);
+    --ink: #e7e5df;
+    --muted: #9d9c94;
+    --line: #33352f;
+    --btn: #262824;
+    --btn-hover: #2f312c;
+    --accent: #e0a447;
+    --accent-soft: #3b2f1c;
+    --accent-ink: #f5dcb2;
+    --grid-major: #3f423b;
+    --grid-minor: #2b2d29;
+  }
+  html { height: 100%; box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    height: 100%; margin: 0; padding: 16px; overflow: hidden;
+    background: var(--ground); color: var(--ink);
+    font: 14px/1.45 "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .app {
+    position: relative; height: 100%; overflow: hidden;
+    border: 1px solid var(--stage-edge); border-radius: 14px;
+    background: radial-gradient(ellipse 70% 60% at 58% 42%, var(--stage), var(--ground));
+  }
+  #stage { position: absolute; inset: 0; }
+  #stage canvas { display: block; touch-action: none; }
+  .panel {
+    position: absolute; top: 16px; left: 16px; width: 300px; max-height: calc(100% - 32px);
+    overflow-y: auto; display: grid; gap: 16px; padding: 18px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    backdrop-filter: blur(8px);
+  }
+  .eyebrow {
+    font: 500 11px/1 "JetBrains Mono", ui-monospace, monospace;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+  }
+  h1 {
+    margin: 8px 0 0; text-wrap: balance;
+    font: 600 30px/1 "Oswald", "Arial Narrow", sans-serif;
+    letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  h2 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+  .lede { margin: 0; color: var(--muted); font-size: 13px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tabs button { flex: 1 1 auto; }
+  .group { display: grid; gap: 6px; }
+  .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  button {
+    appearance: none; min-height: 36px; padding: 8px 10px; cursor: pointer;
+    border: 1px solid var(--line); border-radius: 8px; background: var(--btn); color: var(--ink);
+    font: 500 13px/1.2 "Golos Text", system-ui, sans-serif;
+  }
+  button:hover { background: var(--btn-hover); }
+  button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .stats {
+    margin: 0; padding-top: 14px; border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: auto 1fr; gap: 5px 12px; font-size: 12.5px;
+  }
+  .stats dt { color: var(--muted); }
+  .stats dd {
+    margin: 0; text-align: right;
+    font: 500 12px/1.45 "JetBrains Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .nodes { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .nodes code {
+    padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--btn); color: var(--ink);
+    font: 500 11.5px/1.3 "JetBrains Mono", ui-monospace, monospace;
+  }
+  .ref {
+    position: absolute; right: 16px; bottom: 16px; margin: 0; padding: 12px 12px 8px;
+    display: grid; justify-items: center; gap: 6px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  }
+  .ref img { display: block; height: 200px; width: auto; max-width: 260px; object-fit: contain; }
+  .ref figcaption { font-size: 11px; color: var(--muted); }
+  .hint {
+    position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); margin: 0;
+    font-size: 12px; color: var(--muted); white-space: nowrap; pointer-events: none;
+  }
+  .error { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; }
+  .error[hidden] { display: none; } /* иначе пустая плашка на всю страницу перехватывает клики */
+  @media (max-width: 1100px) {
+    .ref img { height: 140px; max-width: 180px; }
+    .hint { display: none; }
+  }
+  @media (max-width: 760px) {
+    .app { display: flex; flex-direction: column; }
+    #stage { position: relative; flex: 1 1 auto; min-height: 0; }
+    .panel {
+      position: static; width: auto; max-height: 50%;
+      border: 0; border-top: 1px solid var(--line); border-radius: 0; backdrop-filter: none;
+    }
+    .ref { display: none; }
+  }
+</style>
+
+<div class="app">
+  <div id="stage" role="img" aria-label="3D-модель, её можно вращать мышью или пальцем"></div>
+  <section class="panel">
+    <header>
+      <div class="eyebrow">3D-модели · GLB</div>
+      <h1>Мебель убежища</h1>
+    </header>
+    <div class="tabs" id="tabs" role="group" aria-label="Модель"></div>
+    <div>
+      <h2 id="m-title"></h2>
+      <p class="lede" id="m-lede"></p>
+    </div>
+    <div class="group">
+      <span class="label">Камера</span>
+      <div class="pair">
+        <button id="cam-iso" type="button" aria-pressed="true">Изометрия</button>
+        <button id="cam-persp" type="button" aria-pressed="false">Перспектива</button>
+      </div>
+    </div>
+    <div class="group">
+      <span class="label">Сцена</span>
+      <div class="pair">
+        <button id="action" type="button" aria-pressed="false">Действие</button>
+        <button id="outline" type="button" aria-pressed="false">Контур</button>
+        <button id="night" type="button" aria-pressed="false">Ночь с лампой</button>
+        <button id="spin" type="button" aria-pressed="false">Вращение</button>
+      </div>
+    </div>
+    <dl class="stats">
+      <dt>Треугольники</dt><dd id="s-tris">…</dd>
+      <dt>Вызовы отрисовки</dt><dd id="s-calls">…</dd>
+      <dt>Материалы</dt><dd id="s-mats">…</dd>
+      <dt>Текстуры</dt><dd id="s-tex">…</dd>
+      <dt>Размер GLB</dt><dd id="s-size">…</dd>
+      <dt>Ш × Г × В, м</dt><dd id="s-dim">…</dd>
+    </dl>
+    <div class="nodes" id="nodes"></div>
+  </section>
+  <figure class="ref">
+    <img id="sprite" alt="Исходный спрайт">
+    <figcaption>Исходный спрайт</figcaption>
+  </figure>
+  <p class="hint">Вращение: перетащить · Масштаб: колесо · Сдвиг: правая кнопка</p>
+  <div class="error" id="error" hidden></div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
+
+// Модели вставляет build_viewer.py: описание из model.json, GLB и спрайт в base64
+const MODELS = __MODELS__;
+const PANEL_SHIFT = 170;   // px: на широком экране сцена сдвинута вправо от панели
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (id) => document.getElementById(id);
+const stage = $('stage');
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.NeutralToneMapping;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+
+// Свет: «студия» и «ночь с лампой»
+const hemi = new THREE.HemisphereLight(0xdfe6ee, 0x3a3128, 1.6);
+const sun = new THREE.DirectionalLight(0xfff1e0, 2.6);
+sun.position.set(-1.8, 5.0, 3.0);
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -2.5, right: 2.5, top: 2.5, bottom: -2.5, near: 0.5, far: 14 });
+sun.shadow.bias = -0.0004;
+sun.shadow.normalBias = 0.02;
+const lamp = new THREE.PointLight(0xffa860, 0, 0, 2);
+lamp.position.set(1.1, 1.3, 1.2);
+lamp.shadow.mapSize.set(1024, 1024);
+lamp.shadow.bias = -0.002;
+scene.add(hemi, sun, lamp);
+
+function setNight(night) {
+  // тень только от активного источника: ShadowMaterial учитывает тени всех источников, даже погашенных
+  sun.castShadow = !night;
+  lamp.castShadow = night;
+  hemi.intensity = night ? 0.08 : 1.6;
+  sun.intensity = night ? 0 : 2.6;
+  lamp.intensity = night ? 9 : 0;
+  scene.environmentIntensity = night ? 0.03 : 0.45;
+}
+setNight(false);
+
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.ShadowMaterial({ opacity: 0.32 }));
+floor.rotation.x = -Math.PI / 2;
+floor.receiveShadow = true;
+scene.add(floor);
+
+// Сетка 1 м в цветах текущей темы
+let grid;
+const cssColor = (name) => new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888888');
+function buildGrid() {
+  if (grid) { scene.remove(grid); grid.geometry.dispose(); grid.material.dispose(); }
+  grid = new THREE.GridHelper(10, 10, cssColor('--grid-major'), cssColor('--grid-minor'));
+  grid.position.y = 0.001;
+  scene.add(grid);
+}
+buildGrid();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', buildGrid);
+new MutationObserver(buildGrid).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+// Камеры: ортографическая изометрия, как в 2.5D-игре, и перспектива
+const target = new THREE.Vector3(0, 0.9, 0);
+const az = THREE.MathUtils.degToRad(35), el = THREE.MathUtils.degToRad(30);
+const isoDir = new THREE.Vector3(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el));
+const ortho = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.05, 60);
+const persp = new THREE.PerspectiveCamera(35, 1, 0.05, 60);
+let camera = ortho;
+let viewH = 2.8;
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.maxPolarAngle = Math.PI * 0.495;
+controls.minZoom = 0.5;
+controls.maxZoom = 4;
+controls.autoRotateSpeed = 1.5;
+
+function fit() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h);
+  const a = w / h, vh = a < 0.8 ? viewH * 1.2 : viewH;
+  Object.assign(ortho, { left: -vh * a / 2, right: vh * a / 2, top: vh / 2, bottom: -vh / 2 });
+  persp.aspect = a;
+  for (const cam of [ortho, persp]) {
+    if (innerWidth > 760) cam.setViewOffset(w, h, -PANEL_SHIFT, 0, w, h);
+    else cam.clearViewOffset();
+    cam.updateProjectionMatrix();
+  }
+}
+new ResizeObserver(fit).observe(stage);
+
+function frame(entry) {
+  // камера по габаритам модели: центр кадра — середина модели
+  viewH = Math.max(entry.size.y * 1.45, entry.size.x * 1.1, 1.0);
+  target.copy(entry.center);
+  ortho.position.copy(target).addScaledVector(isoDir, 10);
+  ortho.zoom = 1;
+  persp.position.copy(target).addScaledVector(isoDir, viewH * 1.9);
+  controls.minDistance = viewH * 0.5;
+  controls.maxDistance = viewH * 4;
+  controls.target.copy(target);
+  fit();
+  controls.update();
+}
+
+function useCamera(cam) {
+  camera = cam;
+  controls.object = cam;
+  controls.update();
+}
+
+// Контур как на спрайте: вывернутая оболочка со сглаженными нормалями
+const outlineMat = new THREE.ShaderMaterial({
+  uniforms: { thickness: { value: 0.006 }, color: { value: new THREE.Color(0x120a06) } },
+  vertexShader: `
+    uniform float thickness;
+    void main() {
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      mv.xyz += normalize(normalMatrix * normal) * thickness;
+      gl_Position = projectionMatrix * mv;
+    }`,
+  fragmentShader: `
+    uniform vec3 color;
+    void main() { gl_FragColor = vec4(color, 1.0); }`,
+  side: THREE.BackSide,
+});
+
+async function parse(info) {
+  const bin = Uint8Array.from(atob(info.glb), (c) => c.charCodeAt(0));
+  // Песочница Artifact запрещает fetch() к blob:-адресам, а GLTFLoader по умолчанию достаёт
+  // встроенные текстуры именно так (ImageBitmapLoader). На время разбора прячем createImageBitmap:
+  // загрузчик переключается на обычный <img>, которому blob: разрешён. В игре этот обход не нужен.
+  const createImageBitmapNative = globalThis.createImageBitmap;
+  globalThis.createImageBitmap = undefined;
+  let gltf;
+  try {
+    gltf = await new GLTFLoader().parseAsync(bin.buffer, '');
+  } finally {
+    globalThis.createImageBitmap = createImageBitmapNative;
+  }
+  const model = gltf.scene;
+  // сначала собираем меши: оболочки контура добавляются в дерево и попали бы в тот же обход
+  const meshes = [];
+  model.traverse((o) => { if (o.isMesh) meshes.push(o); });
+  const outlines = [], materials = new Set();
+  let tris = 0, tex = '';
+  for (const o of meshes) {
+    o.castShadow = o.receiveShadow = true;
+    tris += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3;
+    materials.add(o.material);
+    if (o.material.map && !tex) tex = `3 × ${o.material.map.image.width}², WebP`;
+    const g = o.geometry.clone();
+    for (const k of Object.keys(g.attributes)) if (k !== 'position') g.deleteAttribute(k);
+    const hullGeo = mergeVertices(g, 1e-4);
+    hullGeo.computeVertexNormals();
+    const hull = new THREE.Mesh(hullGeo, outlineMat);
+    hull.visible = false;
+    o.add(hull);
+    outlines.push(hull);
+  }
+  const moves = (info.action?.moves || []).map((m) => {
+    const node = model.getObjectByName(m.node);
+    return { m, node, q0: node.quaternion.clone(), p0: node.position.clone() };
+  });
+  const box = new THREE.Box3().setFromObject(model);
+  return {
+    info, model, outlines, moves, tris, tex,
+    calls: meshes.length, materials: materials.size, bytes: bin.byteLength,
+    size: box.getSize(new THREE.Vector3()), center: box.getCenter(new THREE.Vector3()),
+    nodes: meshes.map((o) => o.name).filter((n) => n !== 'Body'),
+  };
+}
+
+const cache = new Map();
+let current = null, openTarget = 0, openT = 0;
+const press = (id, on) => $(id).setAttribute('aria-pressed', String(on));
+const pressed = (id) => $(id).getAttribute('aria-pressed') === 'true';
+const m2 = (v) => v.toLocaleString('ru', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function pose(entry, t) {
+  const e = t * t * (3 - 2 * t);
+  const d2r = THREE.MathUtils.degToRad;
+  for (const { m, node, q0, p0 } of entry.moves) {
+    if (m.rotate) {
+      const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(d2r(m.rotate[0] * e), d2r(m.rotate[1] * e), d2r(m.rotate[2] * e)));
+      node.quaternion.copy(q0).multiply(q);
+    }
+    if (m.move) node.position.copy(p0).add(new THREE.Vector3(...m.move).multiplyScalar(e));
+  }
+}
+
+async function show(id) {
+  const info = MODELS.find((m) => m.id === id) || MODELS[0];
+  for (const m of MODELS) press(`tab-${m.id}`, m.id === info.id);
+  try {
+    if (!cache.has(info.id)) cache.set(info.id, await parse(info));
+  } catch (e) {
+    $('error').hidden = false;
+    $('error').textContent = `Модель не загрузилась: ${e.message}. Обновите страницу.`;
+    console.error(e);
+    return;
+  }
+  const entry = cache.get(info.id);
+  if (current) { pose(current, 0); scene.remove(current.model); }
+  current = entry;
+  openTarget = openT = 0;
+  pose(entry, 0);
+  scene.add(entry.model);
+  entry.outlines.forEach((h) => { h.visible = pressed('outline'); });
+
+  $('m-title').textContent = info.title;
+  $('m-lede').textContent = info.lede;
+  $('sprite').src = info.sprite;
+  $('sprite').alt = `Исходный спрайт: ${info.title.toLowerCase()}`;
+  const act = $('action');
+  act.hidden = !info.action;
+  act.textContent = info.action?.label || '';
+  press('action', false);
+  $('s-tris').textContent = entry.tris.toLocaleString('ru');
+  $('s-calls').textContent = String(entry.calls);
+  $('s-mats').textContent = String(entry.materials);
+  $('s-tex').textContent = entry.tex;
+  $('s-size').textContent = `${Math.round(entry.bytes / 1024)} КБ`;
+  $('s-dim').textContent = `${m2(entry.size.x)}×${m2(entry.size.z)}×${m2(entry.size.y)}`;
+  $('nodes').innerHTML = entry.nodes.length
+    ? 'Узлы для анимации: ' + entry.nodes.map((n) => `<code>${n}</code>`).join('')
+    : 'Модель без подвижных узлов';
+  frame(entry);
+}
+
+for (const m of MODELS) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.id = `tab-${m.id}`;
+  b.textContent = m.tab;
+  b.setAttribute('aria-pressed', 'false');
+  b.addEventListener('click', () => show(m.id));
+  $('tabs').append(b);
+}
+
+$('cam-iso').addEventListener('click', () => { useCamera(ortho); press('cam-iso', true); press('cam-persp', false); });
+$('cam-persp').addEventListener('click', () => { useCamera(persp); press('cam-persp', true); press('cam-iso', false); });
+$('action').addEventListener('click', () => {
+  if (!current?.info.action) return;
+  openTarget = openTarget ? 0 : 1;
+  press('action', !!openTarget);
+  $('action').textContent = openTarget ? current.info.action.undo : current.info.action.label;
+});
+$('outline').addEventListener('click', () => {
+  const on = !pressed('outline');
+  press('outline', on);
+  current?.outlines.forEach((h) => { h.visible = on; });
+});
+$('night').addEventListener('click', () => { const on = !pressed('night'); press('night', on); setNight(on); });
+$('spin').addEventListener('click', () => { const on = !pressed('spin'); press('spin', on); controls.autoRotate = on; });
+
+await show(location.hash.slice(1));
+
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  openT += (openTarget - openT) * (reduceMotion ? 1 : 1 - Math.exp(-dt * 6));
+  if (current) pose(current, openT);
+  controls.update();
+  renderer.render(scene, camera);
+});
+</script>

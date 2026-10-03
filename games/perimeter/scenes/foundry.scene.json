@@ -1,0 +1,738 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "foundry",
+  "template": "perimeter-shooter-v1",
+  "name": "Литейный блок",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "foundry-cover-0",
+      "name": "Укрытие · machine",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.34375,
+          -7.03125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1875,
+          3.75,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "machine"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-cover-1",
+      "name": "Укрытие · machine",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.6875,
+          -14.84375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1875,
+          3.75,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "machine"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-cover-2",
+      "name": "Укрытие · container",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.328125,
+          -5.859375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.90625,
+          1.71875,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "container"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-cover-3",
+      "name": "Укрытие · container",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.171875,
+          -16.015625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.90625,
+          1.71875,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "container"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-cover-4",
+      "name": "Укрытие · crate",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.65625,
+          -15.78125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.125,
+          1.5625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "crate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-cover-5",
+      "name": "Укрытие · crate",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.84375,
+          -5.9375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.125,
+          1.5625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "crate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-cover-6",
+      "name": "Укрытие · reactor",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          14.21875,
+          -11.015625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5625,
+          2.03125,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "reactor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-cover-7",
+      "name": "Укрытие · reactor",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.28125,
+          -11.015625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5625,
+          2.03125,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.cover",
+          "values": {
+            "style": "reactor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-decoration-8",
+      "name": "Разметка / техническая зона",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.6953125,
+          -11.171875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.703125,
+          6.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.decoration",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-decoration-9",
+      "name": "Разметка / техническая зона",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.4140625,
+          -10.859375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.703125,
+          6.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.decoration",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-decoration-10",
+      "name": "Разметка / техническая зона",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15.78125,
+          -2.1875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          9.375,
+          0.625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.decoration",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-spawn-11",
+      "name": "Точка входа",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.25,
+          -18.75,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.625,
+          0.625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#b9f3df",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.spawn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-gate-12",
+      "name": "Секторный шлюз",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.25,
+          -2.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c77c",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.gate",
+          "values": {
+            "next": "core"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foundry-port-13",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.8125,
+          -3.28125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-port-14",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.375,
+          -3.28125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-port-15",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.96875,
+          -18.90625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-port-16",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.375,
+          -18.90625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "foundry-port-17",
+      "name": "Точка появления машин",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.25,
+          -2.8125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9375,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#344749",
+        "roughness": 0.8,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "perimeter.port",
+          "values": {}
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 22,
+    "distance": 30,
+    "centerX": 16.25,
+    "centerY": -10.9375,
+    "follow": "player"
+  },
+  "environment": {
+    "time": 1320,
+    "haze": 0.04,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "perimeter": {
+      "version": 1,
+      "width": 2080,
+      "height": 1400,
+      "theme": 1,
+      "subtitle": "Отключи фабрику автономных машин",
+      "boss": "КУЗНЕЦ"
+    }
+  }
+}

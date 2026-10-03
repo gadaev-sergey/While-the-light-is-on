@@ -1,0 +1,25 @@
+import {COLORS,rotatable,type Level,type Trace} from './world.ts';
+
+const point=(n:number)=>70+n*70;
+export function boardSvg(level:Level,angles:readonly number[],result:Trace,uid='prisma'):string {
+ const extent=(level.size+1)*70,mirrors=level.pieces.filter(rotatable);
+ const ticks=Array.from({length:level.size},(_,i)=>`<text x="${point(i)}" y="26" text-anchor="middle">${String.fromCharCode(65+i)}</text><text x="24" y="${point(i)+3}" text-anchor="middle">${i+1}</text>`).join('');
+ const grid=Array.from({length:level.size**2},(_,i)=>{const x=i%level.size,y=Math.floor(i/level.size);return `<rect x="${point(x)-32}" y="${point(y)-32}" width="64" height="64" rx="9" fill="${(x+y)%2?'#152c30':'#14282d'}" fill-opacity=".62"/><path d="M${point(x)-2} ${point(y)}h4m-2-2v4" stroke="#517275" stroke-opacity=".25"/>`;}).join('');
+ const beams=result.segments.map(s=>`<path d="M${point(s.x1)} ${point(s.y1)}L${point(s.x2)} ${point(s.y2)}" stroke="${COLORS[s.color]}"/>`).join('');
+ const pieces=level.pieces.map(p=>{
+  const color=COLORS[p.color],lit=result.lit.has(p.id),touched=result.touched.has(p.id),angle=angles[mirrors.findIndex(m=>m.id===p.id)]??p.angle;
+  let shape='';
+  if(p.kind==='wall')shape='<rect x="-25" y="-23" width="50" height="49" rx="9" fill="#0b171c" stroke="#294147"/><path d="M-22-15l7-7h30l7 7v28l-9 9h-28l-7-7Z" fill="#22373c" stroke="#3b5357"/><path d="M-11-10 11 12M-12 2l11 10M0-12l13 12" stroke="#486063" opacity=".45"/>';
+  if(p.kind==='source')shape=`<circle r="28" fill="${color}" opacity=".05"/><circle r="22" fill="#102125" stroke="${color}" stroke-width="1.3"/><circle r="16" stroke="${color}" stroke-dasharray="2 6" fill="none" opacity=".5"/><g transform="rotate(${p.direction*90})"><path d="M-7-8 9 0-7 8Z" fill="${color}"/><path d="M25-7v14" stroke="${color}" stroke-width="3"/></g><circle r="29" class="source-halo" stroke="${color}" fill="none" opacity=".15"/>`;
+  if(p.kind==='target')shape=`${lit?`<circle r="32" fill="${color}" opacity=".13"/><circle r="25" fill="none" stroke="${color}" opacity=".3"/>`:''}<circle r="21" fill="${lit?'#25433e':'#0e2025'}" stroke="${color}" stroke-opacity="${lit?1:.5}" stroke-width="1.5"/><circle r="15" fill="none" stroke="${color}" opacity="${lit?.65:.15}"/>${p.color==='cyan'?`<path d="M0-9 9 0 0 9-9 0Z" fill="${lit?color:'none'}" stroke="${color}"/>`:`<circle r="7" fill="${lit?color:'none'}" stroke="${color}"/>`}${lit?`<circle r="4" fill="#fffbed"/>`:''}`;
+  if(rotatable(p)){
+   shape=`<circle r="25" fill="#0b1d22" stroke="${touched?'#688f91':'#3e585e'}"/><path d="M-21-15a26 26 0 0 1 38-3m-5-1 5 1-1-5M21 15a26 26 0 0 1-38 3m5 1-5-1 1 5" stroke="#5e8084" fill="none" opacity=".6"/>`;
+   if(p.kind==='splitter')shape+=`<path d="M0-23 23 0 0 23-23 0Z" fill="#689c9e" fill-opacity=".25" stroke="#b4d9d6" stroke-width="1.2"/><path d="M0-23v46M-23 0h46" stroke="#add4d1" opacity=".25"/>`;
+   shape+=`<g transform="rotate(${angle===0?-45:45})"><rect x="-21" y="-5" width="42" height="10" rx="3" fill="#63898b"/><rect x="-21" y="-5" width="42" height="4" rx="2" fill="#deeeeb"/><path d="M-18 5h36" stroke="#a2c7c5" opacity=".7"/><circle cx="-17" cy="0" r="1" fill="#f5f7eb"/><circle cx="17" cy="0" r="1" fill="#f5f7eb"/></g>`;
+  }
+  return `<g transform="translate(${point(p.x)} ${point(p.y)})" class="optic optic-${p.kind}${lit?' is-lit':''}">${shape}</g>`;
+ }).join('');
+ return `<svg class="optical-svg" viewBox="0 0 ${extent} ${extent}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="${uid}-plate"><stop stop-color="#213d3e"/><stop offset="1" stop-color="#0f2228"/></radialGradient><filter id="${uid}-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5"/></filter></defs><rect x="3" y="3" width="${extent-6}" height="${extent-6}" rx="22" fill="url(#${uid}-plate)" stroke="#46666a" stroke-opacity=".45"/><rect x="34" y="34" width="${extent-68}" height="${extent-68}" rx="14" fill="#0c1e24" stroke="#38565c" stroke-opacity=".7"/>${grid}<g fill="#6c9295" font-size="9" font-family="monospace">${ticks}</g><g fill="#466165">${[[15,15],[extent-15,15],[15,extent-15],[extent-15,extent-15]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="2.5"/><path d="M${x-1.5} ${y+1.5}l3-3" stroke="#0d2025"/>`).join('')}</g><g fill="none" stroke-linecap="round" stroke-width="9" opacity=".6" filter="url(#${uid}-glow)">${beams}</g><g fill="none" stroke-linecap="round" stroke-width="2.4" opacity=".94">${beams}</g><g class="beam-particles" fill="none" stroke-width="2" stroke-dasharray="2 24" opacity=".45">${beams}</g>${pieces}</svg>`;
+}
+
+export function hitButtons(level:Level){const extent=(level.size+1)*70;return level.pieces.filter(rotatable).map(p=>`<button class="optic-hit" data-optic="${p.id}" style="left:${(point(p.x)-31)/extent*100}%;top:${(point(p.y)-31)/extent*100}%;width:${62/extent*100}%;height:${62/extent*100}%" aria-label="${p.kind==='splitter'?'Разделитель':'Зеркало'} ${String.fromCharCode(65+p.x)}${p.y+1}: повернуть" title="${p.kind==='splitter'?'Разделитель':'Зеркало'} ${String.fromCharCode(65+p.x)}${p.y+1} · повернуть"></button>`).join('');}

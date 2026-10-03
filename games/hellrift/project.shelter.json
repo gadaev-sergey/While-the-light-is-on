@@ -1,0 +1,7 @@
+{
+  "format": "shelter-project", "version": 1, "sdk": 1,
+  "projectId": "hellrift-last-stand", "name": "РАЗЛОМ · Последний рубеж", "gameVersion": "1.0.0",
+  "startScene": "arena", "scenes": [{"id":"arena","name":"Собор пепла","path":"scenes/arena.scene.json"}],
+  "assets": [], "modules": [{"id":"hellrift","version":1,"runtime":"scripts/runtime.ts"}],
+  "build": {"target":"web","mode":"release","base":"./","output":"","scenes":["arena"],"dynamicAssets":[],"appId":"game.hellrift-last-stand"}
+}

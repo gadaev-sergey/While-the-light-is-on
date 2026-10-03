@@ -1,0 +1,47 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "lumen-last-beacon",
+  "name": "Люмен · Последний маяк",
+  "gameVersion": "1.0.0",
+  "startScene": "quiet-harbor",
+  "scenes": [
+    {
+      "id": "quiet-harbor",
+      "name": "Тихая гавань",
+      "path": "scenes/quiet-harbor.scene.json"
+    },
+    {
+      "id": "hanging-gardens",
+      "name": "Висячие сады",
+      "path": "scenes/hanging-gardens.scene.json"
+    },
+    {
+      "id": "star-observatory",
+      "name": "Звёздная обсерватория",
+      "path": "scenes/star-observatory.scene.json"
+    }
+  ],
+  "assets": [],
+  "modules": [
+    {
+      "id": "lumen",
+      "version": 1,
+      "runtime": "scripts/runtime.ts"
+    }
+  ],
+  "build": {
+    "target": "web",
+    "mode": "release",
+    "base": "./",
+    "output": "",
+    "scenes": [
+      "quiet-harbor",
+      "hanging-gardens",
+      "star-observatory"
+    ],
+    "dynamicAssets": [],
+    "appId": "game.lumen-last-beacon"
+  }
+}

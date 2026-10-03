@@ -1,0 +1,24 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {City,BLUEPRINTS,type Kind} from '../../games/tidehaven/scripts/world.ts';
+import {validateScene} from '../../src/engine/scene.ts';
+const scene=validateScene(JSON.parse(readFileSync(new URL('../../games/tidehaven/scenes/bay.scene.json',import.meta.url),'utf8')));
+const create=()=>new City(scene);
+const place=(c:City,k:Kind,x:number,y:number)=>assert.equal(c.build(k,c.index(x,y)),'',`${k} at ${x},${y}`);
+const next=(c:City)=>{c.advance();if(c.event!==null)assert.equal(c.choose(0),true);};
+test('native Shelter scene starts with connected housing and civic energy',()=>{const c=create(),s=c.stats();assert.equal(c.tiles.length,324);assert.equal(s.capacity,20);assert.equal(s.power,12);assert.equal(s.disconnected,0);assert.equal(s.happiness,70);});
+test('disconnected buildings do not produce and a connected road activates them',()=>{const c=create();place(c,'farm',5,7);assert.equal(c.stats().food,0);assert.equal(c.stats().disconnected,1);place(c,'road',5,8);assert.equal(c.stats().food,30);assert.equal(c.stats().disconnected,0);const initial=c.save();assert.equal(c.build('bulldoze',c.index(5,8)),'');assert.equal(c.stats().food,0);assert.equal(c.undo(),true);assert.deepEqual(c.save(),initial);});
+test('building rules, prices and undo cannot create resources',()=>{const c=create(),before=c.save();assert.match(c.build('farm',0),/суше/);assert.match(c.build('market',c.index(6,8)),/главы/);assert.match(c.build('bulldoze',c.index(8,8)),/сердце/);place(c,'cottage',6,8);assert.equal(c.coins,before.coins-BLUEPRINTS.cottage.cost);assert.equal(c.wood,before.wood-BLUEPRINTS.cottage.wood);assert.match(c.build('farm',c.index(6,8)),/занята/);assert.equal(c.undo(),true);assert.deepEqual(c.save(),before);assert.equal(c.undo(),false);});
+test('winter, starvation, recovery, event choice and save round trip',()=>{const c=create();place(c,'farm',5,8);const spring=c.stats().food;next(c);assert.ok(c.stats().food>spring);next(c);next(c);assert.ok(c.stats().food<spring);const saved=c.save(),restored=create();assert.equal(restored.restore(saved),true);assert.deepEqual(restored.save(),saved);assert.equal(restored.restore({...saved,coins:NaN}),false);assert.equal(restored.restore({...saved,buildings:[]}),false);assert.deepEqual(restored.save(),saved);const hungry=create();hungry.food=0;next(hungry);assert.equal(hungry.population,7);assert.equal(hungry.trade('food'),true);next(hungry);assert.ok(hungry.population>7);});
+test('turn clears undo, trade is charged, aid cannot be claimed repeatedly',()=>{const c=create();place(c,'cottage',6,8);next(c);assert.equal(c.undo(),false);const coins=c.coins,wood=c.wood;assert.equal(c.trade('wood'),true);assert.equal(c.coins,coins-40);assert.equal(c.wood,wood+20);assert.equal(c.aid(),false);c.coins=0;assert.equal(c.aid(),true);c.coins=0;assert.equal(c.aid(),false);for(let i=0;i<4;i++)next(c);c.coins=0;assert.equal(c.aid(),true);});
+test('campaign can be won using legal construction, trade and season actions only',()=>{
+ const c=create();const actions:string[]=[];
+ const turn=()=>{assert.ok(c.season<28,'campaign must be achievable within 28 seasons');actions.push('season');next(c);};
+ const build=(k:Kind,x:number,y:number)=>{const b=BLUEPRINTS[k];while(c.coins<b.cost||c.wood<b.wood)turn();place(c,k,x,y);actions.push(`${k} ${x},${y}`);assert.equal(c.stats().disconnected,0,'every building has a working road');};
+ build('cottage',6,8);build('cottage',6,10);build('farm',5,8);build('lumber',10,5);turn();turn();assert.equal(c.stage,1);
+ build('windmill',10,7);build('market',8,10);build('park',10,10);build('park',8,11);build('apartment',10,11);build('farm',5,10);build('apartment',8,12);
+ while(c.stage<2)turn();build('clinic',10,12);build('farm',4,8);
+ build('road',9,14);build('lighthouse',9,15);
+ while(!c.won)turn();assert.ok(c.population>=80);assert.ok(c.stats().happiness>=75);assert.equal(c.aidCount,0);assert.equal(c.stats().counts.lighthouse,1);const copy=create();assert.equal(copy.restore(c.save()),true);assert.equal(copy.won,true);next(copy);assert.ok(copy.won);console.log('CAMPAIGN',JSON.stringify({seasons:c.season,population:c.population,happiness:c.stats().happiness,actions}));
+});

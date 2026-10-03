@@ -1,0 +1,47 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "perimeter-zero-signal",
+  "name": "ПЕРИМЕТР · Нулевой сигнал",
+  "gameVersion": "1.0.0",
+  "startScene": "dock",
+  "scenes": [
+    {
+      "id": "dock",
+      "name": "Грузовой терминал",
+      "path": "scenes/dock.scene.json"
+    },
+    {
+      "id": "foundry",
+      "name": "Литейный блок",
+      "path": "scenes/foundry.scene.json"
+    },
+    {
+      "id": "core",
+      "name": "Сердце периметра",
+      "path": "scenes/core.scene.json"
+    }
+  ],
+  "assets": [],
+  "modules": [
+    {
+      "id": "perimeter",
+      "version": 1,
+      "runtime": "scripts/runtime.ts"
+    }
+  ],
+  "build": {
+    "target": "web",
+    "mode": "release",
+    "base": "./",
+    "output": "",
+    "scenes": [
+      "dock",
+      "foundry",
+      "core"
+    ],
+    "dynamicAssets": [],
+    "appId": "game.perimeter-zero-signal"
+  }
+}

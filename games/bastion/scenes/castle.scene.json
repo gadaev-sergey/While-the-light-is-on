@@ -1,0 +1,1892 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "castle",
+  "template": "bastion-survival-v1",
+  "name": "Крепость Серого Ордена",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "castle-0",
+      "name": "Стена монастырского двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15,
+          -9.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.75,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-1",
+      "name": "Стена монастырского двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          15,
+          -20.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.75,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-2",
+      "name": "Стена монастырского двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          22.5,
+          -9.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.75,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-3",
+      "name": "Стена монастырского двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          22.5,
+          -20.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.75,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-4",
+      "name": "Боковая стена с проходом",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.125,
+          -11.953125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          3.4375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-5",
+      "name": "Боковая стена с проходом",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.125,
+          -18.046875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          3.4375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-6",
+      "name": "Боковая стена с проходом",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.375,
+          -11.953125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          3.4375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-7",
+      "name": "Боковая стена с проходом",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.375,
+          -18.046875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          3.4375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-8",
+      "name": "Башня двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.125,
+          -9.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5,
+          1.5,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tower"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-9",
+      "name": "Башня двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.125,
+          -20.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5,
+          1.5,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tower"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-10",
+      "name": "Башня двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.375,
+          -9.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5,
+          1.5,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tower"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-11",
+      "name": "Башня двора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.375,
+          -20.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5,
+          1.5,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tower"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-12",
+      "name": "Колодец клятвы",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -14.0625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5625,
+          1.5625,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "fountain"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-13",
+      "name": "Часовня",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -4.53125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          5.625,
+          2.8125,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "chapel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-14",
+      "name": "Кузница",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.03125,
+          -22.65625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.21875,
+          2.34375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "forge"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-15",
+      "name": "Разрушенная казарма",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.53125,
+          -23.125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.375,
+          2.03125,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "ruin"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-16",
+      "name": "Надгробие",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.90625,
+          -7.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          1.484375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "grave"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-17",
+      "name": "Надгробие",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          32.03125,
+          -7.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          1.484375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "grave"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-18",
+      "name": "Надгробие",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.90625,
+          -10.9375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          1.484375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "grave"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-19",
+      "name": "Надгробие",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          32.03125,
+          -10.9375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          1.484375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "grave"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-20",
+      "name": "Надгробие",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          30.390625,
+          -14.375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          1.484375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "grave"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-21",
+      "name": "Разбитая ограда",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.1875,
+          -6.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.125,
+          0.78125,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-22",
+      "name": "Разбитая ограда",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.46875,
+          -16.5625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          0.9375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-23",
+      "name": "Разбитая ограда",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          9.53125,
+          -11.875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.015625,
+          2.8125,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-24",
+      "name": "Разбитая ограда",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.53125,
+          -17.96875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.28125,
+          0.859375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-25",
+      "name": "Разбитая ограда",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.34375,
+          -26.09375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1875,
+          0.859375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-26",
+      "name": "Разбитая ограда",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.3125,
+          -25.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1875,
+          0.859375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "wall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-27",
+      "name": "Старый ясень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          4.6875,
+          -9.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tree"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-28",
+      "name": "Старый ясень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.65625,
+          -14.21875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tree"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-29",
+      "name": "Старый ясень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.3125,
+          -12.96875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tree"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-30",
+      "name": "Старый ясень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.3125,
+          -6.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tree"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-31",
+      "name": "Старый ясень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          33.4375,
+          -21.5625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tree"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-32",
+      "name": "Старый ясень",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          26.5625,
+          -5.3125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.cover",
+          "values": {
+            "style": "tree"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-33",
+      "name": "Последний страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -17.65625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.5,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.spawn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-34",
+      "name": "Место силы · well",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -15.78125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.859375,
+          0.859375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.station",
+          "values": {
+            "kind": "well"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-35",
+      "name": "Место силы · arrows",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.3125,
+          -22.96875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.859375,
+          0.859375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.station",
+          "values": {
+            "kind": "arrows"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-36",
+      "name": "Место силы · mana",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -7.1875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.859375,
+          0.859375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.station",
+          "values": {
+            "kind": "mana"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-37",
+      "name": "Место силы · bell",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -25.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.859375,
+          0.859375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.station",
+          "values": {
+            "kind": "bell"
+          }
+        }
+      ]
+    },
+    {
+      "id": "castle-38",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.65625,
+          -4.0625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-39",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -2.1875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-40",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          34.6875,
+          -4.53125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-41",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          34.6875,
+          -16.09375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-42",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          34.375,
+          -27.03125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-43",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.75,
+          -27.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-44",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.8125,
+          -27.1875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "castle-45",
+      "name": "Разлом тумана",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.5,
+          -15.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.09375,
+          1.09375,
+          0.8
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#59635c",
+        "roughness": 0.9,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "bastion.gate",
+          "values": {}
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 24,
+    "distance": 30,
+    "centerX": 18.75,
+    "centerY": -15,
+    "follow": "player"
+  },
+  "environment": {
+    "time": 1320,
+    "haze": 0.06,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "bastion": {
+      "version": 1,
+      "width": 2400,
+      "height": 1920,
+      "zones": [
+        {
+          "name": "ЯСЕНЕВАЯ РОЩА",
+          "x": 440,
+          "y": 700
+        },
+        {
+          "name": "СТАРАЯ ЧАСОВНЯ",
+          "x": 1200,
+          "y": 480
+        },
+        {
+          "name": "КЛАДБИЩЕ КОРОЛЕЙ",
+          "x": 1940,
+          "y": 600
+        },
+        {
+          "name": "ДВОР КЛЯТВЫ",
+          "x": 1200,
+          "y": 1080
+        },
+        {
+          "name": "КУЗНЕЧНЫЙ ДВОР",
+          "x": 500,
+          "y": 1540
+        },
+        {
+          "name": "РУИНЫ КАЗАРМЫ",
+          "x": 1900,
+          "y": 1550
+        },
+        {
+          "name": "ЮЖНЫЕ ВРАТА",
+          "x": 1200,
+          "y": 1650
+        }
+      ]
+    }
+  }
+}

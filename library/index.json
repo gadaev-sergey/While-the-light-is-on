@@ -1,0 +1,502 @@
+[
+  {
+    "id": "starter-wall",
+    "name": "Стена с плинтусом",
+    "type": "model",
+    "path": "assets/starter/wall.glb",
+    "dependencies": [],
+    "bytes": 9356,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Строительство",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "wall"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      3,
+      3.0000000002980234,
+      0.26000000432133674
+    ],
+    "triangles": 60
+  },
+  {
+    "id": "starter-floor",
+    "name": "Дощатый настил",
+    "type": "model",
+    "path": "assets/starter/floor.glb",
+    "dependencies": [],
+    "bytes": 18148,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Строительство",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "floor"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      2.9399999940395354,
+      0.27999999687075616,
+      3
+    ],
+    "triangles": 120
+  },
+  {
+    "id": "starter-column",
+    "name": "Бетонная колонна",
+    "type": "model",
+    "path": "assets/starter/column.glb",
+    "dependencies": [],
+    "bytes": 12036,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Строительство",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "column"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      0.6499999761581421,
+      3.000000002980232,
+      0.6499999761581421
+    ],
+    "triangles": 152
+  },
+  {
+    "id": "starter-door",
+    "name": "Деревянная дверь",
+    "type": "model",
+    "path": "assets/starter/door.glb",
+    "dependencies": [],
+    "bytes": 23016,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Строительство",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "door"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      1.1200000047683716,
+      2.299999974817038,
+      0.18500000067055225
+    ],
+    "triangles": 224
+  },
+  {
+    "id": "starter-window",
+    "name": "Оконная рама",
+    "type": "model",
+    "path": "assets/starter/window.glb",
+    "dependencies": [],
+    "bytes": 14724,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Строительство",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "window"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      1.5,
+      1.650000012665987,
+      0.33000001311302185
+    ],
+    "triangles": 96
+  },
+  {
+    "id": "starter-stairs",
+    "name": "Лестничный марш",
+    "type": "model",
+    "path": "assets/starter/stairs.glb",
+    "dependencies": [],
+    "bytes": 47368,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Строительство",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "stairs"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      3.0122748178909236,
+      3.948132751071923,
+      1.240000001490116
+    ],
+    "triangles": 312
+  },
+  {
+    "id": "starter-table",
+    "name": "Обеденный стол",
+    "type": "model",
+    "path": "assets/starter/table.glb",
+    "dependencies": [],
+    "bytes": 20068,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Мебель и реквизит",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "table"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      1.5,
+      0.7925000131130219,
+      0.8920000058412552
+    ],
+    "triangles": 132
+  },
+  {
+    "id": "starter-chair",
+    "name": "Деревянный стул",
+    "type": "model",
+    "path": "assets/starter/chair.glb",
+    "dependencies": [],
+    "bytes": 14708,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Мебель и реквизит",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "chair"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      0.47999998927116394,
+      0.972499999254942,
+      0.47999998927116394
+    ],
+    "triangles": 96
+  },
+  {
+    "id": "starter-shelf",
+    "name": "Открытый стеллаж",
+    "type": "model",
+    "path": "assets/starter/shelf.glb",
+    "dependencies": [],
+    "bytes": 34684,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Мебель и реквизит",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "shelf"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      1.1649999976158143,
+      1.899999976158142,
+      0.46499999359250066
+    ],
+    "triangles": 228
+  },
+  {
+    "id": "starter-cabinet",
+    "name": "Двухстворчатый шкаф",
+    "type": "model",
+    "path": "assets/starter/cabinet.glb",
+    "dependencies": [],
+    "bytes": 23776,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Мебель и реквизит",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "cabinet"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      1.010000000745058,
+      1.7999999748170374,
+      0.5650000009685754
+    ],
+    "triangles": 156
+  },
+  {
+    "id": "starter-crate",
+    "name": "Дощатый ящик",
+    "type": "model",
+    "path": "assets/starter/crate.glb",
+    "dependencies": [],
+    "bytes": 52544,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Мебель и реквизит",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "crate"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      0.800000011920929,
+      0.6375000119954348,
+      0.5950000001490117
+    ],
+    "triangles": 348
+  },
+  {
+    "id": "starter-barrel",
+    "name": "Бочка с обручами",
+    "type": "model",
+    "path": "assets/starter/barrel.glb",
+    "dependencies": [],
+    "bytes": 77828,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Мебель и реквизит",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "barrel"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      0.7080000042915344,
+      0.9624999989941716,
+      0.7080000042915344
+    ],
+    "triangles": 960
+  },
+  {
+    "id": "starter-lamp",
+    "name": "Напольный светильник",
+    "type": "model",
+    "path": "assets/starter/lamp.glb",
+    "dependencies": [],
+    "bytes": 33080,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Мебель и реквизит",
+    "tags": [
+      "нейтральный",
+      "реалистичный",
+      "glb",
+      "lamp"
+    ],
+    "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+    "dimensions": [
+      0.6800000071525574,
+      1.8000000050663947,
+      0.6800000071525574
+    ],
+    "triangles": 512
+  },
+  {
+    "id": "starter-wood",
+    "name": "Дерево",
+    "type": "texture",
+    "path": "assets/starter/wood.png",
+    "dependencies": [],
+    "bytes": 74301,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Материалы",
+    "tags": [
+      "wood",
+      "base-color",
+      "256 × 256"
+    ],
+    "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+    "surface": {
+      "texture": "asset:starter-wood",
+      "color": "#ffffff",
+      "roughness": 0.8,
+      "metalness": 0,
+      "repeat": 2
+    }
+  },
+  {
+    "id": "starter-metal",
+    "name": "Металл",
+    "type": "texture",
+    "path": "assets/starter/metal.png",
+    "dependencies": [],
+    "bytes": 63774,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Материалы",
+    "tags": [
+      "metal",
+      "base-color",
+      "256 × 256"
+    ],
+    "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+    "surface": {
+      "texture": "asset:starter-metal",
+      "color": "#ffffff",
+      "roughness": 0.35,
+      "metalness": 0.85,
+      "repeat": 2
+    }
+  },
+  {
+    "id": "starter-concrete",
+    "name": "Бетон",
+    "type": "texture",
+    "path": "assets/starter/concrete.png",
+    "dependencies": [],
+    "bytes": 57487,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Материалы",
+    "tags": [
+      "concrete",
+      "base-color",
+      "256 × 256"
+    ],
+    "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+    "surface": {
+      "texture": "asset:starter-concrete",
+      "color": "#ffffff",
+      "roughness": 0.95,
+      "metalness": 0,
+      "repeat": 2
+    }
+  },
+  {
+    "id": "starter-brick",
+    "name": "Кирпич",
+    "type": "texture",
+    "path": "assets/starter/brick.png",
+    "dependencies": [],
+    "bytes": 51387,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Материалы",
+    "tags": [
+      "brick",
+      "base-color",
+      "256 × 256"
+    ],
+    "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+    "surface": {
+      "texture": "asset:starter-brick",
+      "color": "#ffffff",
+      "roughness": 0.9,
+      "metalness": 0,
+      "repeat": 2
+    }
+  },
+  {
+    "id": "starter-plaster",
+    "name": "Штукатурка",
+    "type": "texture",
+    "path": "assets/starter/plaster.png",
+    "dependencies": [],
+    "bytes": 67970,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Материалы",
+    "tags": [
+      "plaster",
+      "base-color",
+      "256 × 256"
+    ],
+    "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+    "surface": {
+      "texture": "asset:starter-plaster",
+      "color": "#ffffff",
+      "roughness": 0.95,
+      "metalness": 0,
+      "repeat": 2
+    }
+  },
+  {
+    "id": "starter-fabric",
+    "name": "Ткань",
+    "type": "texture",
+    "path": "assets/starter/fabric.png",
+    "dependencies": [],
+    "bytes": 71206,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Материалы",
+    "tags": [
+      "fabric",
+      "base-color",
+      "256 × 256"
+    ],
+    "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+    "surface": {
+      "texture": "asset:starter-fabric",
+      "color": "#ffffff",
+      "roughness": 1,
+      "metalness": 0,
+      "repeat": 2
+    }
+  },
+  {
+    "id": "starter-ground",
+    "name": "Земля",
+    "type": "texture",
+    "path": "assets/starter/ground.png",
+    "dependencies": [],
+    "bytes": 50646,
+    "version": "1.0.0",
+    "author": "Shelter Engine",
+    "license": "CC0-1.0",
+    "category": "Материалы",
+    "tags": [
+      "ground",
+      "base-color",
+      "256 × 256"
+    ],
+    "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+    "surface": {
+      "texture": "asset:starter-ground",
+      "color": "#ffffff",
+      "roughness": 1,
+      "metalness": 0,
+      "repeat": 2
+    }
+  }
+]

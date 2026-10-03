@@ -1,0 +1,1100 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "core",
+  "template": "merzlota-grid-v1",
+  "name": "Ледяное ядро",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "core-spawn",
+      "name": "Начало пути",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.5,
+          0.5,
+          3.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffd36b",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.spawn",
+          "values": {
+            "angle": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-0",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.5,
+          0.5,
+          11.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-1",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.5,
+          0.5,
+          7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-2",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          6.5,
+          0.5,
+          8.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-3",
+      "name": "Мерзлый",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.5,
+          0.5,
+          18.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6fb6ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "brute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-4",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.5,
+          0.5,
+          15.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-5",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          3.5,
+          0.5,
+          16.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-6",
+      "name": "Страж",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.5,
+          0.5,
+          14.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ff8a3d",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "drone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-7",
+      "name": "Хранитель льда",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21.5,
+          0.5,
+          10.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#b48cff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "boss"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-8",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.5,
+          0.5,
+          3.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-9",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.5,
+          0.5,
+          18.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-10",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.5,
+          0.5,
+          3.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-enemy-11",
+      "name": "Снежник",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.5,
+          0.5,
+          18.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#cfe8ff",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.enemy",
+          "values": {
+            "kind": "crawler"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-0",
+      "name": "Ампула",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "health"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-1",
+      "name": "Винтовка «Аврора»",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          4.5,
+          0.5,
+          9.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "rifle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-2",
+      "name": "Энергоячейки",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.5,
+          0.5,
+          12.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "cells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-3",
+      "name": "Энергоячейки",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.5,
+          0.5,
+          7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "cells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-4",
+      "name": "Синяя карта",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1.5,
+          0.5,
+          20.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "blue"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-5",
+      "name": "Аптечка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.5,
+          0.5,
+          20.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "medkit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-6",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.5,
+          0.5,
+          14.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-7",
+      "name": "Аптечка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "medkit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-8",
+      "name": "Аптечка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.5,
+          0.5,
+          20.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "medkit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-9",
+      "name": "Энергоячейки",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "cells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-10",
+      "name": "Энергоячейки",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.5,
+          0.5,
+          20.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "cells"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-11",
+      "name": "Бронежилет",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.5,
+          0.5,
+          1.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "armor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "core-item-12",
+      "name": "Патроны дробовика",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.5,
+          0.5,
+          20.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          1,
+          0.6
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#7ff7c8",
+        "roughness": 0.8,
+        "metalness": 0.1,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "merzlota.item",
+          "values": {
+            "kind": "shells"
+          }
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "perspective",
+    "fov": 80,
+    "height": 2,
+    "distance": 5,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0,
+    "haze": 0.06,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "merzlota": {
+      "theme": "core",
+      "next": "",
+      "map": [
+        "############WWWWWWWWWWWWWWWWW###",
+        "#........#.....................#",
+        "#........#.....................#",
+        "#........#.....................#",
+        "#........#.....................#",
+        "#........#.....II.......II.....#",
+        "####D#####.....II.......II.....#",
+        "#........#.....................#",
+        "#........#.....................W",
+        "#........#.....................W",
+        "#........#.....................W",
+        "#........#..................X..W",
+        "#........#.....................W",
+        "####D#####.....................W",
+        "#........#.....................#",
+        "#........#.....II.......II.....#",
+        "#........#.....II.......II.....#",
+        "#........B.....................#",
+        "#........#.....................#",
+        "#........#.....................#",
+        "#........#.....................#",
+        "################################"
+      ],
+      "loadout": {
+        "shotgun": true,
+        "rifle": false,
+        "shells": 16,
+        "cells": 0
+      }
+    }
+  }
+}

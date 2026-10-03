@@ -1,0 +1,317 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "6f0bb15e-539d-4780-b6e3-494db1c68a11",
+  "template": "neutral-25d",
+  "name": "Главная сцена",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "camera",
+      "name": "Игровая камера",
+      "kind": "camera",
+      "layer": "details",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          18
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "lamp",
+      "name": "Лампа",
+      "kind": "point-light",
+      "layer": "lights",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1,
+          2.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "light": {
+        "color": "#ffe2b1",
+        "intensity": 14,
+        "range": 6,
+        "angle": 35,
+        "penumbra": 0.6,
+        "shadows": true
+      }
+    },
+    {
+      "id": "7c0eb291-c101-4e12-849a-c95e1b356c49",
+      "name": "Обеденный стол",
+      "kind": "model",
+      "asset": "starter-table",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -1,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          15,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "d00291bd-a577-4081-90a8-48dbb15df71c",
+      "name": "Обеденный стол",
+      "kind": "model",
+      "asset": "starter-table",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          1,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "surface": {
+        "texture": "asset:starter-wood",
+        "color": "#ffffff",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 2
+      },
+      "components": [
+        {
+          "type": "basic.rotate",
+          "values": {
+            "speed": 45,
+            "axis": "y"
+          }
+        }
+      ]
+    },
+    {
+      "id": "72642f18-ebe1-4a8d-bedd-f90d3383c551",
+      "name": "chair.glb",
+      "kind": "model",
+      "asset": "asset-d28778c0c0bc1c46087a",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "components": [
+        {
+          "type": "basic.portal",
+          "values": {
+            "scene": "8c23300e-2219-471e-ba16-9775a7085c0e",
+            "label": "Следующая сцена"
+          }
+        }
+      ]
+    },
+    {
+      "id": "87b7b0dd-1e06-4623-998a-aa8374c00639",
+      "name": "crate.gltf",
+      "kind": "model",
+      "asset": "asset-1357e9c0bd1b600659d5",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -2.5,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "5617b73b-ca7d-45b8-886c-755f766b8568",
+      "name": "crate.gltf",
+      "kind": "model",
+      "asset": "asset-1357e9c0bd1b600659d5",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.5,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "surface": {
+        "texture": "asset:material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+        "color": "#ffffff",
+        "roughness": 0.8,
+        "metalness": 0.7,
+        "repeat": 1
+      }
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 45,
+    "height": 10,
+    "distance": 18,
+    "centerX": 0,
+    "centerY": 2,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 720,
+    "haze": 0,
+    "exposure": 1.3,
+    "flashlight": false
+  },
+  "activeCamera": "camera",
+  "moduleData": {
+    "layout": {
+      "version": 1,
+      "floorHeight": 3,
+      "rooms": [
+        {
+          "id": "room-1",
+          "name": "Главная комната",
+          "x": -4,
+          "width": 4,
+          "floor": 0,
+          "depth": 4,
+          "color": "#858880"
+        },
+        {
+          "id": "86d0bec1-6247-49ef-8f10-9b4f98a2a1f6",
+          "name": "Комната 2",
+          "x": 0,
+          "width": 4,
+          "floor": 0,
+          "depth": 4,
+          "color": "#858880"
+        },
+        {
+          "id": "414c2c2f-1217-4800-a614-1e1a5926d0eb",
+          "name": "Комната 3",
+          "x": -4,
+          "width": 8,
+          "floor": 1,
+          "depth": 4,
+          "color": "#858880"
+        }
+      ],
+      "doors": [
+        {
+          "id": "0a5125dc-dcff-46b5-93df-eb7c384fa139",
+          "name": "Дверь 1",
+          "x": 0,
+          "floor": 0,
+          "open": false
+        }
+      ],
+      "stairs": [
+        {
+          "id": "7d854954-68b9-4eff-80e0-c673f2690874",
+          "name": "Лестница 1",
+          "a": -2,
+          "b": 1,
+          "from": 0,
+          "to": 1
+        }
+      ],
+      "openings": [
+        {
+          "id": "ea39efe9-9752-491b-9a70-30b7e4c17339",
+          "name": "Окно 1",
+          "room": "room-1",
+          "x": -2,
+          "bottom": 1,
+          "width": 1,
+          "height": 1.2,
+          "kind": "window"
+        }
+      ],
+      "spawn": {
+        "x": -2,
+        "floor": 0
+      }
+    }
+  }
+}

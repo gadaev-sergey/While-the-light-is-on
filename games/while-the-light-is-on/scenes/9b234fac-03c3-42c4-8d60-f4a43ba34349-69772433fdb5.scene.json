@@ -1,0 +1,28 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "9b234fac-03c3-42c4-8d60-f4a43ba34349",
+  "template": "shelter-house-v1",
+  "name": "Главная сцена",
+  "units": "m",
+  "nodes": [],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 45,
+    "height": 10,
+    "distance": 18,
+    "centerX": 0,
+    "centerY": 2,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 720,
+    "haze": 0,
+    "exposure": 1.3,
+    "flashlight": false
+  },
+  "moduleData": {
+    "legacySeed": true
+  }
+}

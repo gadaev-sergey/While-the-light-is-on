@@ -1,0 +1,107 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "citadel",
+  "template": "caravan-route-v1",
+  "name": "Врата рассвета",
+  "units": "m",
+  "nodes": [],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 12,
+    "distance": 20,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0.4,
+    "haze": 0.1,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "caravan": {
+      "id": "citadel",
+      "name": "Врата рассвета",
+      "subtitle": "Последний переход",
+      "description": "Броня и стражи дюн. Солнечные обелиски пробивают любую защиту.",
+      "waves": 10,
+      "multiplier": 1.45,
+      "coins": 330,
+      "route": [
+        [
+          -40,
+          410
+        ],
+        [
+          200,
+          410
+        ],
+        [
+          270,
+          190
+        ],
+        [
+          515,
+          190
+        ],
+        [
+          580,
+          425
+        ],
+        [
+          810,
+          425
+        ],
+        [
+          885,
+          220
+        ],
+        [
+          1140,
+          220
+        ]
+      ],
+      "slots": [
+        [
+          135,
+          310
+        ],
+        [
+          280,
+          490
+        ],
+        [
+          345,
+          280
+        ],
+        [
+          425,
+          105
+        ],
+        [
+          540,
+          315
+        ],
+        [
+          660,
+          510
+        ],
+        [
+          725,
+          325
+        ],
+        [
+          850,
+          505
+        ],
+        [
+          950,
+          330
+        ]
+      ],
+      "seed": 79
+    }
+  }
+}

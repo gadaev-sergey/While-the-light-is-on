@@ -1,0 +1,39 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "42a83d8e-70eb-4e59-8552-79bfe800b1c6",
+  "name": "While the light is on",
+  "gameVersion": "1.0.0",
+  "scenes": [
+    {
+      "id": "9b234fac-03c3-42c4-8d60-f4a43ba34349",
+      "name": "Дом на окраине",
+      "path": "scenes/9b234fac-03c3-42c4-8d60-f4a43ba34349-88556f11c103.scene.json"
+    }
+  ],
+  "startScene": "9b234fac-03c3-42c4-8d60-f4a43ba34349",
+  "assets": [],
+  "modules": [
+    {
+      "id": "while-light",
+      "version": 1,
+      "runtime": "scripts/runtime.ts",
+      "editor": "scripts/editor.ts",
+      "assets": [
+        "assets"
+      ]
+    }
+  ],
+  "build": {
+    "target": "web",
+    "mode": "release",
+    "base": "./",
+    "output": "",
+    "scenes": [
+      "9b234fac-03c3-42c4-8d60-f4a43ba34349"
+    ],
+    "dynamicAssets": [],
+    "appId": "game.42a83d8e-70eb-4e59-8552-79bfe800b1c6"
+  }
+}

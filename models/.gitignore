@@ -1,0 +1,12 @@
+# Всё, что пересобирают скрипты. В git остаются скрипты и model.json;
+# готовые GLB для игры лежат в public/assets/base/models/
+__pycache__/
+*.blend
+*.blend1
+*/textures/
+*/renders/
+*/sprite_keyed.png
+/viewer.html
+*_viewer.html
+*/build.log
+*/*.glb

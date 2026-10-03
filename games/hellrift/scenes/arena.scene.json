@@ -1,0 +1,557 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "arena",
+  "template": "hellrift-arena-v1",
+  "name": "Собор пепла",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "pillar--11--12",
+      "name": "Опора собора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -11,
+          4.5,
+          -12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          9,
+          2.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pillar--11-0",
+      "name": "Опора собора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -11,
+          4.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          9,
+          2.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pillar--11-12",
+      "name": "Опора собора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -11,
+          4.5,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          9,
+          2.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pillar-11--12",
+      "name": "Опора собора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11,
+          4.5,
+          -12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          9,
+          2.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pillar-11-0",
+      "name": "Опора собора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11,
+          4.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          9,
+          2.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pillar-11-12",
+      "name": "Опора собора",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11,
+          4.5,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          9,
+          2.5
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "pillar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cover--4--7",
+      "name": "Бронеблок",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -4,
+          1.2,
+          -7
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          2.4,
+          2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "bunker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cover-7--8",
+      "name": "Бронеблок",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7,
+          1.2,
+          -8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          2.4,
+          4
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "bunker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cover--6-7",
+      "name": "Бронеблок",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -6,
+          1.2,
+          7
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          2.4,
+          4
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "bunker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cover-5-7",
+      "name": "Бронеблок",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5,
+          1.2,
+          7
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4,
+          2.4,
+          2
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#484248",
+        "roughness": 0.9,
+        "metalness": 0.2,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "hellrift.cover",
+          "values": {
+            "style": "bunker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rift-0",
+      "name": "Разлом 1",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          -21
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3,
+          4,
+          0.5
+        ]
+      },
+      "components": [
+        {
+          "type": "hellrift.portal",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "rift-1",
+      "name": "Разлом 2",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          -21,
+          2,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3,
+          4,
+          0.5
+        ]
+      },
+      "components": [
+        {
+          "type": "hellrift.portal",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "rift-2",
+      "name": "Разлом 3",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21,
+          2,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3,
+          4,
+          0.5
+        ]
+      },
+      "components": [
+        {
+          "type": "hellrift.portal",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "rift-3",
+      "name": "Разлом 4",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          21
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3,
+          4,
+          0.5
+        ]
+      },
+      "components": [
+        {
+          "type": "hellrift.portal",
+          "values": {}
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "perspective",
+    "fov": 78,
+    "height": 2,
+    "distance": 3,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0,
+    "haze": 0.02,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "hellrift": {
+      "size": 46,
+      "spawn": [
+        0,
+        14
+      ]
+    }
+  }
+}

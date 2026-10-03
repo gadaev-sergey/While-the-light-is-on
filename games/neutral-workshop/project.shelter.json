@@ -1,0 +1,473 @@
+{
+  "format": "shelter-project",
+  "version": 1,
+  "sdk": 1,
+  "projectId": "95ec5155-c494-49f6-ada3-832c0372ce6b",
+  "name": "Neutral Workshop",
+  "gameVersion": "1.0.0",
+  "scenes": [
+    {
+      "id": "9b234fac-03c3-42c4-8d60-f4a43ba34349",
+      "name": "Дом на окраине",
+      "path": "scenes/9b234fac-03c3-42c4-8d60-f4a43ba34349-88556f11c103.scene.json"
+    }
+  ],
+  "startScene": "9b234fac-03c3-42c4-8d60-f4a43ba34349",
+  "assets": [
+    {
+      "id": "starter-table",
+      "name": "Обеденный стол",
+      "type": "model",
+      "path": "assets/starter-table/starter/table.glb",
+      "dependencies": [],
+      "bytes": 20068,
+      "version": "1.0.0",
+      "author": "Shelter Engine",
+      "license": "CC0-1.0",
+      "category": "Мебель и реквизит",
+      "tags": [
+        "нейтральный",
+        "реалистичный",
+        "glb",
+        "table"
+      ],
+      "description": "Оригинальная составная модель стартового набора. Масштаб в метрах.",
+      "dimensions": [
+        1.5,
+        0.7925000131130219,
+        0.8920000058412552
+      ],
+      "triangles": 132,
+      "source": {
+        "id": "starter-table",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "starter-wood",
+      "name": "Дерево",
+      "type": "texture",
+      "path": "assets/starter-wood/starter/wood.png",
+      "dependencies": [],
+      "bytes": 74301,
+      "version": "1.0.0",
+      "author": "Shelter Engine",
+      "license": "CC0-1.0",
+      "category": "Материалы",
+      "tags": [
+        "wood",
+        "base-color",
+        "256 × 256"
+      ],
+      "description": "Повторяемая карта цвета 256 × 256. Шероховатость и металличность заданы числами; дополнительные карты отсутствуют.",
+      "surface": {
+        "texture": "asset:starter-wood",
+        "color": "#ffffff",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 2
+      },
+      "source": {
+        "id": "starter-wood",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "asset-d28778c0c0bc1c46087a",
+      "name": "chair.glb",
+      "type": "model",
+      "path": "assets/asset-d28778c0c0bc1c46087a/chair.glb",
+      "dependencies": [],
+      "bytes": 14708,
+      "version": "1.0.0",
+      "author": "Пользователь",
+      "license": "Указана автором ресурса",
+      "category": "Модели",
+      "tags": [],
+      "description": "Импортированный локальный ресурс",
+      "unitScale": 1,
+      "triangles": 96,
+      "dimensions": [
+        0.47999998927116394,
+        0.972499999254942,
+        0.47999998927116394
+      ]
+    },
+    {
+      "id": "asset-1357e9c0bd1b600659d5",
+      "name": "crate.gltf",
+      "type": "model",
+      "path": "assets/asset-1357e9c0bd1b600659d5/crate.gltf",
+      "dependencies": [
+        "assets/asset-1357e9c0bd1b600659d5/crate.bin",
+        "assets/asset-1357e9c0bd1b600659d5/textures/wood.png"
+      ],
+      "bytes": 76919,
+      "version": "1.0.0",
+      "author": "Пользователь",
+      "license": "Указана автором ресурса",
+      "category": "Модели",
+      "tags": [],
+      "description": "Импортированный локальный ресурс",
+      "unitScale": 1,
+      "triangles": 12,
+      "dimensions": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "id": "material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+      "type": "material",
+      "name": "Приёмка PBR 1790683627038",
+      "path": "assets/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material.json",
+      "dependencies": [
+        "assets/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material-72a260f1-0fdd-401d-b0a1-47933b022f93/baseColor.png"
+      ],
+      "maps": {
+        "baseColor": "assets/material-72a260f1-0fdd-401d-b0a1-47933b022f93/material-72a260f1-0fdd-401d-b0a1-47933b022f93/baseColor.png"
+      },
+      "bytes": 63774,
+      "version": "1.0.0",
+      "author": "Пользователь",
+      "license": "CC0 — Shelter starter",
+      "category": "Материалы",
+      "tags": [],
+      "description": "PBR-материал; отсутствующие каналы используют числовые значения.",
+      "surface": {
+        "texture": "asset:material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+        "color": "#ffffff",
+        "roughness": 0.8,
+        "metalness": 0.7,
+        "repeat": 1
+      },
+      "source": {
+        "id": "material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "while-light-crates-front",
+      "name": "Ящики · фронтальный атлас",
+      "type": "texture",
+      "path": "assets/base/crates-front.png",
+      "dependencies": [],
+      "bytes": 2476035,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-developer-door",
+      "name": "Персонаж · взаимодействие с дверью",
+      "type": "texture",
+      "path": "assets/base/developer-door.png",
+      "dependencies": [],
+      "bytes": 1629294,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-district",
+      "name": "Фон квартала",
+      "type": "texture",
+      "path": "assets/base/district.png",
+      "dependencies": [],
+      "bytes": 2344491,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-dog",
+      "name": "Пёс · позы",
+      "type": "texture",
+      "path": "assets/base/dog.png",
+      "dependencies": [],
+      "bytes": 2006711,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-furniture",
+      "name": "Атлас мебели",
+      "type": "texture",
+      "path": "assets/base/furniture.png",
+      "dependencies": [],
+      "bytes": 2502039,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-house-damage",
+      "name": "Окна и повреждения дома",
+      "type": "texture",
+      "path": "assets/base/house-damage.png",
+      "dependencies": [],
+      "bytes": 1759950,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-interior-front",
+      "name": "Мебель · фронтальный атлас",
+      "type": "texture",
+      "path": "assets/base/interior-front.png",
+      "dependencies": [],
+      "bytes": 1827487,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-materials",
+      "name": "Атлас материалов дома",
+      "type": "texture",
+      "path": "assets/base/materials.png",
+      "dependencies": [],
+      "bytes": 3802715,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-bed",
+      "name": "Кровать · 3D",
+      "type": "model",
+      "path": "assets/base/models/bed.glb",
+      "dependencies": [],
+      "triangles": 5408,
+      "bytes": 446776,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Мебель игры",
+      "tags": [
+        "While the light is on",
+        "glb"
+      ],
+      "description": "Статическая 3D-модель. Для игрового взаимодействия добавляйте готовый предмет через «Объект / свет / камера».",
+      "unitScale": 1,
+      "dimensions": [
+        2.024,
+        0.98,
+        1.077
+      ]
+    },
+    {
+      "id": "while-light-crates",
+      "name": "Ящики · 3D",
+      "type": "model",
+      "path": "assets/base/models/crates.glb",
+      "dependencies": [],
+      "triangles": 4212,
+      "bytes": 515216,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Мебель игры",
+      "tags": [
+        "While the light is on",
+        "glb"
+      ],
+      "description": "Статическая 3D-модель. Для игрового взаимодействия добавляйте готовый предмет через «Объект / свет / камера».",
+      "unitScale": 1,
+      "dimensions": [
+        0.85,
+        0.904,
+        0.53
+      ]
+    },
+    {
+      "id": "while-light-sink",
+      "name": "Раковина · 3D",
+      "type": "model",
+      "path": "assets/base/models/sink.glb",
+      "dependencies": [],
+      "triangles": 8266,
+      "bytes": 657388,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Мебель игры",
+      "tags": [
+        "While the light is on",
+        "glb"
+      ],
+      "description": "Статическая 3D-модель. Для игрового взаимодействия добавляйте готовый предмет через «Объект / свет / камера».",
+      "unitScale": 1,
+      "dimensions": [
+        1.2,
+        1.281,
+        0.608
+      ]
+    },
+    {
+      "id": "while-light-wardrobe",
+      "name": "Шкаф · 3D",
+      "type": "model",
+      "path": "assets/base/models/wardrobe.glb",
+      "dependencies": [],
+      "triangles": 2454,
+      "bytes": 438716,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Мебель игры",
+      "tags": [
+        "While the light is on",
+        "glb"
+      ],
+      "description": "Статическая 3D-модель. Для игрового взаимодействия добавляйте готовый предмет через «Объект / свет / камера».",
+      "unitScale": 1,
+      "dimensions": [
+        1.334,
+        1.925,
+        0.662
+      ]
+    },
+    {
+      "id": "while-light-objects",
+      "name": "Атлас предметов",
+      "type": "texture",
+      "path": "assets/base/objects.png",
+      "dependencies": [],
+      "bytes": 2268055,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-developer-attack",
+      "name": "Персонаж · стойка",
+      "type": "texture",
+      "path": "assets/developer-attack.png",
+      "dependencies": [],
+      "bytes": 2257597,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-developer-left-punch",
+      "name": "Персонаж · отталкивание",
+      "type": "texture",
+      "path": "assets/developer-left-punch.png",
+      "dependencies": [],
+      "bytes": 2222454,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    },
+    {
+      "id": "while-light-developer-walk",
+      "name": "Персонаж · ходьба",
+      "type": "texture",
+      "path": "assets/developer-walk.png",
+      "dependencies": [],
+      "bytes": 2099834,
+      "version": "1.0.0",
+      "author": "While the light is on",
+      "license": "Собственные ресурсы проекта; см. ASSETS.md",
+      "category": "Графика игры",
+      "tags": [
+        "While the light is on",
+        "png"
+      ],
+      "description": "Исходное изображение игры. Кадры и прозрачность обрабатываются игровым модулем."
+    }
+  ],
+  "modules": [
+    {
+      "id": "while-light",
+      "version": 1,
+      "runtime": "scripts/runtime.ts",
+      "editor": "scripts/editor.ts",
+      "assets": [
+        "assets"
+      ]
+    }
+  ],
+  "build": {
+    "target": "web",
+    "mode": "release",
+    "base": "./",
+    "output": "",
+    "scenes": [
+      "9b234fac-03c3-42c4-8d60-f4a43ba34349"
+    ],
+    "dynamicAssets": [],
+    "appId": "game.95ec5155-c494-49f6-ada3-832c0372ce6b"
+  }
+}

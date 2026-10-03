@@ -1,0 +1,3316 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "star-observatory",
+  "template": "lumen-platformer-v1",
+  "name": "Звёздная обсерватория",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "star-observatory-solid-0",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          5.390625,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          10.78125,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-solid-1",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.15625,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          11.5625,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-solid-2",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          35.78125,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          10.9375,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-solid-3",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          51.5625,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          11.5625,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-solid-4",
+      "name": "Каменная набережная",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          71.5625,
+          -2.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          19.375,
+          4.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#294c55",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.solid",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-5",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.65625,
+          1.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.8125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-6",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.0546875,
+          3.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.265625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-7",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.734375,
+          1.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-8",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21.484375,
+          3.5625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.28125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-9",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.765625,
+          2.15625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.34375,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-10",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          33.125,
+          1.609375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.8125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-11",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          36.7578125,
+          3.40625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.890625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-12",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          43.125,
+          3.71875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.8125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-13",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          49.296875,
+          1.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-14",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          53.203125,
+          3.484375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.28125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-15",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          56.875,
+          1.921875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1875,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-16",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          64.140625,
+          1.609375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.65625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-17",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          66.9921875,
+          3.40625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.421875,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-18",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          70.3125,
+          5.125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.4375,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-platform-19",
+      "name": "Уступ",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          73.671875,
+          3.171875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.34375,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#477d7a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.platform",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-moving-20",
+      "name": "Парящая платформа",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.59375,
+          1.453125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#a8dfc9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.moving",
+          "values": {
+            "axis": "y",
+            "range": 45,
+            "speed": 1,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-moving-21",
+      "name": "Парящая платформа",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          40.234375,
+          2.078125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.03125,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#a8dfc9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.moving",
+          "values": {
+            "axis": "x",
+            "range": 65,
+            "speed": 1.15,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-moving-22",
+      "name": "Парящая платформа",
+      "kind": "box",
+      "layer": "architecture",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          59.8828125,
+          1.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.265625,
+          0.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#a8dfc9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.moving",
+          "values": {
+            "axis": "y",
+            "range": 60,
+            "speed": 1.2,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spawn-23",
+      "name": "Начало пути",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.75,
+          0.421875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.84375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e4c99a",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spawn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-lens-24",
+      "name": "Линза маяка",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          21.65625,
+          4.234375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.625,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#8ff5e5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.lens",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-lens-25",
+      "name": "Линза маяка",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          43.140625,
+          4.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.625,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#8ff5e5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.lens",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-lens-26",
+      "name": "Линза маяка",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          70.25,
+          5.796875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.625,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#8ff5e5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.lens",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-checkpoint-27",
+      "name": "Сохранение — огонёк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          16.0625,
+          0.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5625,
+          1.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c98b",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.checkpoint",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-checkpoint-28",
+      "name": "Сохранение — огонёк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          33.25,
+          0.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5625,
+          1.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c98b",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.checkpoint",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-checkpoint-29",
+      "name": "Сохранение — огонёк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          63.25,
+          0.6875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5625,
+          1.375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e8c98b",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.checkpoint",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-thorn-30",
+      "name": "Тёмные кристаллы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.546875,
+          0.296875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.71875,
+          0.59375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#bd6785",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.thorn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-thorn-31",
+      "name": "Тёмные кристаллы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          37.421875,
+          0.296875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.71875,
+          0.59375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#bd6785",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.thorn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-thorn-32",
+      "name": "Тёмные кристаллы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          53.4375,
+          0.296875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5625,
+          0.59375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#bd6785",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.thorn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-thorn-33",
+      "name": "Тёмные кристаллы",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          68.0859375,
+          0.296875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.484375,
+          0.59375,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#bd6785",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.thorn",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-enemy-34",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          23.953125,
+          0.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 85,
+            "speed": 1.2,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-enemy-35",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          37.078125,
+          3.9375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 48,
+            "speed": 1.4,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-enemy-36",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          48.953125,
+          0.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 100,
+            "speed": 1.3,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-enemy-37",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          55.046875,
+          0.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 85,
+            "speed": 1.25,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-enemy-38",
+      "name": "Тень",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          74.421875,
+          0.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.71875,
+          0.6875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#af7dc4",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.enemy",
+          "values": {
+            "axis": "x",
+            "range": 80,
+            "speed": 1.2,
+            "phase": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-sign-39",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          2.984375,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Последний маяк. Ты уже знаешь дорогу.",
+            "radius": 210
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-sign-40",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          39.078125,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Двойной прыжок и рывок — дотянись до линзы.",
+            "radius": 180
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-sign-41",
+      "name": "Подсказка",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          75.484375,
+          0.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34375,
+          0.78125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#6b948f",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.sign",
+          "values": {
+            "text": "Три линзы. Один рассвет. Нажми E.",
+            "radius": 160
+          }
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-42",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          7.09375,
+          2.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-43",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          8.21875,
+          2.671875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-44",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          10.6015625,
+          4.03125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-45",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.5078125,
+          4.234375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-46",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          17.203125,
+          2.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-47",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          18.265625,
+          2.671875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-48",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          20.828125,
+          4.34375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-49",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          22.140625,
+          4.546875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-50",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          24.296875,
+          2.9375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-51",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          25.234375,
+          3.140625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-52",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          32.5625,
+          2.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-53",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          33.6875,
+          2.59375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-54",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          36.1796875,
+          4.1875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-55",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          37.3359375,
+          4.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-56",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          42.5625,
+          4.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-57",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          43.6875,
+          4.703125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-58",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          48.765625,
+          2.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-59",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          49.828125,
+          2.671875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-60",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          52.546875,
+          4.265625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-61",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          53.859375,
+          4.46875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-62",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          56.4375,
+          2.703125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-63",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          57.3125,
+          2.90625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-64",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          63.609375,
+          2.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-65",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          64.671875,
+          2.59375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-66",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          66.5078125,
+          4.1875,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-67",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          67.4765625,
+          4.390625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-68",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          69.625,
+          5.90625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-69",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          71,
+          6.109375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-70",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          73.203125,
+          3.953125,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-71",
+      "name": "Искра",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          74.140625,
+          4.15625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-72",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          11.6796875,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-73",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          12.578125,
+          2.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-74",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          13.4765625,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-75",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          27.03125,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-76",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          28.125,
+          2.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-77",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          29.21875,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-78",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          42.3828125,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-79",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          43.515625,
+          2.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-80",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          44.6484375,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-81",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          58.4765625,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-82",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          59.609375,
+          2.625,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-spark-83",
+      "name": "Искра над пропастью",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          60.7421875,
+          2.373294890082189,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.3125,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#ffe0a0",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.spark",
+          "values": {}
+        }
+      ]
+    },
+    {
+      "id": "star-observatory-beacon-84",
+      "name": "Маяк",
+      "kind": "box",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          78.015625,
+          1.4375,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.34375,
+          2.875,
+          0.3
+        ]
+      },
+      "surface": {
+        "texture": "none",
+        "color": "#e6cfa5",
+        "roughness": 0.8,
+        "metalness": 0,
+        "repeat": 1
+      },
+      "components": [
+        {
+          "type": "lumen.beacon",
+          "values": {
+            "next": ""
+          }
+        }
+      ]
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 13.5,
+    "distance": 25,
+    "centerX": 9,
+    "centerY": 2.5,
+    "follow": "horizontal"
+  },
+  "environment": {
+    "time": 1320,
+    "haze": 0.035,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "lumen": {
+      "version": 1,
+      "width": 5200,
+      "theme": 2,
+      "subtitle": "Один маленький огонь меняет всё",
+      "next": ""
+    }
+  }
+}

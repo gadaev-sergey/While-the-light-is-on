@@ -1,0 +1,12 @@
+{
+  "maps": {
+    "baseColor": "assets/material-72a260f1-0fdd-401d-b0a1-47933b022f93/baseColor.png"
+  },
+  "surface": {
+    "texture": "asset:material-72a260f1-0fdd-401d-b0a1-47933b022f93",
+    "color": "#ffffff",
+    "roughness": 0.8,
+    "metalness": 0.7,
+    "repeat": 1
+  }
+}

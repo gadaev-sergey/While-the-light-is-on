@@ -1,0 +1,96 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "8c23300e-2219-471e-ba16-9775a7085c0e",
+  "template": "empty-3d",
+  "name": "Галерея",
+  "units": "m",
+  "nodes": [
+    {
+      "id": "a78fb994-ec11-4c75-9185-a6ddb2ac3700",
+      "name": "Сфера",
+      "kind": "sphere",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "surface": {
+        "texture": "original",
+        "color": "#ffffff",
+        "roughness": 0.9,
+        "metalness": 0.05,
+        "repeat": 1
+      }
+    },
+    {
+      "id": "9bbe44e2-0233-4c30-a810-5bbf16c42801",
+      "name": "Камера",
+      "kind": "camera",
+      "layer": "props",
+      "visible": true,
+      "locked": false,
+      "transform": {
+        "position": [
+          0,
+          2,
+          14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "surface": {
+        "texture": "original",
+        "color": "#ffffff",
+        "roughness": 0.9,
+        "metalness": 0.05,
+        "repeat": 1
+      }
+    }
+  ],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 11.6,
+    "distance": 18,
+    "centerX": 0.15,
+    "centerY": 2.05,
+    "follow": "fixed",
+    "offsetX": 0,
+    "offsetY": 1.3,
+    "smoothing": 3,
+    "near": 0.1,
+    "far": 100
+  },
+  "environment": {
+    "time": 720,
+    "haze": 0,
+    "exposure": 1.3,
+    "flashlight": false
+  },
+  "activeCamera": "9bbe44e2-0233-4c30-a810-5bbf16c42801"
+}

@@ -1,0 +1,107 @@
+{
+  "format": "shelter-scene",
+  "version": 2,
+  "id": "oasis",
+  "template": "caravan-route-v1",
+  "name": "Лазурный оазис",
+  "units": "m",
+  "nodes": [],
+  "textures": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov": 35,
+    "height": 12,
+    "distance": 20,
+    "follow": "fixed"
+  },
+  "environment": {
+    "time": 0.4,
+    "haze": 0.1,
+    "exposure": 1,
+    "flashlight": false
+  },
+  "moduleData": {
+    "caravan": {
+      "id": "oasis",
+      "name": "Лазурный оазис",
+      "subtitle": "Первая стоянка",
+      "description": "Длинный изгиб у воды. Перекройте поворот и сохраните ворота оазиса.",
+      "waves": 10,
+      "multiplier": 1,
+      "coins": 260,
+      "route": [
+        [
+          -40,
+          330
+        ],
+        [
+          180,
+          330
+        ],
+        [
+          265,
+          230
+        ],
+        [
+          520,
+          230
+        ],
+        [
+          620,
+          450
+        ],
+        [
+          860,
+          450
+        ],
+        [
+          1010,
+          315
+        ],
+        [
+          1140,
+          315
+        ]
+      ],
+      "slots": [
+        [
+          155,
+          245
+        ],
+        [
+          290,
+          340
+        ],
+        [
+          410,
+          145
+        ],
+        [
+          495,
+          335
+        ],
+        [
+          605,
+          160
+        ],
+        [
+          690,
+          350
+        ],
+        [
+          785,
+          530
+        ],
+        [
+          870,
+          345
+        ],
+        [
+          995,
+          430
+        ]
+      ],
+      "seed": 17
+    }
+  }
+}
