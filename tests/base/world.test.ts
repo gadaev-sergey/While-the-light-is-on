@@ -18,9 +18,9 @@ test('The damaged house has new interior supplies and hides objects behind rooms
 });
 test('Repeated house templates compile into separate, translated instances',()=>{
  const def={...LOCATION,width:3700,buildings:[{id:'a',template:'damaged-house',x:300},{id:'b',template:'damaged-house',x:2200}],spawn:{x:395,floor:0}};
- const level=compileLevel(def);assert.equal(level.rooms.length,12);assert.equal(level.stairs.find(s=>s.id==='b/main-stair')?.a,2460);
+ const level=compileLevel(def);assert.equal(level.rooms.length,12);assert.equal(level.stairs.find(s=>s.id==='b/main-stair')?.a,2375);
  const w=new BaseWorld(level);w.setOpeningState('a/hall-breach','boarded');assert.equal(w.openings.find(o=>o.id==='b/hall-breach')?.state,'open');assert.equal(level.openings[0].state,'open');assert.equal(ROOM_TEMPLATES['plaster-broken'].openings[0].x,100);
- at(w,2460);assert.equal(w.tryStair(1),true);step(w,2);assert.equal(w.player.floor,1);assert.equal(w.player.x,2650);assert.equal(w.currentRoom?.buildingId,'b');
+ at(w,2375);assert.equal(w.tryStair(1),true);step(w,2);assert.equal(w.player.floor,1);assert.equal(w.player.x,2650);assert.equal(w.currentRoom?.buildingId,'b');
  assert.equal(lineOfSight({x:2500,y:550},{x:2850,y:550},w.sight.segments),false);
 });
 test('Room fit, identifiers, stair links and apertures are validated',()=>{

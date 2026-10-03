@@ -11,6 +11,7 @@ await mkdir('artifacts/deployment', {recursive: true});
 async function openGame(options, nearDoor = false) {
   const context = await browser.newContext(options);
   const page = await context.newPage();
+  page.setDefaultTimeout(15000);
   page.on('pageerror', error => failures.push(error.message));
   page.on('requestfailed', request => failures.push(`${request.url()}: ${request.failure()?.errorText}`));
   page.on('response', response => {
@@ -25,6 +26,7 @@ async function openGame(options, nearDoor = false) {
   await page.goto(url.href, {waitUntil: 'networkidle', timeout: 60000});
   await expect(page.locator('#base-loading')).toBeHidden({timeout: 60000});
   await expect(page.locator('#base-canvas')).toBeVisible();
+  await expect(page.locator('#zoom-in, #zoom-out, #view-left, #view-right')).toHaveCount(0);
   expect(await page.evaluate(() => '__BASE__' in window)).toBe(false);
   return {context, page};
 }
@@ -32,15 +34,13 @@ async function openGame(options, nearDoor = false) {
 try {
   const {page, context} = await openGame({viewport: {width: 1440, height: 1000}});
   await expect(page.locator('#interact')).toHaveAttribute('aria-disabled', 'true');
-  await page.keyboard.down('KeyA');
-  await page.waitForTimeout(1250);
-  await page.keyboard.up('KeyA');
-  await page.keyboard.press('KeyE');
+  await page.getByRole('button', {name: 'Дождевая бочка', exact: true}).click();
   await expect(page.locator('#quick-water')).toHaveText('1', {timeout: 10000});
+  const initial = await page.locator('#flashlight').getAttribute('aria-pressed');
   await page.keyboard.press('KeyF');
-  await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#flashlight')).not.toHaveAttribute('aria-pressed', initial);
   await page.keyboard.press('KeyF');
-  await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#flashlight')).toHaveAttribute('aria-pressed', initial);
   await page.keyboard.press('KeyM');
   await expect(page.getByRole('heading', {name: 'План дома', exact: true})).toBeVisible();
   await expect(page.locator('.plan-room')).toHaveCount(6);
@@ -53,6 +53,7 @@ try {
   await page.keyboard.press('Escape');
   await expect(page.locator('#time-panel')).toBeHidden();
   await page.screenshot({path: 'artifacts/deployment/desktop.png'});
+  await expect(page.locator('#editor-canvas')).toHaveCount(0);
   await context.close();
 
   const door = await openGame({viewport: {width: 1440, height: 1000}}, true);
@@ -79,8 +80,9 @@ try {
   await expect(mobile.page.locator('.touch-controls')).toBeVisible();
   await expect(mobile.page.locator('#quick-wood')).toHaveText('0');
   await expect(mobile.page.locator('#interact')).toHaveAttribute('aria-disabled', 'true');
+  const mobileInitial = await mobile.page.locator('#flashlight').getAttribute('aria-pressed');
   await mobile.page.locator('#flashlight').tap();
-  await expect(mobile.page.locator('#flashlight')).toHaveAttribute('aria-pressed', 'false');
+  await expect(mobile.page.locator('#flashlight')).not.toHaveAttribute('aria-pressed', mobileInitial);
   await mobile.page.getByRole('button', {name: 'Время суток', exact: true}).tap();
   await mobile.page.getByRole('button', {name: 'Утро', exact: true}).tap();
   await expect(mobile.page.locator('#base-clock')).toHaveText('07:00');
@@ -88,10 +90,10 @@ try {
   await mobile.context.close();
 
   for (const asset of ['base/district', 'base/materials', 'base/furniture', 'base/objects', 'base/dog', 'base/house-damage', 'base/interior-front', 'base/crates-front', 'base/developer-door', 'developer-walk', 'developer-attack', 'developer-left-punch']) {
-    expect(loadedImages.has(`${url.pathname}assets/${asset}.png`), `Missing image: ${asset}`).toBe(true);
+    expect([...loadedImages].some(file=>file.endsWith(`/assets/${asset}.png`)), `Missing image: ${asset}`).toBe(true);
   }
   expect(failures).toEqual([]);
-  console.log(`Deployment OK: ${url.href}\n12 image assets, desktop and mobile interaction, door handle and keyhole, flashlight, map and time controls; no runtime or network errors.`);
+  console.log(`Deployment OK: ${url.href}\n12 image assets, desktop and mobile interaction, door handle and keyhole, flashlight, map, time controls, standalone runtime without editor; no runtime or network errors.`);
 } finally {
   await browser.close();
 }

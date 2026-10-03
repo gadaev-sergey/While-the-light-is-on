@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 test('Sunlight emerges from separated open areas across the aperture and respects a solid wall',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',bm='/src/base/aperture-light.ts',gm='/src/base/architecture.ts',wm='/src/base/world.ts',lm='/src/base/lighting.ts';const {BaseAssets}=await import(am),{apertureBeam,drawApertureBeam}=await import(bm),{openingPlacement}=await import(gm),{BaseWorld}=await import(wm),{daylightSources}=await import(lm),assets=new BaseAssets();await assets.load(()=>{});const w=new BaseWorld(),opening=w.openings.find((o:any)=>o.id==='home/hall-window-0');
   const aperture=document.createElement('canvas');aperture.width=aperture.height=200;const ac=aperture.getContext('2d')!;ac.fillStyle='#fff';ac.fillRect(40,25,50,45);ac.fillRect(110,130,50,45);
@@ -13,7 +13,7 @@ test('Sunlight emerges from separated open areas across the aperture and respect
 });
 
 test('Internal passages retain an interior backing between the centred room modules',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),assets=new BaseAssets();await assets.load(()=>{});const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);r.c.setTransform(1,0,0,1,0,0);r.c.fillStyle='#ff00ff';r.c.fillRect(0,0,canvas.width,canvas.height);r.transform(r.c);r.house(r.c,w);
   const pixels=[{x:1070,y:335},{x:1110,y:335},{x:1030,y:535}].map(p=>{const s=r.worldToScreen(p);return Array.from<number>(r.c.getImageData(Math.round(s.x*r.dpr),Math.round(s.y*r.dpr),1,1).data).slice(0,3);});canvas.remove();return pixels;
@@ -21,7 +21,7 @@ test('Internal passages retain an interior backing between the centred room modu
 });
 
 test('Door openings remain free of black cut material and the swinging leaf stays visible',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);
@@ -35,7 +35,7 @@ test('Door openings remain free of black cut material and the swinging leaf stay
 });
 
 test('Rough cuts join floor slabs, outside walls and ground without seams at different zooms',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();let gaps=0;const edgeHeights=new Set<number>();
@@ -48,7 +48,7 @@ test('Rough cuts join floor slabs, outside walls and ground without seams at dif
 });
 
 test('New cutouts have true alpha, and rendered light stops at closed doors and floors',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);
   const assets=new BaseAssets();await assets.load(()=>{});const alpha:Record<string,number>={};
@@ -63,7 +63,7 @@ test('New cutouts have true alpha, and rendered light stops at closed doors and 
 });
 
 test('Broken back walls reveal the actual background, while the prepared board state fills the opening',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const renderer=new BaseRenderer(canvas,assets),w=new BaseWorld();w.flashlight=false;w.dog.hp=0;
@@ -76,7 +76,7 @@ test('Broken back walls reveal the actual background, while the prepared board s
 });
 
 test('Pixels respect objects behind the floor, actors over stairs, and low foreground over actors',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const pixels=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();w.flashlight=false;w.dog.hp=0;
@@ -98,7 +98,7 @@ test('Pixels respect objects behind the floor, actors over stairs, and low foreg
 });
 
 test('Fog blurs hidden details without darkening or brightening the visible room',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);
@@ -112,7 +112,7 @@ test('Fog blurs hidden details without darkening or brightening the visible room
 });
 
 test('Actual lighting pixels respond to daylight apertures and a directional lamp without a hero halo',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts',lm='/src/base/lighting.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),{daylightStyle}=await import(lm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);w.flashlight=false;w.doors.forEach((d:any)=>d.open=false);w.refreshSight();
@@ -125,10 +125,13 @@ test('Actual lighting pixels respond to daylight apertures and a directional lam
 });
 
 test('Hidden floor coverings blur while intact wall returns remain sharp',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
-  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);const layers=[...r.layerTrace],c=r.c;c.setTransform(1,0,0,1,0,0);c.fillStyle='#808080';c.fillRect(0,0,canvas.width,canvas.height);r.transform(c);
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();
+  // Freeze the archived Canvas composition: this test samples its original pixels.
+  // The longer/deeper production flight is covered by three.spec.ts.
+  w.level=structuredClone(w.level);w.level.stairs.find((s:any)=>s.id==='home/main-stair')!.a=760;w.refreshSight();r.draw(w,0,1);const layers=[...r.layerTrace],c=r.c;c.setTransform(1,0,0,1,0,0);c.fillStyle='#808080';c.fillRect(0,0,canvas.width,canvas.height);r.transform(c);
   for(let x=680;x<820;x+=8){c.fillStyle=(x/8)%2?'#fff':'#000';c.fillRect(x,392,8,28);c.fillRect(x,280,8,50);}
   for(let y=270;y<380;y+=8){c.fillStyle=((y-270)/8)%2?'#fff':'#000';c.fillRect(519,y,14,8);}
   r.fogOfWar(w);r.structuralForeground(w);
@@ -140,7 +143,7 @@ test('Hidden floor coverings blur while intact wall returns remain sharp',async(
 });
 
 test('Rendered daylight and flashlight cross the stairwell but not an intact replacement slab',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts',lm='/src/base/lighting.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),{daylightStyle}=await import(lm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld(),level=w.level,sealed={...level,stairs:[]};Object.assign(w.player,{x:900,previousX:900});w.aim=-Math.PI/2;w.setTime(0);w.refreshSight();r.draw(w,0,1);
@@ -154,7 +157,7 @@ test('Rendered daylight and flashlight cross the stairwell but not an intact rep
 });
 
 test('Building and earth cut faces stay black under daylight, a flashlight and fog',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();const cuts=[{x:800,y:414},{x:492,y:300},{x:1050,y:430},{x:800,y:145},{x:400,y:750},{x:1000,y:880}],samples:number[][]=[];
@@ -165,7 +168,7 @@ test('Building and earth cut faces stay black under daylight, a flashlight and f
 });
 
 test('Fog has a gradual visual boundary while geometric sight remains blocked',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();r.draw(w,0,1);
@@ -176,7 +179,7 @@ test('Fog has a gradual visual boundary while geometric sight remains blocked',a
 });
 
 test('Window light forms brighter directional strips and disappears when boarded',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts',lm='/src/base/lighting.ts';const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),{daylightStyle,daylightSources}=await import(lm);const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);const r=new BaseRenderer(canvas,assets),w=new BaseWorld();w.flashlight=false;w.setTime(420);w.doors.forEach((d:any)=>d.open=false);w.openings.forEach((o:any)=>o.state=o.id==='home/workshop-window-0'?'open':'boarded');w.refreshSight();r.draw(w,0,1);

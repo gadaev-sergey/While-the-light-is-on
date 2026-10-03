@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 
 test('Night has a visible moon and stars, with cold local light through windows and dark sealed rooms',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts',lm='/src/base/lighting.ts';
   const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),{daylightStyle}=await import(lm),assets=new BaseAssets();await assets.load(()=>{});

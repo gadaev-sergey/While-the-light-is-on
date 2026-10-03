@@ -1,13 +1,13 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
 const state=(p:Page)=>p.evaluate(()=>(window as any).__BASE__.snapshot());
-async function ready(page:Page){await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();}
+async function ready(page:Page){await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();await page.waitForFunction(()=>!!(window as any).__BASE__);}
 async function approach(page:Page){await page.keyboard.down('KeyD');await expect(page.locator('#door-panel')).toBeVisible();await page.keyboard.up('KeyD');await expect(page.locator('#door-open')).toBeEnabled();}
 
 test('Door handle, narrow keyhole, retreat and opening work with real controls',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await ready(page);await approach(page);
  expect((await state(page)).player.x).toBeCloseTo(1006.271,2);expect((await state(page)).visibleObjects).not.toContain('home/kitchen-sink');
- for(let i=0;i<4;i++)await page.locator('#zoom-in').click();await page.waitForTimeout(300);await mkdir('artifacts/doors',{recursive:true});await page.screenshot({path:'artifacts/doors/handle.png'});
+ await page.waitForTimeout(300);await mkdir('artifacts/doors',{recursive:true});await page.screenshot({path:'artifacts/doors/handle.png'});
  await page.keyboard.press('KeyQ');await expect.poll(async()=>(await state(page)).peeking).toBe(true);await expect(page.locator('#door-peek')).toHaveAttribute('aria-pressed','true');await expect(page.locator('#door-open')).toBeDisabled();
  expect((await state(page)).visibleObjects).toContain('home/kitchen-sink');expect((await state(page)).visibleObjects).not.toContain('home/linen-cabinet');expect((await state(page)).explored).toContain('home/kitchen');await page.screenshot({path:'artifacts/doors/keyhole.png'});
  await page.keyboard.press('KeyE');expect((await state(page)).doors.find((d:any)=>d.id==='home/kitchen-door').open).toBe(false);

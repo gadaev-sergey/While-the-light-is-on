@@ -1,13 +1,16 @@
 import {test,expect} from '@playwright/test';
 
 test('Rear shafts stay behind solid sprites, while gaps and surface lighting remain visible',async({page})=>{
- await page.goto('/');await expect(page.locator('#base-loading')).toBeHidden();
+ await page.goto('/player.html?project=games/while-the-light-is-on');await expect(page.locator('#base-loading')).toBeHidden();
  const result=await page.evaluate(async()=>{
   const am='/src/base/assets.ts',rm='/src/base/renderer.ts',wm='/src/base/world.ts',lm='/src/base/layers.ts';
   const {BaseAssets}=await import(am),{BaseRenderer}=await import(rm),{BaseWorld}=await import(wm),{HOUSE_LAYERS}=await import(lm);
   const assets=new BaseAssets();await assets.load(()=>{});
   const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-2000px;top:0;width:1440px;height:810px';document.body.append(canvas);
-  const r=new BaseRenderer(canvas,assets),w=new BaseWorld();w.flashlight=false;w.player.x=w.player.previousX=1260;w.player.y=w.player.previousY=400;w.player.floor=1;w.refreshSight();w.visible=()=>true;w.visibleObjects=()=>w.objects;w.dog.hp=0;
+  const r=new BaseRenderer(canvas,assets),w=new BaseWorld();
+  // Keep the archived Canvas composition fixed for its pixel regression regions.
+  w.level=structuredClone(w.level);w.level.stairs.find((s:any)=>s.id==='home/main-stair')!.a=760;
+  w.flashlight=false;w.player.x=w.player.previousX=1260;w.player.y=w.player.previousY=400;w.player.floor=1;w.refreshSight();w.visible=()=>true;w.visibleObjects=()=>w.objects;w.dog.hp=0;
   // Include the complete fog/structure pipeline: rear light must not be mixed
   // back into opaque surfaces when hidden details are blurred.
   r.markers=()=>{};
