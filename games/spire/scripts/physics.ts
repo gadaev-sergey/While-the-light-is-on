@@ -1,7 +1,8 @@
 import {GRAVITY,overlaps,raycast,rayBox,vec,type Arena,type Box,type Vec3} from './arena.ts';
 
-// Движение в духе Quake 3 в метрах: 320 ед./с ≈ 8 м/с, гравитация 800 ≈ 20 м/с².
-export const RUN_SPEED=8;
+// Движение в духе Quake 3 в метрах: гравитация 800 ед./с² ≈ 20 м/с². Шаг — 6 м/с, бег (Shift) — 8,5 м/с.
+export const WALK_SPEED=6;
+export const SPRINT_SPEED=8.5;
 export const GROUND_ACCEL=10;
 export const AIR_ACCEL=1;
 export const FRICTION=6;
@@ -18,8 +19,8 @@ export const CROUCH_EYE=CROUCH_HEIGHT-HEAD_SIZE/2-.05;
 /** Присед в воздухе поджимает ноги: низ тела поднимается, макушка остаётся на месте. */
 export const TUCK=HEIGHT-CROUCH_HEIGHT;
 export const CROUCH_SPEED=.5;
-// Подкат: разовый рывок из бега, затухание и перезарядка рывка.
-export const SLIDE_MIN_SPEED=6;
+// Подкат: только с бега — разовый рывок, затухание и перезарядка рывка.
+export const SLIDE_MIN_SPEED=7;
 export const SLIDE_BOOST=2;
 export const SLIDE_BOOST_CAP=10;
 export const SLIDE_TIME=.8;
@@ -35,14 +36,14 @@ export const TICK=1/120;
 
 /** Стойка: 0 — стоя, 1 — присед, 2 — подкат. */
 export type Stance=0|1|2;
-/** Тело игрока: pos — точка между ступнями. lean — наклон от −1 (влево) до 1 (вправо). */
-export type Body={pos:Vec3;vel:Vec3;onGround:boolean;crouch:boolean;slide:number;slideCooldown:number;slideArmed:boolean;crouchHeld:boolean;lean:number};
-/** forward/strafe — от −1 до 1; yaw — поворот головы (0 — взгляд вдоль −Z); lean — −1, 0 или 1. */
-export type MoveInput={forward:number;strafe:number;jump:boolean;yaw:number;crouch?:boolean;lean?:number};
+/** Тело игрока: pos — точка между ступнями. lean — наклон от −1 (влево) до 1 (вправо). sprint — сейчас бежит. */
+export type Body={pos:Vec3;vel:Vec3;onGround:boolean;crouch:boolean;slide:number;slideCooldown:number;slideArmed:boolean;crouchHeld:boolean;lean:number;sprint:boolean};
+/** forward/strafe — от −1 до 1; yaw — поворот головы (0 — взгляд вдоль −Z); lean — −1, 0 или 1; sprint — зажат бег. */
+export type MoveInput={forward:number;strafe:number;jump:boolean;yaw:number;crouch?:boolean;lean?:number;sprint?:boolean};
 /** tuck — на сколько сдвинулись ступни при приседе или вставании в воздухе (для плавной камеры). */
 export type MoveEvents={jumped:boolean;landed:number;pad:number;lava:boolean;out:boolean;slide:boolean;tuck:number};
 
-export const newBody=(pos:Vec3):Body=>({pos:{...pos},vel:vec(),onGround:false,crouch:false,slide:0,slideCooldown:0,slideArmed:false,crouchHeld:false,lean:0});
+export const newBody=(pos:Vec3):Body=>({pos:{...pos},vel:vec(),onGround:false,crouch:false,slide:0,slideCooldown:0,slideArmed:false,crouchHeld:false,lean:0,sprint:false});
 export const heightOf=(crouch:boolean)=>crouch?CROUCH_HEIGHT:HEIGHT;
 export const stanceOf=(b:Body):Stance=>b.slide>0?2:b.crouch?1:0;
 export const bodyBox=(p:Vec3,lift=0,height=HEIGHT):Box=>({min:vec(p.x-HALF_WIDTH,p.y+lift,p.z-HALF_WIDTH),max:vec(p.x+HALF_WIDTH,p.y+lift+height,p.z+HALF_WIDTH)});
@@ -95,19 +96,19 @@ function groundBelow(arena:Arena,p:Vec3,depth:number){
  return top;
 }
 
-/** Присед и вставание. Встать можно, только если над головой (или под ногами в воздухе) есть место. */
+/** Присед и вставание. Встать можно, только если над головой (или под ногами в воздухе) есть место; подкат присед не отменяет. */
 function updateCrouch(arena:Arena,b:Body,held:boolean,events:MoveEvents){
  if(held&&!b.crouch){
   b.crouch=true;
   if(!b.onGround){b.pos.y+=TUCK;events.tuck=TUCK;}
   return;
  }
- if(held||!b.crouch)return;
+ if(held||!b.crouch||b.slide>0)return;
  if(!b.onGround){
   const lowered=vec(b.pos.x,b.pos.y-TUCK,b.pos.z);
-  if(!blocked(arena,bodyBox(lowered,0,HEIGHT))){b.pos=lowered;b.crouch=false;events.tuck=-TUCK;b.slide=0;return;}
+  if(!blocked(arena,bodyBox(lowered,0,HEIGHT))){b.pos=lowered;b.crouch=false;events.tuck=-TUCK;return;}
  }
- if(!blocked(arena,bodyBox(b.pos,0,HEIGHT))){b.crouch=false;b.slide=0;}
+ if(!blocked(arena,bodyBox(b.pos,0,HEIGHT)))b.crouch=false;
 }
 
 /** Один шаг движения TICK секунд. Детерминирован: одинаковый ввод даёт одинаковый результат на хосте и у гостя. */
@@ -117,26 +118,30 @@ export function stepBody(arena:Arena,b:Body,input:MoveInput,dt=TICK):MoveEvents{
  const sin=Math.sin(input.yaw),cos=Math.cos(input.yaw);
  let wx=-sin*f+cos*s,wz=-cos*f-sin*s;const len=Math.hypot(wx,wz);if(len>1e-6){wx/=len;wz/=len;}
  const held=!!input.crouch,pressed=held&&!b.crouchHeld;b.crouchHeld=held;
- if(pressed||!b.onGround)b.slideArmed=true;
+ const sprintKey=!!input.sprint&&f>0,wasSprint=b.sprint;
+ if(pressed)b.slideArmed=true;
  b.slideCooldown=Math.max(0,b.slideCooldown-dt);
  updateCrouch(arena,b,held,events);
- // Подкат начинается нажатием приседа на бегу или приземлением с зажатым приседом («слайд-хоп»).
+ // Подкат — только с бега: нажатие приседа на бегу, или нажатие в прыжке и приземление с зажатым бегом («слайд-хоп»).
  const speed=horizontalSpeed(b);
- if(b.onGround&&b.crouch&&b.slide<=0&&b.slideArmed&&b.slideCooldown<=0&&speed>=SLIDE_MIN_SPEED){
+ if(b.onGround&&b.crouch&&b.slide<=0&&b.slideArmed&&b.slideCooldown<=0&&wasSprint&&sprintKey&&speed>=SLIDE_MIN_SPEED){
   const next=speed>=SLIDE_BOOST_CAP?speed:Math.min(SLIDE_BOOST_CAP,speed+SLIDE_BOOST);
   b.vel.x*=next/speed;b.vel.z*=next/speed;b.slide=SLIDE_TIME;b.slideCooldown=SLIDE_COOLDOWN;events.slide=true;
  }
  if(b.onGround)b.slideArmed=false;
  const leanAllowed=b.onGround&&b.slide<=0,leanTarget=leanAllowed?Math.sign(input.lean??0):0;
  const leanStep=dt/LEAN_TIME;b.lean=b.lean<leanTarget?Math.min(leanTarget,b.lean+leanStep):Math.max(leanTarget,b.lean-leanStep);
- const wish=len>1e-6?RUN_SPEED*(b.crouch?CROUCH_SPEED:1)*(leanTarget?LEAN_SPEED:1):0;
+ // Бег — только вперёд, стоя (или в подкате) и без наклона; в воздухе сохраняется, пока зажат Shift.
+ if(b.onGround)b.sprint=sprintKey&&!leanTarget&&(b.slide>0||!b.crouch);else if(!sprintKey)b.sprint=false;
+ const pace=b.sprint?SPRINT_SPEED:WALK_SPEED;
+ const wish=len>1e-6?pace*(b.crouch?CROUCH_SPEED:1)*(leanTarget?LEAN_SPEED:1):0;
  if(b.onGround&&input.jump){b.vel.y=JUMP_SPEED;b.onGround=false;b.slide=0;events.jumped=true;}
  if(b.onGround&&b.slide>0){
   b.slide-=dt;const left=slideDrag(b.vel,dt);
-  accelerate(b.vel,wx,wz,len>1e-6?RUN_SPEED:0,AIR_ACCEL,dt);
+  accelerate(b.vel,wx,wz,len>1e-6?pace:0,AIR_ACCEL,dt);
   if(b.slide<=0||left<SLIDE_END_SPEED)b.slide=0;
  }else if(b.onGround){friction(b.vel,dt);accelerate(b.vel,wx,wz,wish,GROUND_ACCEL,dt);}
- else accelerate(b.vel,wx,wz,len>1e-6?RUN_SPEED:0,AIR_ACCEL,dt);
+ else accelerate(b.vel,wx,wz,len>1e-6?pace:0,AIR_ACCEL,dt);
  const wasGround=b.onGround;
  b.vel.y-=GRAVITY*dt;
  const {hitX,hitZ}=walk(arena,b,b.vel.x*dt,b.vel.z*dt);

@@ -11,8 +11,8 @@ export const INTERP=.1;
 const POSE_INTERVAL=1/30;
 const PING_INTERVAL=2;
 
-/** aim — зажата правая кнопка (прицеливание). */
-export type Input={forward:number;strafe:number;jump:boolean;fire:boolean;crouch?:boolean;lean?:number;aim?:boolean};
+/** aim — зажата правая кнопка (прицеливание), sprint — зажат бег. */
+export type Input={forward:number;strafe:number;jump:boolean;fire:boolean;crouch?:boolean;lean?:number;aim?:boolean;sprint?:boolean};
 export type SoundName='blaster'|'shotgun'|'rocket'|'boom'|'jump'|'land'|'pad'|'pickup'|'mega'|'weapon'|'hit'|'hurt'|'death'|'frag'|'spawn'|'empty'|'lava'|'sudden'|'win'|'lose'|'join'|'slide'|'crouch'|'auto'|'rifle'|'reload'|'overheat'|'headshot'|'bolt';
 export type Sound={name:SoundName;pos?:Vec3};
 export type Tracer={from:Vec3;to:Vec3;color:string;age:number;life:number;w:WeaponId};
@@ -205,9 +205,11 @@ export class GameClient{
   const active=this.connected&&this.alive&&!this.fell&&this.phase!=='over';
   if(active){
    this.acc=Math.min(this.acc+dt,.25);
+   // Бег сбивают стрельба и прицеливание: на бегу оружие опущено.
+   const sprint=!!input.sprint&&!input.fire&&!(input.aim&&AIM_ZOOM[this.weapon]!==undefined);
    while(this.acc>=TICK){
     this.acc-=TICK;
-    const crouched=this.body.crouch,ev=stepBody(this.arena,this.body,{...input,yaw:this.yaw},TICK);
+    const crouched=this.body.crouch,ev=stepBody(this.arena,this.body,{...input,sprint,yaw:this.yaw},TICK);
     this.eyeOffset-=ev.tuck;
     if(ev.slide)this.sounds.push({name:'slide'});else if(this.body.crouch!==crouched&&this.body.onGround)this.sounds.push({name:'crouch'});
     if(ev.jumped)this.sounds.push({name:'jump'});if(ev.landed>9)this.sounds.push({name:'land'});if(ev.pad>=0)this.sounds.push({name:'pad'});
@@ -230,7 +232,7 @@ export class GameClient{
   if(this.reloading&&this.time>=this.reloading.until){
    reloadMagazine(this,this.reloading.w);this.reloading=null;this.reloadGrace=this.time+this.rtt+.3;
   }
-  const canAim=this.alive&&!this.fell&&AIM_ZOOM[this.weapon]!==undefined&&!this.reloading&&this.time>=this.boltUntil&&!!input.aim;
+  const canAim=this.alive&&!this.fell&&AIM_ZOOM[this.weapon]!==undefined&&!this.reloading&&!this.body.sprint&&this.time>=this.boltUntil&&!!input.aim;
   this.aim=canAim?Math.min(1,this.aim+dt/AIM_TIME):Math.max(0,this.aim-dt/AIM_TIME*1.5);
   if(this.time-this.lastShot>RECOIL_RESET)this.burst=0;
   const k=Math.exp(-dt*9);this.punch=[this.punch[0]*k,this.punch[1]*k];

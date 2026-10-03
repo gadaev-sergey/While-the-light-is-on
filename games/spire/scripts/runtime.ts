@@ -21,6 +21,14 @@ const components:ComponentType[]=[
  {id:'spire.decor',name:'Декор',fields:[{name:'kind',label:'Вид',type:'select',default:'pipe',options:DECOR_KINDS.map(value=>({value,label:DECOR_LABELS[value]}))},{name:'text',label:'Надпись',type:'string',default:''}]},
  {id:'spire.pickup',name:'Бонус',fields:[{name:'item',label:'Предмет',type:'select',default:'health',options:ITEM_KINDS.map(value=>({value,label:ITEM_LABELS[value]}))}]},
 ];
+/**
+ * Сетка оптики винтовки: толстые столбики по краям сходятся тонкими нитями к центру с просветом,
+ * на нитях — милдоты, в центре — маленькая красная точка. Светлая окантовка держит сетку видимой на тёмном фоне.
+ */
+const RETICLE=`<svg viewBox="-100 -100 200 200" aria-hidden="true"><g fill="none">${['rgba(225,235,255,.42)','#06080c'].map((c,i)=>
+ `<g stroke="${c}"><path stroke-width="${i?3.2:4.8}" d="M-100 0H-42M42 0H100M0 -100V-42M0 42V100"/><path stroke-width="${i?.55:1.7}" d="M-42 0H-3.5M3.5 0H42M0 -42V-3.5M0 3.5V42"/></g>`).join('')}</g>
+ <g fill="#06080c" stroke="rgba(225,235,255,.42)" stroke-width=".5">${[-30,-20,-10,10,20,30].map(t=>`<circle cx="${t}" r=".95"/><circle cy="${t}" r=".95"/>`).join('')}</g>
+ <circle r="2.4" fill="rgba(255,40,40,.22)"/><circle r=".7" fill="#ff3434"/></svg>`;
 const WEAPON_SHORT=['БЛАСТЕР','ДРОБОВИК','АВТОМАТ','ВИНТОВКА','РАКЕТНИЦА'];
 const esc=(s:string)=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const clock=(s:number)=>`${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`;
@@ -52,11 +60,11 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
   </div>
   <aside class="s-browser" aria-label="Открытые сессии"><div class="s-browser-head"><h2>Открытые сессии</h2><small data-count></small></div><ul class="s-list" data-list></ul>
    <form class="s-join" data-join><label><span>Код или ссылка-приглашение</span><input data-code placeholder="например, K7QX2M" autocomplete="off" spellcheck="false"></label><button class="s-secondary" type="submit">ВОЙТИ</button></form></aside>
-  <footer><span><kbd>WASD</kbd> движение</span><span><kbd>ПРОБЕЛ</kbd> прыжок</span><span><kbd>МЫШЬ</kbd> прицел и огонь</span><span><kbd>1–5</kbd> оружие</span><span><kbd>R</kbd> перезарядка</span><span><kbd>ПКМ</kbd> прицеливание</span><span><kbd>TAB</kbd> счёт</span><em>Только компьютер · клавиатура и мышь</em></footer>
+  <footer><span><kbd>WASD</kbd> движение</span><span><kbd>SHIFT</kbd> бег</span><span><kbd>CTRL</kbd> присед</span><span><kbd>ПРОБЕЛ</kbd> прыжок</span><span><kbd>МЫШЬ</kbd> прицел и огонь</span><span><kbd>1–5</kbd> оружие</span><span><kbd>R</kbd> перезарядка</span><span><kbd>ПКМ</kbd> прицеливание</span><span><kbd>TAB</kbd> счёт</span><em>Только компьютер · клавиатура и мышь</em></footer>
  </section>
  <div class="s-hud" hidden>
   <div class="s-top"><div class="s-session"><b data-session></b><small data-invite></small></div><div class="s-clock"><b data-clock>10:00</b><small data-limit></small></div><div class="s-feed" data-feed></div></div>
-  <div class="s-scope" data-scope></div><div class="s-cross"><i></i><i></i><i></i><i></i></div><div class="s-hitmark"></div><div class="s-dir" data-dir><i></i></div>
+  <div class="s-scope" data-scope>${RETICLE}</div><div class="s-cross"><i></i><i></i><i></i><i></i></div><div class="s-hitmark"></div><div class="s-dir" data-dir><i></i></div>
   <div class="s-notes" data-notes aria-live="polite"></div>
   <div class="s-bottom"><div class="s-vitals"><div class="s-hp"><small>ЗДОРОВЬЕ</small><b data-hp>100</b></div><div class="s-ar"><small>БРОНЯ</small><b data-ar>0</b></div></div>
    <div class="s-standing"><b data-place>1-й</b><small data-gap></small><span data-frags></span></div>
@@ -149,11 +157,11 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
    <label class="s-check"><input type="checkbox" data-blood${renderer.blood?' checked':''}> Кровь при попаданиях (иначе — вспышки щита)</label>
    ${button('resume','ПРОДОЛЖИТЬ',true)}${button('help','Управление и правила')}${button('leave',a.host?'Завершить сессию и выйти':'Покинуть сессию')}`;}
   if(kind==='help')panel.innerHTML=`<div class="s-eyebrow">ПРАВИЛА АРЕНЫ</div><h2 id="s-modal-title">Каждый сам за себя</h2>
-   <div class="s-controls"><span><kbd>W A S D</kbd> Движение</span><span><kbd>ПРОБЕЛ</kbd> Прыжок (можно держать)</span><span><kbd>C</kbd> Присед, на бегу — подкат</span><span><kbd>Q E</kbd> Наклон влево / вправо</span><span><kbd>МЫШЬ</kbd> Прицел</span><span><kbd>ЛКМ</kbd> Огонь</span><span><kbd>1 2 3 / КОЛЕСО</kbd> Оружие</span><span><kbd>TAB</kbd> Таблица счёта</span><span><kbd>ESC</kbd> Меню</span></div>
+   <div class="s-controls"><span><kbd>W A S D</kbd> Движение</span><span><kbd>ПРОБЕЛ</kbd> Прыжок (можно держать)</span><span><kbd>SHIFT</kbd> Бег</span><span><kbd>CTRL</kbd> Присед, на бегу — подкат</span><span><kbd>Q E</kbd> Наклон влево / вправо</span><span><kbd>МЫШЬ</kbd> Прицел</span><span><kbd>ЛКМ</kbd> Огонь</span><span><kbd>ПКМ</kbd> Прицеливание</span><span><kbd>R</kbd> Перезарядка</span><span><kbd>1–5 / КОЛЕСО</kbd> Оружие</span><span><kbd>TAB</kbd> Таблица счёта</span><span><kbd>ESC</kbd> Меню</span></div>
    <p>За убийство соперника — фраг. Смерть от своей ракеты или в лаве — минус фраг. Первый, кто набрал лимит, побеждает. Через 10 минут побеждает лидер; при ничьей — внезапная смерть до единоличного лидера.</p>
    <p>Бластер бесконечный, но от долгой очереди перегревается. Дробовик, автомат, винтовка и ракетница лежат на арене. Автомат и винтовка перезаряжаются (R) и прицеливаются (ПКМ): у винтовки оптика ×4, без неё и в прыжке она мажет. Очередь автомата уводит вверх и в сторону всегда одинаково — отдачу можно выучить и гасить мышью. Попадание в голову — двойной урон.</p>
    <p> Выстрел ракетой себе под ноги в прыжке — рокет-джамп. Голубые площадки подбрасывают на ярус выше, на вершине ждёт мега-бонус +100 здоровья.</p>
-   <p>Подкат даёт рывок и низкий силуэт; прыжок из подката сохраняет скорость, а приземление с зажатым C снова переходит в подкат (рывок — не чаще раза в секунду). Присед в прыжке поджимает ноги — так запрыгивают на высокие ящики. Наклон выглядывает из-за угла, открывая только голову.</p>
+   <p>Подкат — только с бега: Ctrl на бегу даёт рывок и низкий силуэт. Присед его не отменяет, сбить подкат можно только прыжком; прыжок сохраняет скорость, а нажатый в воздухе Ctrl с зажатым бегом снова переходит в подкат при приземлении (рывок — не чаще раза в секунду). Стрельба и прицеливание сбивают бег. Присед в прыжке поджимает ноги — так запрыгивают на высокие ящики. Наклон выглядывает из-за угла, открывая только голову.</p>
    <small>Стрейф-прыжки: держите прыжок, «вбок» и плавно ведите мышь в ту же сторону — скорость растёт.</small>${button('back','ПОНЯТНО',true)}`;
   requestAnimationFrame(()=>{if(!disposed)panel.querySelector<HTMLElement>('input:not([readonly]),button')?.focus();});
  }
@@ -204,9 +212,10 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
  listen(window,'mouseup',((e:MouseEvent)=>{if(e.button===0)fire=false;if(e.button===2)aim=false;}) as EventListener);
  listen(canvas,'wheel',((e:WheelEvent)=>{if(locked()&&active){e.preventDefault();active.client.cycleWeapon(e.deltaY>0?1:-1);}}) as EventListener);
  listen(canvas,'contextmenu',e=>e.preventDefault());
- const GAME_KEYS=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','KeyC','KeyQ','KeyE','KeyR','Digit1','Digit2','Digit3','Digit4','Digit5','Tab'];
+ const GAME_KEYS=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','ControlLeft','ControlRight','ShiftLeft','ShiftRight','KeyC','KeyQ','KeyE','KeyR','Digit1','Digit2','Digit3','Digit4','Digit5','Tab'];
  listen(window,'keydown',((e:KeyboardEvent)=>{
-  if(mode!=='game'||e.metaKey||e.ctrlKey||e.altKey)return;
+  // Ctrl — присед, поэтому сочетания с ним в игре не отпускаем браузеру (кроме тех, что он не даёт перехватить).
+  if(mode!=='game'||e.metaKey||e.altKey)return;
   if(e.code==='Tab'){e.preventDefault();showBoard=true;return;}
   // Без захвата мыши Esc не приходит через pointerlockchange — открываем меню сами.
   if(e.code==='Escape'&&document.pointerLockElement!==canvas){if(modal==='pause'&&performance.now()-modalAt>300){hideModal();lock();}else if(!modal)showModal('pause');return;}
@@ -220,7 +229,7 @@ export async function startGame(options:EngineSessionOptions):Promise<RuntimeSes
  listen(window,'hashchange',()=>{const code=normalizeCode(location.hash.slice(1));if(code&&net&&mode==='menu'&&code!==active?.code)showModal('invite',code);});
  const input=():Input=>{const has=(...k:string[])=>k.some(x=>keys.has(x));
   return {forward:Number(has('KeyW','ArrowUp'))-Number(has('KeyS','ArrowDown')),strafe:Number(has('KeyD','ArrowRight'))-Number(has('KeyA','ArrowLeft')),jump:has('Space'),fire,
-   crouch:has('KeyC'),lean:Number(has('KeyE'))-Number(has('KeyQ')),aim};};
+   crouch:has('ControlLeft','ControlRight','KeyC'),sprint:has('ShiftLeft','ShiftRight'),lean:Number(has('KeyE'))-Number(has('KeyQ')),aim};};
 
  // --- Интерфейс боя ---
  function feedLine(f:FeedEntry,c:GameClient){

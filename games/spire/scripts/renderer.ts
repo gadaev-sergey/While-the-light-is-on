@@ -96,7 +96,7 @@ export class Renderer{
  private decals!:Decals;private decalMats!:{hole:T.Material;scorch:T.Material;blood:T.Material};private glintTexture!:T.Texture;
  private shockwaves:T.Mesh[]=[];private vents:T.Vector3[]=[];private steamTimer=0;
  private pendingCasings:{at:number;pos:T.Vector3;vel:T.Vector3;size:number;shell:boolean}[]=[];
- private kit:WeaponKit;private viewGuns:T.Group[]=[];private viewFlash:T.Mesh;private viewHeat:T.MeshStandardMaterial;private viewSleeve:T.MeshStandardMaterial;private viewCuff:T.MeshStandardMaterial;private bob=0;private roll=0;private fov=80;private slideTilt=0;private kick=0;private time=0;private shownWeapon=-1;private switchAnim=0;
+ private kit:WeaponKit;private viewGuns:T.Group[]=[];private viewFlash:T.Mesh;private viewHeat:T.MeshStandardMaterial;private viewSleeve:T.MeshStandardMaterial;private viewCuff:T.MeshStandardMaterial;private bob=0;private roll=0;private fov=80;private slideTilt=0;private sprintT=0;private kick=0;private time=0;private shownWeapon=-1;private switchAnim=0;
  width=0;height=0;
  constructor(canvas:HTMLCanvasElement,arena:Arena){
   this.canvas=canvas;this.arena=arena;
@@ -290,9 +290,9 @@ export class Renderer{
    if(client.body.onGround&&!sliding&&!dead)this.bob+=dt*speed*(client.body.crouch?1.1:1.4);
    const sink=dead?Math.min(1.2,(client.time-client.deathTime)*2):0,k=1-Math.exp(-dt*12);
    // Наклон кренит горизонт, подкат слегка расширяет обзор и наклоняет камеру.
-   this.slideTilt+=((sliding?1:0)-this.slideTilt)*k;this.roll+=(-client.body.lean*.21+this.slideTilt*.05-this.roll)*k;
+   this.slideTilt+=((sliding?1:0)-this.slideTilt)*k;this.sprintT+=((client.body.sprint&&client.stance===0&&client.body.onGround&&!dead?1:0)-this.sprintT)*k;this.roll+=(-client.body.lean*.21+this.slideTilt*.05-this.roll)*k;
    // Прицеливание сужает обзор в client.zoom() раз (по тангенсу половины угла), подкат слегка расширяет.
-   const fov=2*Math.atan(Math.tan((80+this.slideTilt*7)*Math.PI/360)/client.zoom())*180/Math.PI;if(Math.abs(fov-this.fov)>.01){this.fov=fov;this.camera.fov=fov;this.camera.updateProjectionMatrix();}
+   const fov=2*Math.atan(Math.tan((80+this.slideTilt*7+this.sprintT*5)*Math.PI/360)/client.zoom())*180/Math.PI;if(Math.abs(fov-this.fov)>.01){this.fov=fov;this.camera.fov=fov;this.camera.updateProjectionMatrix();}
    this.camera.position.set(e.x,e.y-sink+(sliding?0:Math.sin(this.bob*2)*.03*Math.min(1,speed/8)),e.z);
    this.camera.rotation.set(client.pitch+client.punch[0],client.yaw-client.punch[1],dead?Math.min(.5,sink*.4):this.roll,'YXZ');
    // Тряска от близкого взрыва: быстро затухающее дрожание положения и взгляда.
@@ -506,6 +506,8 @@ export class Renderer{
   const bobX=Math.cos(this.bob)*.01*sway*(1-aim),bobY=Math.abs(Math.sin(this.bob))*.01*sway*(1-aim);
   g.position.set(hx+(-sight.x-hx)*aim+bobX-this.slideTilt*.04,hy+(-sight.y-hy)*aim+bobY-this.switchAnim*.25-this.slideTilt*.05-r*.05,hz+(-sight.z-hz)*aim+this.kick*VIEW_KICK[w][0]);
   g.rotation.set(this.kick*VIEW_KICK[w][1]+r*.12,-.05*(1-aim)+r*.18,this.slideTilt*.35-client.body.lean*.12*(1-aim)+r*.35);
+  // На бегу оружие опущено и развёрнуто к себе.
+  if(this.sprintT>.01){const t=this.sprintT;g.position.x+=.03*t;g.position.y-=.07*t;g.position.z+=.04*t;g.rotation.y+=.55*t;g.rotation.x-=.18*t;g.rotation.z+=.22*t;}
   g.visible=!(w===RIFLE&&client.aim>.85);
   // Подвижные части: магазин при перезарядке, затвор винтовки и цевьё дробовика после выстрела.
   const part=(name:string)=>{const o=g.getObjectByName(name);if(o)o.position.copy(o.userData.base);return o;};

@@ -18,8 +18,8 @@ export const WEAPONS:Weapon[]=[
 /** Попадание в голову из мгновенного оружия удваивает урон. */
 export const HEAD_MULTIPLIER=2;
 export const usesMagazine=(w:WeaponId)=>WEAPONS[w].mag>0;
-/** Прицеливание по правой кнопке — только у автомата и винтовки; zoom — во сколько раз сужается обзор. */
-export const AIM_ZOOM:Partial<Record<WeaponId,number>>={2:1.3,3:4};
+/** Прицеливание по правой кнопке — только у автомата и винтовки (оптика ×5); во сколько раз сужается обзор. */
+export const AIM_ZOOM:Partial<Record<WeaponId,number>>={2:1.3,3:5};
 export const AIM_TIME=.2;
 
 // Перегрев бластера: каждый выстрел греет, ствол остывает постоянно; около 3 с огня — пауза на остывание до нуля.

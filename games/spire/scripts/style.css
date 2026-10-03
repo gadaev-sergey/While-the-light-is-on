@@ -114,10 +114,9 @@
 .s-cross i:nth-child(1){left:-1px;bottom:var(--gap);width:2px;height:7px}.s-cross i:nth-child(2){left:-1px;top:var(--gap);width:2px;height:7px}
 .s-cross i:nth-child(3){top:-1px;right:var(--gap);width:7px;height:2px}.s-cross i:nth-child(4){top:-1px;left:var(--gap);width:7px;height:2px}
 /* Оптика винтовки: круглое поле, тонкие нити и затемнённая рамка. */
-.s-scope{position:absolute;inset:0;pointer-events:none;opacity:0;--r:min(38vh,38vw);
- background:radial-gradient(circle at center,transparent 0 var(--r),rgba(0,0,0,.94) calc(var(--r) + 1px)),
-  linear-gradient(#000,#000) center/1px 100% no-repeat,linear-gradient(#000,#000) center/100% 1px no-repeat}
-.s-scope::after{content:'';position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:#ff3030;box-shadow:0 0 6px #ff3030}
+.s-scope{position:absolute;inset:0;pointer-events:none;opacity:0;--r:min(40vh,40vw);
+ background:radial-gradient(circle at center,transparent 0 calc(var(--r) - 22px),rgba(0,0,0,.55) calc(var(--r) - 2px),rgba(0,0,0,.95) var(--r))}
+.s-scope svg{position:absolute;left:50%;top:50%;width:calc(var(--r)*2);height:calc(var(--r)*2);transform:translate(-50%,-50%);shape-rendering:geometricPrecision}
 .s-hitmark{position:absolute;left:50%;top:50%;width:34px;height:34px;transform:translate(-50%,-50%) rotate(45deg);opacity:0;transition:opacity .08s;
  background:linear-gradient(#fff,#fff) center/2px 10px no-repeat,linear-gradient(#fff,#fff) center/10px 2px no-repeat;-webkit-mask:radial-gradient(circle,transparent 6px,#000 7px);mask:radial-gradient(circle,transparent 6px,#000 7px)}
 .s-hitmark.on{opacity:1;filter:drop-shadow(0 0 4px #ff3a3a)}

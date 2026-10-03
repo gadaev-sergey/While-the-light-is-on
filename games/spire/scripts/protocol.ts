@@ -3,7 +3,7 @@
 import type {WeaponId} from './rules.ts';
 import type {Stance} from './physics.ts';
 
-export const PROTOCOL=4;
+export const PROTOCOL=5;
 export type V3=[number,number,number];
 
 export type SessionInfo={code:string;name:string;host:string;players:number;max:number;fragLimit:number;protocol:number};
